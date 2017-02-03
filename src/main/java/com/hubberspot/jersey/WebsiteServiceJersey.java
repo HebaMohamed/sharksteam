@@ -39,21 +39,15 @@ public class WebsiteServiceJersey {
     
     Connection conn;
             
-    @GET
+    @GET //test only
     @Path("/go")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getgo(){
         String output = "gooooooooooooooooooooo V3" ;
         return Response.status(200).entity(output).build();
     }
-    @POST
-    @Path("/gopost")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getm(String data){
-        String output = "gooooooooooooooooooooo"+data;
-        return Response.status(200).entity(output).build();
-    }
+   
+    
     
     
     @GET
