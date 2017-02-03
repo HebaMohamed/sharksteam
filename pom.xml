@@ -52,11 +52,11 @@
         </dependency>      
         
         
-        <dependency>
+        <!--<dependency>
         <groupId>org.neuroph</groupId>
         <artifactId>neuroph-core</artifactId>
         <version>2.9</version>
-        </dependency>
+        </dependency>-->
         
         <dependency>
           <groupId>com.pubnub</groupId>
