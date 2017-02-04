@@ -49,7 +49,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		<div>
 			<div class="main-page login-page ">
                             <br/>
-                            <h3 class="title1">Sharks Dashboard</h3>
+                            <h3 class="title1">Sharks DDashboard</h3>
                             <br/>
                             <div class="widget-shadow">
 					<div class="login-top">
