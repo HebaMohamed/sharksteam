@@ -41,7 +41,8 @@ public class LoginServlet extends HttpServlet {
 
         request.getRequestDispatcher("loginpage.jsp").forward(request, response);
         
-        
+        }catch(Exception e){
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             out.close();
         }
@@ -56,11 +57,15 @@ public class LoginServlet extends HttpServlet {
             if(goflag.equals("logout")){
                 DataClass.endSession(request,response);
             }
+            else{
+                processRequest(request, response);
+            }
         }
         catch(Exception e){
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, e);
+            processRequest(request, response);
         }
-        processRequest(request, response);
+        
     }
 
  
