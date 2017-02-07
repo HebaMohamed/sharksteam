@@ -147,17 +147,7 @@
           </executions>
       </plugin>
             
-=======
-    <artifactId>mavenrestfullservice</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
 
-    <name>mavenrestfullservice</name>
-
-    <properties>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     
     <!--<repositories>
     <repository>
@@ -300,7 +290,7 @@
               </execution>
           </executions>
       </plugin>
-                 
+      
         </plugins>
     </build>
 
