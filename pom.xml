@@ -3,7 +3,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mycompany</groupId>
-<<<<<<< HEAD
     <artifactId>mavenserrr</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -301,9 +300,7 @@
               </execution>
           </executions>
       </plugin>
-      
->>>>>>> origin/master
-            
+                 
         </plugins>
     </build>
 
