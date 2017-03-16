@@ -65,7 +65,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 							<!-- /nav-second-level -->
 						</li>
                                                 <li>
-							<a href="index.html"><i class="fa fa-home nav_icon"></i>Monitor</a>
+							<a href="${pageContext.request.contextPath}/MonitorServlet"><i class="fa fa-home nav_icon"></i>Monitor</a>
 						</li>
 <!--						<li class="">
 							<a href="#"><i class="fa fa-book nav_icon"></i>UI Elements <span class="fa arrow"></span></a>
@@ -180,7 +180,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						<li class="dropdown profile_details_drop">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 								<div class="profile_img">	
-									<span class="prfil-img"><img width="170" height="170" src="images/a.png" alt=""> </span> 
+									<span class="prfil-img"><img src="images/a.png" alt=""> </span> 
 									<div class="user-name">
 										<p><%= DataClass.currentMM.name %></p>
 										<span><%= DataClass.currentMM.position %></span>

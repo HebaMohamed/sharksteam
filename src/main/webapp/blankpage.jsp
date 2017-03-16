@@ -46,6 +46,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="js/custom.js"></script>
 <link href="css/custom.css" rel="stylesheet">
 <!--//Metis Menu -->
+
+<!--for notify folder-->
+<script src="notifyfolder/simpleNotify.js"></script>
+<link rel="stylesheet" href="notifyfolder/simpleNotifyStyle.css">
+
+
 </head> 
 <body class="cbp-spmenu-push">
 	<div class="main-content">
@@ -109,7 +115,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 				<div class="profile_details_left"><!--notifications of menu start -->
 					<ul class="nofitications-dropdown">
 						<li class="dropdown head-dpdn">
-							<a href="${pageContext.request.contextPath}/PendingServlet?" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">1</span></a>
+							<a id="notifnum" href="${pageContext.request.contextPath}/PendingServlet?" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">1</span></a>
 						</li>	
 					</ul>
 					<div class="clearfix"> </div>
@@ -157,12 +163,74 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             
                             <br/>                            <br/>
 
+                            <div class="alert alert-success" id="alertmsg" role="alert" style="display:none;" >Message of the Alert</div>
+                            
 				<div class="blank-page widget-shadow scroll" id="style-2 div1">
+                                    
+                                    
+                                    
                                                                 <center><h2 class="title1">Welcome To Your Dashboard</h2></center>
 
 <!--					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic 
 						It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here.
 					</p>-->
+
+
+
+
+            
+
+                             
+<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.4.3.js"></script>
+<script>
+    var pubnub = new PubNub({
+    subscribeKey: "sub-c-a92c9e70-e683-11e6-b3b8-0619f8945a4f",
+    publishKey: "pub-c-b04f5dff-3f09-4dc6-8b4e-58034b4b85bb",
+    ssl: true
+})
+
+pubnub.addListener({
+    status: function(statusEvent) {
+        if (statusEvent.category === "PNConnectedCategory") {
+            var payload = {
+                my: 'payload'
+            };
+            pubnub.publish(
+                { 
+                    message: payload
+                }, 
+                function (status) {
+                    // handle publish response
+                }
+            );
+        }
+    },
+    message: function(message) {
+        // handle message
+        var msg = message.message;
+        //alert(msg.text);//msg is jsonobject and txt is properity
+        //simpleNotify.notify('Hey! This is a simple notification.');
+        //simpleNotify.notify('Hey! This is a warning notification.', 'warning');
+        simpleNotify.notify(''+msg.text, 'warning');
+
+    },
+    presence: function(presenceEvent) {
+        // handle presence
+    }
+})
+ 
+pubnub.subscribe({
+    channels: ['driver1', 'notifych', 'ch3']
+});
+
+
+
+</script>
+
+
+
+
+
 				</div>
 			</div>
 		</div>

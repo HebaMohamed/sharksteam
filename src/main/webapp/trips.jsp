@@ -205,6 +205,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                         <th>End</th>
 									<th>Price</th>
                                                                         <th>Ratting</th>
+                                                                        <th>Comment</th>
 									<th>Options</th>
 								</tr>
 							</thead>
@@ -251,7 +252,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                         <th><%=trips.get(i).getEnddate() %></th>
                                                                         <th><%=trips.get(i).price %>$</th>
                                                                         <th><span class="<%=label %>"><%=stars %></span></th>
-                                                                        
+                                                                        <th><%=trips.get(i).comment %></th>
                                                                         
                                                                         <th>
                                                                             <a href="${pageContext.request.contextPath}/ManageServlet?goflag=showdriver&id=<%=trips.get(i).d.id  %>"><span class="label label-primary">View Driver</span></a>

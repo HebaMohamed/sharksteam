@@ -413,7 +413,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										<a type="button" class="btn btn-primary">Send message</a>
+										<a type="button" class="btn btn-primary" data-dismiss="modal">Send message</a>
 									</div>
 								</div>
 							</div>

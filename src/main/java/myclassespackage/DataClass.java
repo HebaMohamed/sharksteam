@@ -52,7 +52,7 @@ public class DataClass {
             session.removeAttribute("MonitoringMember");
             session.invalidate();
         }
-        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        //response.sendRedirect(request.getContextPath() + "/LoginServlet");
     }
     
     public static void displayAlert(HttpServletResponse response, HttpServletRequest request, String msg, String gopath) throws IOException{

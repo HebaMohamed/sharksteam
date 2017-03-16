@@ -47,6 +47,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <link href="css/custom.css" rel="stylesheet">
 <!--//Metis Menu -->
 
+<!--for notify folder-->
+<script src="notifyfolder/simpleNotify.js"></script>
+<link rel="stylesheet" href="notifyfolder/simpleNotifyStyle.css">
+
+<!--for moving markers-->
+<script src="movefolder/markerAnimate.js"></script>
+
+<!--for pubnub-->
+<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.4.3.js"></script>
+
 
    <style>
        #map {
@@ -475,17 +485,85 @@ new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
     );
     
     
+    var marr = [];
+    var mids = [];
 <% for(int i = 0; i < activevehicles.size(); i+=1) { %>
-        
-    new google.maps.Marker({
+        //uluru for example then it'll move
+   marr.push( new google.maps.Marker({
           position: uluru,
           map: map,
           icon: image,
           title:"Driver : <%=activedrivers.get(i).name %>"
-        });
-        
+        }));
+        mids.push(<%=activedrivers.get(i).id %>);//3shn a3rf men elly et7rk u know
         
 <% } %>
+        
+        
+
+
+
+
+        ///////////////////////////////////////////////////////listen pubnub
+        
+            var pubnub = new PubNub({
+                subscribeKey: "sub-c-a92c9e70-e683-11e6-b3b8-0619f8945a4f",
+                publishKey: "pub-c-b04f5dff-3f09-4dc6-8b4e-58034b4b85bb",
+                ssl: true
+            })
+
+            pubnub.addListener({
+                status: function(statusEvent) {
+                    if (statusEvent.category === "PNConnectedCategory") {
+                        var payload = {
+                            my: 'payload'
+                        };
+                        pubnub.publish(
+                            { 
+                                message: payload
+                            }, 
+                            function (status) {
+                                // handle publish response
+                            }
+                        );
+                    }
+                },
+                message: function(message) {
+                    // handle message
+                    var msg = message.message;
+                    
+                    simpleNotify.notify(''+msg.text, 'warning');
+                    
+                    var lat = msg.lat;
+                    var lng = msg.lng;
+                    var currentdid = msg.id;
+                    
+//                    
+//                    var newpos = {lat: lat, lng: lng};
+//                    
+//                    //get id index in driver array
+//                    for (i = 0; i < mids.length; i++) { 
+//                        var iid = mids[i];
+//                        if(iid == currentdid){
+//                            marr[i].animateTo(newpos);
+//                        }
+//                    }
+
+                },
+                presence: function(presenceEvent) {
+                    // handle presence
+                }
+            })
+
+            pubnub.subscribe({
+                channels: ['driverslocs', 'ch2', 'ch3']
+            });
+
+
+
+        
+        
+        
         
         
         
@@ -496,6 +574,11 @@ new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
         
       
     </script>
+    
+    
+    
+    
+    
 <!--    <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATc18NoAmLoEZFU9gIbIb8uGpXEbLoTDk&callback=initMap">
     </script>-->
