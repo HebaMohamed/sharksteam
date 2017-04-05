@@ -71,7 +71,7 @@
         <!-- /.row -->
     </div>
     <!-- /.container -->
-
+<!--defeR-->
     <!-- jQuery -->
     <script src="indexfolder/js/jquery.js"></script>
 
