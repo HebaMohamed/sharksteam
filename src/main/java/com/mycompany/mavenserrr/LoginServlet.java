@@ -77,6 +77,7 @@ public class LoginServlet extends HttpServlet {
            try{
                JSONObject resObj = DataClass.getJSONObject(URLsClass.loginmember+mid+"/"+mpassword, "");
                 int successf = resObj.getInt("success");
+                //String msg = resObj.getString("msg");
 
                if(successf==1){
                    JSONObject m = resObj.getJSONObject("member");
