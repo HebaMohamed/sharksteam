@@ -32,7 +32,8 @@ public class URLsClass {
     public static String addmonitormember = domain+service+"addmonitormember/";//get
     
     public static String getpmembers = domain+service+"getpmembers/";//get
-    
+    public static String acceptmember = domain+service+"acceptmember/";//get
+
     public static String getcurrentvds = domain+service+"getcurrentvds/";//get
     
     public static String gettrips = domain+service+"gettrips/";//get
@@ -44,7 +45,7 @@ public class URLsClass {
 
     //public static String apikey = "AIzaSyCj2uPSrU6P6L9AIQp0IVS1Ad7qqPnXePA"; 
 
-    public static String apikey = "AIzaSyATc18NoAmLoEZFU9gIbIb8uGpXEbLoTDk";
+    public static String apikey = "AIzaSyBMkIegihYnGDWqYZukBz2eo_InQOh-XEI";//"AIzaSyATc18NoAmLoEZFU9gIbIb8uGpXEbLoTDk";
 
 
 

@@ -390,12 +390,12 @@ public class ManageServlet extends HttpServlet {
         if(success == 1){
         JSONObject dobj = obj.getJSONObject("driver");
         d = new Driver(id, dobj.getString("name"),dobj.getString("email"), "","images/img1.png");
-        d.Sharp_Uturns=dobj.getDouble("sharp_turns_freq");
-        d.Lane_Changing=dobj.getDouble("lane_changing_freq");
-        d.Harsh_Acceleration=dobj.getDouble("harch_acc_freq");
-        d.Wrong_Uturns=dobj.getDouble("wrong_u_turns_severity");
-        d.Harsh_Breaking=dobj.getDouble("harsh_breaking_freq");
-        d.Awarness_Level=dobj.getDouble("awareness_level");
+//        d.Sharp_Uturns=dobj.getDouble("sharp_turns_freq");
+//        d.Lane_Changing=dobj.getDouble("lane_changing_freq");
+//        d.Harsh_Acceleration=dobj.getDouble("harch_acc_freq");
+//        d.Wrong_Uturns=dobj.getDouble("wrong_u_turns_severity");
+//        d.Harsh_Breaking=dobj.getDouble("harsh_breaking_freq");
+//        d.Awarness_Level=dobj.getDouble("awareness_level");
         d.image=dobj.getString("image");//bytearr string
         
         //for ristricted routes level
@@ -410,7 +410,7 @@ public class ManageServlet extends HttpServlet {
       
             d.vehicle = new Vehicle(vid);
              if(vid != 0){//0 means there is no vehicle assigned
-                d.vehicle_datetime = dobj.getString("vehicle_datetime");
+//                d.vehicle_datetime = dobj.getString("vehicle_datetime");
                 JSONObject vobj = obj.getJSONObject("vehicle");
                 d.vehicle.Model = vobj.getString("model");
                 d.vehicle.Color = vobj.getString("color");

@@ -1,6 +1,7 @@
 package myclassespackage;
 
 
+import java.sql.Timestamp;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,17 +31,20 @@ public double price;
 double longtude;
 double lattitude;
 public String comment;
-public double rating;
+public int rating;
 
 public Trip(int id)
 {
     trip_ID=id;
 }
-public Trip(int id,String s_date,String e_date,double price, String comment ,double rating)
+public Trip(int id,String s_date,String e_date,double price, String comment ,int rating)
 {
     this.trip_ID=id;
-    this.start_Date=todatetime(s_date);
-    this.end_Date=todatetime(e_date);
+//    Timestamp ts1 = new Timestamp(Long.parseLong(s_date));
+//    Timestamp ts2 = new Timestamp(Long.parseLong(e_date));//new Date(ts1.getTime())
+
+    this.start_Date=new Date(Long.valueOf(s_date));//todatetime(s_date);//lw string bs hna timestamp
+    this.end_Date=new Date(Long.valueOf(e_date));//todatetime(e_date);
     this.price=price;
     this.comment=comment;
     this.rating=rating;

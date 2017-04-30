@@ -344,6 +344,8 @@ new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
                 
     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
     <div id="map"></div>
+    
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
     <script>
 //      function initMap() {
 //        var uluru = {lat: -25.363, lng: 131.044};
@@ -408,7 +410,7 @@ new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
 //  }
       ////////////////////////////////////////////////////////////
     function initAutocomplete() {
-        var uluru = {lat: -33.8688, lng: 151.2195};
+        var uluru = {lat: 30.045915, lng: 31.22429};//
         var map = new google.maps.Map(document.getElementById('map'), {
           center: uluru,
           zoom: 14,
@@ -478,7 +480,7 @@ new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
         //for me
         //initMap();
         
-        var image = new google.maps.MarkerImage('pin.png',
+        var image = new google.maps.MarkerImage('smallblueshark.png',
         new google.maps.Size(65, 124),
         new google.maps.Point(0,0),
         new google.maps.Point(56, 122)
@@ -505,61 +507,99 @@ new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
 
 
         ///////////////////////////////////////////////////////listen pubnub
-        
-            var pubnub = new PubNub({
-                subscribeKey: "sub-c-a92c9e70-e683-11e6-b3b8-0619f8945a4f",
-                publishKey: "pub-c-b04f5dff-3f09-4dc6-8b4e-58034b4b85bb",
-                ssl: true
-            })
-
-            pubnub.addListener({
-                status: function(statusEvent) {
-                    if (statusEvent.category === "PNConnectedCategory") {
-                        var payload = {
-                            my: 'payload'
-                        };
-                        pubnub.publish(
-                            { 
-                                message: payload
-                            }, 
-                            function (status) {
-                                // handle publish response
-                            }
-                        );
-                    }
-                },
-                message: function(message) {
-                    // handle message
-                    var msg = message.message;
-                    
-                    simpleNotify.notify(''+msg.text, 'warning');
-                    
-                    var lat = msg.lat;
-                    var lng = msg.lng;
-                    var currentdid = msg.id;
-                    
-//                    
-//                    var newpos = {lat: lat, lng: lng};
-//                    
-//                    //get id index in driver array
-//                    for (i = 0; i < mids.length; i++) { 
-//                        var iid = mids[i];
-//                        if(iid == currentdid){
-//                            marr[i].animateTo(newpos);
-//                        }
+//        
+//            var pubnub = new PubNub({
+//                subscribeKey: "sub-c-a92c9e70-e683-11e6-b3b8-0619f8945a4f",
+//                publishKey: "pub-c-b04f5dff-3f09-4dc6-8b4e-58034b4b85bb",
+//                ssl: true
+//            })
+//
+//            pubnub.addListener({
+//                status: function(statusEvent) {
+//                    if (statusEvent.category === "PNConnectedCategory") {
+//                        var payload = {
+//                            my: 'payload'
+//                        };
+//                        pubnub.publish(
+//                            { 
+//                                message: payload
+//                            }, 
+//                            function (status) {
+//                                // handle publish response
+//                            }
+//                        );
 //                    }
+//                },
+//                message: function(message) {
+//                    // handle message
+//                    var msg = message.message;
+//                    
+//                    simpleNotify.notify(''+msg.text, 'warning');
+//                    
+//                    var lat = msg.lat;
+//                    var lng = msg.lng;
+//                    var currentdid = msg.id;
+//                    
+////                    
+////                    var newpos = {lat: lat, lng: lng};
+////                    
+////                    //get id index in driver array
+////                    for (i = 0; i < mids.length; i++) { 
+////                        var iid = mids[i];
+////                        if(iid == currentdid){
+////                            marr[i].animateTo(newpos);
+////                        }
+////                    }
+//
+//                },
+//                presence: function(presenceEvent) {
+//                    // handle presence
+//                }
+//            })
+//
+//            pubnub.subscribe({
+//                channels: ['driverslocs', 'ch2', 'ch3']
+//            });
 
-                },
-                presence: function(presenceEvent) {
-                    // handle presence
-                }
-            })
-
-            pubnub.subscribe({
-                channels: ['driverslocs', 'ch2', 'ch3']
-            });
 
 
+             
+                                                              var config = {
+                                                                   apiKey: "AIzaSyDm82ItD0ET3--vv1k99xRq3-NvBFVUYnA",
+                                                                    authDomain: "sharksmapandroid-158200.firebaseapp.com",
+                                                                    databaseURL: "https://sharksmapandroid-158200.firebaseio.com"
+                                                              };
+                                                              firebase.initializeApp(config);
+
+                                                              // Get a reference to the database service
+                                                              var database = firebase.database();
+                                                                var cRef = database.ref('vehicles');          
+                                                                cRef.on('value', function(snapshot) {
+                                                                    //myGauge.setValue(snapshot.val());
+                                                                    snapshot.forEach(function(child){
+                                                                        var vid = child.key;
+                                                                        var vlat = child.child("Latitude").val();
+                                                                        var vlng = child.child("Longitude").val();
+                                                                        
+                                                                        var currentdid=vid;
+
+                                                                        var newpos = {lat: vlat, lng: vlng};
+                                                                        //get id index in driver array
+                                                                        for (i = 0; i < mids.length; i++) {
+                                                                            var iid = mids[i];
+                                                                            if(iid == currentdid){
+                                                                            marr[i].setPosition(newpos);
+//                                                                            simpleNotify.notify('dsgregrgrthtr'+currentdid, 'warning');
+//                                                                            simpleNotify.notify('dsgregrgrthtr'+currentdid, 'warning');
+//                                                                            simpleNotify.notify('dsgregrgrthtr'+iid, 'warning');
+                                                                        }
+                                                                    }
+                                                                        
+                                                                        
+                                                                        
+                                                                    });
+                                                                    
+                                                                });
 
         
         
@@ -583,7 +623,7 @@ new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATc18NoAmLoEZFU9gIbIb8uGpXEbLoTDk&callback=initMap">
     </script>-->
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATc18NoAmLoEZFU9gIbIb8uGpXEbLoTDk&libraries=places&callback=initAutocomplete"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMkIegihYnGDWqYZukBz2eo_InQOh-XEI&libraries=places&callback=initAutocomplete"
          async defer></script>
                 
                 <!--end map part-->
@@ -603,7 +643,7 @@ new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
                                                                         <th>D.ID</th>
 									<th>Vehicle Plate Number</th>
                                                                         
-<!--									<th>Options</th>-->
+									<th>Options</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -626,6 +666,7 @@ new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
                                                                         
                                                                         <th>
 <!--                                                                            <a href="${pageContext.request.contextPath}/ManageVehicleServlet?goflag=showvehicle&id=<%=activevehicles.get(i).ID  %>"><span class="label label-primary">   View   </span></a>-->
+                                                                            <a href="${pageContext.request.contextPath}/ManageServlet?goflag=showdriver&id=<%=activedrivers.get(i).id  %>"><span class="label label-primary">View Driver</span></a>
 
                                                                             
                                                                         </th>

@@ -50,7 +50,7 @@
                         <a href="${pageContext.request.contextPath}/LoginServlet">Login</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/SignUpServlet">Signup</a>
+                        <a href="${pageContext.request.contextPath}/SignupServlet">Signup</a>
                     </li>
                 </ul>
             </div>

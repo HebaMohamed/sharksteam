@@ -83,7 +83,7 @@ public class TripServlet extends HttpServlet {
                     obj.getJSONArray("trips").getJSONObject(i).getString("end"), 
                     obj.getJSONArray("trips").getJSONObject(i).getDouble("price"), 
                     obj.getJSONArray("trips").getJSONObject(i).getString("comment"), 
-                    obj.getJSONArray("trips").getJSONObject(i).getDouble("ratting"));
+                    obj.getJSONArray("trips").getJSONObject(i).getInt("ratting"));
             t.p= new Passenger(obj.getJSONArray("trips").getJSONObject(i).getInt("passenger_id"));
             t.d= new Driver(obj.getJSONArray("trips").getJSONObject(i).getInt("driver_id"));
             t.staticmapurl=getpathwaymap(obj.getJSONArray("trips").getJSONObject(i).getInt("trip_id"));

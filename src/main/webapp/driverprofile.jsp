@@ -11,6 +11,7 @@
 <html>
 <head>
 <title>Driver Profile</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -27,6 +28,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
  <!-- js-->
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/modernizr.custom.js"></script>
+
 <!--webfonts-->
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 <!--//webfonts--> 
@@ -42,6 +44,28 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="js/custom.js"></script>
 <link href="css/custom.css" rel="stylesheet">
 <!--//Metis Menu -->
+
+<!--for speed meter-->
+<!--<link href="speedmeterfiles/css/speedometer.css" rel="stylesheet">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="speedmeterfiles/js/speedometer.js"></script>-->
+<!--<script src="//code.jquery.com/jquery-2.1.4.min.js"></script> 
+<script src="speedmeterfiles/jquery.AshAlom.gaugeMeter-2.0.0.min.js"></script> -->
+
+<link rel="stylesheet" href="speedmeterfiles/jg/css/jgauge.css" type="text/css" />
+<!--<link rel="stylesheet" href="speedmeterfiles/jg/css/page.css" type="text/css" />-->
+
+<script type="text/javascript" language="javascript" src="speedmeterfiles/jg/js/excanvas.min.js"></script>
+<script  language="javascript" type="text/javascript"  src="speedmeterfiles/jg/js/jquery-1.4.2.min.js"></script>
+<script language="javascript" type="text/javascript" src="speedmeterfiles/jg/js/jQueryRotate.min.js"></script>
+<script language="javascript" type="text/javascript" src="speedmeterfiles/jg/js/jgauge-0.3.0.a3.js"></script>
+<script language="javascript" type="text/javascript" src="speedmeterfiles/jg/js/jgauge-0.3.0.a3.min.js"></script>
+<!--<script src="js/jquery-1.11.1.min.js"></script>-->
+
+
+<!--end for speed meter-->
+
+
 </head> 
 <body class="cbp-spmenu-push">
 	<div class="main-content">
@@ -272,37 +296,108 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								<div class="clearfix"> </div>	
 							</div>
 						</div>
-						<div class="profile-btm">
-							<ul>
-								<li>
-                                                                    <h4><%=selectedD.Sharp_Uturns%></h4>
-									<h5>Sharp Turns</h5>
-								</li>
-								<li>
-									<h4><%=selectedD.Lane_Changing%></h4>
-									<h5>Lane Changing</h5>
-								</li>
-								<li>
-									<h4><%=selectedD.Harsh_Acceleration%></h4>
-									<h5>Harsh Acceleration</h5>
-								</li>
-<!--                                                                	<li>
-									<h4><%=selectedD.Last_trip_Behaviour_Map%></h4>
-									<h5>Last Trip Behaviour Map</h5>
-								</li>-->
-                                                                	<li>
-									<h4><%=selectedD.Wrong_Uturns%></h4>
-									<h5>Wrong Uturns</h5>
-								</li>
-                                                                	<li>
-									<h4><%=selectedD.Harsh_Breaking%></h4>
-									<h5>Harsh Breaking</h5>
-								</li>
-                                                                	<li>
-									<h4><%=selectedD.Awarness_Level%></h4>
-									<h5>Awarness Level</h5>
-								</li>
-							</ul>
+                                                 
+
+                                                <!--<div  style="background-color: #5252c4" >-->
+                                                    
+                                                
+                                                    
+                                                    <!--<input id="results" name="results">-->
+                                                    
+
+                                                    
+                                                    <!--<div class="GaugeMeter" id="PreviewGaugeMeter_1" name="PreviewGaugeMeter_1" data-percent="50" data-prepend="<font style='color:White;font-size:35px;margin-left:-15px'>&ndash;</font>" data-size="188" data-theme="White" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="2" data-label="Years" data-label_color="#FFF"></div>-->
+                                                   <!--<div class="container" id="exdiv" style="margin:50px;">-->
+                                                       
+                                                       <div class="profile-btm" style="background-color: #5252c4">
+                                                        <ul>
+                                                            <li>
+                                                                <h4 style="text-align: center;">RPM</h4>
+                                                             <div id="jGaugeDemo" class="jgauge" style="text-align: center;"></div>
+                                                            </li>
+                                                            <li>
+                                                                <h4 style="text-align: center;">Speed</h4>
+                                                             <div id="jGaugeDemo2" class="jgauge" style="text-align: center;"></div>
+                                                            </li>
+                                                            <li>
+                                                                <h4 style="text-align: center;">Throttle</h4>
+                                                             <div id="jGaugeDemo3" class="jgauge" style="text-align: center;"></div>
+                                                            </li>
+                                                       </ul>
+                                                       </div>
+
+
+<!--                                                    <div class="GaugeMeter" id="PreviewGaugeMeter_2" data-percent="88" data-append="mph" data-size="200" data-theme="White" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="Speed" data-style="Arch" data-label_color="#FFF"></div>
+                                                    <div class="GaugeMeter" id="PreviewGaugeMeter_3" data-percent="100" data-text="<font style='color:White;font-size:35px;letter-spacing:-1px'>1.21</font>" data-append="<font style='color:white'>GW</font>" data-size="200" data-theme="White" data-back="RGBa(0,0,0,.1)" data-width="15" data-label="Mr Fusion" data-style="Semi" data-label_color="#FFF"></div>
+                                                    <div class="GaugeMeter" id="PreviewGaugeMeter_4" data-percent="100" data-append="Y" data-size="180" data-theme="White" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="Flux Capacitor" data-label_color="#FFF" data-stripe="2"></div>
+                                                  -->
+                                                <!--</div>-->
+
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+    
+                                                    <script type="text/javascript">
+                                                            
+//                                                            $(".GaugeMeter").gaugeMeter();//init
+//                                                                $("#results").myfunc({divFact:10});
+
+                                                            var myGauge = new jGauge(); // Create a new jGauge.
+                                                            myGauge.id = 'jGaugeDemo'; // Link the new jGauge to the placeholder DIV.
+                                                            myGauge.imagePath = 'speedmeterfiles/jg/img/jgauge_face_default.png';
+                                                            myGauge.needle.imagePath = 'speedmeterfiles/jg/img/jgauge_needle_default.png';
+                                                            myGauge.width=250;
+                                                            
+                                                            var myGauge2 = new jGauge(); // Create a new jGauge.
+                                                            myGauge2.id = 'jGaugeDemo2'; // Link the new jGauge to the placeholder DIV.
+                                                            myGauge2.imagePath = 'speedmeterfiles/jg/img/jgauge_face_default.png';
+                                                            myGauge2.needle.imagePath = 'speedmeterfiles/jg/img/jgauge_needle_default.png';
+                                                            myGauge2.width=250;
+                                                            myGauge2.ticks.end=300;
+                                                            
+                                                            var myGauge3 = new jGauge(); // Create a new jGauge.
+                                                            myGauge3.id = 'jGaugeDemo3'; // Link the new jGauge to the placeholder DIV.
+                                                            myGauge3.imagePath = 'speedmeterfiles/jg/img/jgauge_face_default.png';
+                                                            myGauge3.needle.imagePath = 'speedmeterfiles/jg/img/jgauge_needle_default.png';
+                                                            myGauge3.width=250;
+                                                            myGauge3.ticks.end=10;
+                                                            
+                                                            
+                                                            // This function is called by jQuery once the page has finished loading.
+                                                            $(document).ready(function(){
+                                                               myGauge.init(); // Put the jGauge on the page by initialising it.
+                                                               myGauge2.init();
+                                                               myGauge3.init();
+                                                            });
+
+                                                            
+//                                                            var messageResults = document.getElementById('results');
+                                                            
+                                                              var config = {
+                                                                   apiKey: "AIzaSyDm82ItD0ET3--vv1k99xRq3-NvBFVUYnA",
+                                                                    authDomain: "sharksmapandroid-158200.firebaseapp.com",
+                                                                    databaseURL: "https://sharksmapandroid-158200.firebaseio.com"
+                                                              };
+                                                              firebase.initializeApp(config);
+
+                                                              // Get a reference to the database service
+                                                              var database = firebase.database();
+                                                                var cRef = database.ref('vehicles').child(<%=selectedD.id%>).child('RPM');
+                                                                cRef.on('value', function(snapshot) {
+//                                                                    messageResults.value += '\n' + snapshot.val();
+                                                                    myGauge.setValue(snapshot.val());
+                                                                });
+                                                                var cRef2 = database.ref('vehicles').child(<%=selectedD.id%>).child('Speed');
+                                                                cRef2.on('value', function(snapshot) {
+//                                                                    messageResults.value += '\n' + snapshot.val();
+                                                                    myGauge2.setValue(snapshot.val());
+                                                                });
+                                                                var cRef3 = database.ref('vehicles').child(<%=selectedD.id%>).child('Throttle');
+                                                                cRef3.on('value', function(snapshot) {
+//                                                                    messageResults.value += '\n' + snapshot.val();
+                                                                    myGauge3.setValue(snapshot.val());
+                                                                });
+                                                              
+
+                                                    </script>
 						</div>
                                                                         
                                                                         
@@ -329,8 +424,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								
                                                                             <a href="${pageContext.request.contextPath}/ManageServlet?goflag=editdriver&id=<%=selectedD.id %>"><span class="label label-warning">Edit</span></a>
                                                                             <a href="#" data-toggle="modal" data-whatever="@mdo" data-target="#exampleModall"><span class="label label-danger">Delete</span></a>
-                                                                            <a href="#" data-toggle="modal" data-whatever="@mdo" data-target="#exampleModal" ><span class="label label-primary">Send Command</span></a>
-                                                                                         
+<!--                                                                            <a href="#" data-toggle="modal" data-whatever="@mdo" data-target="#exampleModal" ><span class="label label-primary">Send Command</span></a>-->
+                                                                            <a href="#" onclick="openModal()"><span class="label label-primary">Send Command</span></a>
+
+                                                                            <script type="text/javascript">
+
+                                                                            function openModal(){
+
+                                                                                jq13('#exampleModal').modal();
+                                                                            }       
+                                                                            </script>
 							</div>
 							<div class="clearfix"> </div>
 						</div>

@@ -87,6 +87,31 @@ public class PendingServlet extends HttpServlet {
         }
         else if(goflag.equals("approve")){
            // response.sendRedirect(request.getContextPath() + "/IndexServlet"); 
+           
+           String mId = String.valueOf(request.getParameter("id"));
+           try{
+               JSONObject resObj = DataClass.getJSONObject(URLsClass.acceptmember+mId, "");
+                int successf = resObj.getInt("success");
+
+               if(successf==1)
+                    response.sendRedirect(request.getContextPath() + "/PendingServlet");
+                else
+                {           
+                    response.setContentType("text/html;charset=UTF-8");
+                    PrintWriter out = response.getWriter();
+                    out.println("<!DOCTYPE html>");
+                    out.println("<html>");
+                    out.println("<head>");
+                    out.println("<title>Servlet NewServlet</title>");            
+                    out.println("</head>");
+                    out.println("<body>");
+                    out.println(resObj.getString("msg"));
+                    out.println("</body>");
+                    out.println("</html>");   
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(ManageServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         
