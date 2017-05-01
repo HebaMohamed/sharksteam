@@ -56,7 +56,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <!--<link rel="stylesheet" href="speedmeterfiles/jg/css/page.css" type="text/css" />-->
 
 <script type="text/javascript" language="javascript" src="speedmeterfiles/jg/js/excanvas.min.js"></script>
-<script  language="javascript" type="text/javascript"  src="speedmeterfiles/jg/js/jquery-1.4.2.min.js"></script>
+<!--<script  language="javascript" type="text/javascript"  src="speedmeterfiles/jg/js/jquery-1.4.2.min.js"></script>-->
 <script language="javascript" type="text/javascript" src="speedmeterfiles/jg/js/jQueryRotate.min.js"></script>
 <script language="javascript" type="text/javascript" src="speedmeterfiles/jg/js/jgauge-0.3.0.a3.js"></script>
 <script language="javascript" type="text/javascript" src="speedmeterfiles/jg/js/jgauge-0.3.0.a3.min.js"></script>
@@ -325,7 +325,22 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                             </li>
                                                        </ul>
                                                        </div>
-
+                                                   
+                                                   <div class="profile-btm">
+                                                       <div class="row">
+							<div class="col-md-4">
+							</div>
+							<div class="col-md-4">
+                                                            <center>
+                                                                <h3>
+                                                   <a href="${pageContext.request.contextPath}/ManageServlet?goflag=driverreport&did=<%=selectedD.id %>"><span class="label label-primary">View Driver Report</span></a>
+                                                                </h3>
+                                                            </center>
+                                                        </div>
+                                                        <div class="col-md-4">
+							</div>
+                                                       </div>
+                                                        </div>
 
 <!--                                                    <div class="GaugeMeter" id="PreviewGaugeMeter_2" data-percent="88" data-append="mph" data-size="200" data-theme="White" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="Speed" data-style="Arch" data-label_color="#FFF"></div>
                                                     <div class="GaugeMeter" id="PreviewGaugeMeter_3" data-percent="100" data-text="<font style='color:White;font-size:35px;letter-spacing:-1px'>1.21</font>" data-append="<font style='color:white'>GW</font>" data-size="200" data-theme="White" data-back="RGBa(0,0,0,.1)" data-width="15" data-label="Mr Fusion" data-style="Semi" data-label_color="#FFF"></div>
@@ -424,16 +439,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								
                                                                             <a href="${pageContext.request.contextPath}/ManageServlet?goflag=editdriver&id=<%=selectedD.id %>"><span class="label label-warning">Edit</span></a>
                                                                             <a href="#" data-toggle="modal" data-whatever="@mdo" data-target="#exampleModall"><span class="label label-danger">Delete</span></a>
-<!--                                                                            <a href="#" data-toggle="modal" data-whatever="@mdo" data-target="#exampleModal" ><span class="label label-primary">Send Command</span></a>-->
-                                                                            <a href="#" onclick="openModal()"><span class="label label-primary">Send Command</span></a>
 
-                                                                            <script type="text/javascript">
+                                                                            <!--                                                                            <a href="#" data-toggle="modal" data-whatever="@mdo" data-target="#exampleModal" ><span class="label label-primary">Send Command</span></a>-->
+                                                                            <!--<a href="#" onclick="openModal()"><span class="label label-primary">Send Command</span></a>-->
+
+<!--                                                                            <script type="text/javascript">
 
                                                                             function openModal(){
 
                                                                                 jq13('#exampleModal').modal();
                                                                             }       
-                                                                            </script>
+                                                                            </script>-->
 							</div>
 							<div class="clearfix"> </div>
 						</div>
@@ -479,6 +495,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                         <th>
                                                                             <a href="${pageContext.request.contextPath}/ManageServlet?goflag=assignvehicle&vid=<%=vehicles.get(i).ID%>"><span class="label label-primary">   Select   </span></a>
                                                                         </th>
+                                                                        
 
                                                                 </tr>
 							     <% } %>

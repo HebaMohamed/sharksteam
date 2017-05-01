@@ -269,13 +269,13 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             
                             <br/>
                             <div class="row" >
-                            <div class="col-md-6 chrt-page-grids">
+<!--                            <div class="col-md-6 chrt-page-grids">
                                 <h4 class="title">Drivers Chart</h4>
                                     <canvas id="doughnut"  style="width:416px; height: 272px; padding-right: 20px;"></canvas>
-                            </div>
-                           <div class="col-md-6 chrt-page-grids">
-						<h4 class="title">Ratting Chart</h4>
-						<canvas id="line" style="width:416px; height: 306px; padding-right: 20px;"> </canvas>
+                            </div>-->
+                                        <div class="col-md-12" style="background: #fff">
+						<h4 class="title">Drivers Average Chart</h4>
+						<canvas id="line" style="width:832px; height: 306px; padding-right: 20px;"> </canvas>
 					</div>
                             </div>
 
@@ -295,25 +295,24 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								}
 							
 							];
-new Chart(document.getElementById("doughnut").getContext("2d")).Doughnut(doughnutData);
+//new Chart(document.getElementById("doughnut").getContext("2d")).Doughnut(doughnutData);
 
-<% ArrayList<String> tripsids = (ArrayList<String>) request.getAttribute("tripsids"); %>
 <% ArrayList<Integer> tripsratings = (ArrayList<Integer>) request.getAttribute("tripsratings"); %>
-var labls = [];
 var dataa = [];
-<% for(int i = 0; i < tripsids.size(); i+=1) { %>
+
+dataa.push(<%=(Integer)request.getAttribute("bad_count")%>);
+dataa.push(<%=(Integer)request.getAttribute("good_count")%>);
+dataa.push(<%=(Integer)request.getAttribute("verygood_count")%>);
+dataa.push(<%=(Integer)request.getAttribute("excellent_count")%>);
+
     
-    labls.push('<%=tripsids.get(i)%>');
-    dataa.push(<%=tripsratings.get(i)%>);
-    
-<%}%>
 
 var lineChartData = {
-									labels : labls,
+									labels : ["Bad","Good","Very Good","Excellent"],
 									datasets : [
 										{
-												fillColor : "rgba(51, 51, 51, 0)",
-                                                                                                strokeColor : "#4F52BA",
+												fillColor : "rgba(79, 82, 186, 0.83)",
+                                                                                                strokeColor : "#ef553a",
                                                                                                 pointColor : "#4F52BA",
                                                                                                 pointStrokeColor : "#fff",
                                                                                                 data : dataa
@@ -631,7 +630,7 @@ new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
                 
                 
                 <br/>
-                <h4>Active Vehicles & Drivers</h4>
+                <h4>Current Vehicles & Drivers</h4>
                 <br/>
                 	<div class="col-md-12 stats-info widget-shadow">
 						<table class="table stats-table ">
@@ -642,7 +641,7 @@ new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
 									<th>V.ID</th>
                                                                         <th>D.ID</th>
 									<th>Vehicle Plate Number</th>
-                                                                        
+                                                                        <th>Average</th>
 									<th>Options</th>
 								</tr>
 							</thead>
@@ -663,6 +662,19 @@ new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
                                                                         <th><%=activevehicles.get(i).ID %></th>
                                                                         <th><%=activedrivers.get(i).id %></th>
                                                                         <th><%=activevehicles.get(i).Plate_number %></th>
+                                                                        
+                                                                        <%String avgtxtclass = "";%>
+                                                                        <% if(activedrivers.get(i).avg<3){%>
+                                                                        <% avgtxtclass = "label label-danger"; %>
+                                                                        <% }else if(activedrivers.get(i).avg<6){ %>
+                                                                        <% avgtxtclass = "label label-warning"; %>
+                                                                        <% }else if(activedrivers.get(i).avg<9){ %>
+                                                                        <% avgtxtclass = "label label-info"; %>
+                                                                        <% }else if(activedrivers.get(i).avg<=12){ %>
+                                                                        <% avgtxtclass = "label label-success"; %>                              
+                                                                        <%}%>
+                                                                        
+                                                                        <th><span class="<%=avgtxtclass%>"><%=activedrivers.get(i).avgtxt%></span></th>
                                                                         
                                                                         <th>
 <!--                                                                            <a href="${pageContext.request.contextPath}/ManageVehicleServlet?goflag=showvehicle&id=<%=activevehicles.get(i).ID  %>"><span class="label label-primary">   View   </span></a>-->

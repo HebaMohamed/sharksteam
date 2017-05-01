@@ -55,6 +55,26 @@ public class MonitorServlet extends HttpServlet {
                     JSONObject obj;
                     obj = DataClass.getJSONObject(URLsClass.getcurrentvds, "");
                     getVDData(obj);
+                    //get counts
+                    int bad_count=0, good_count=0, verygood_count=0, excellent_count=0;
+                    for (int i = 0; i < activedrivers.size(); i++) {
+                        int davg = activedrivers.get(i).avg;
+                        if(davg<3)
+                            bad_count++;
+                        else if(davg<6)
+                            good_count++;
+                        else if(davg<9)
+                            verygood_count++;
+                        else if(davg<=12)
+                            excellent_count++;
+                    }
+                    
+                    request.setAttribute("bad_count", bad_count);  
+                    request.setAttribute("good_count", good_count);  
+                    request.setAttribute("verygood_count", verygood_count);  
+                    request.setAttribute("excellent_count", excellent_count);  
+
+                    
                     request.setAttribute("activevehicles", activevehicles); 
                     request.setAttribute("activedrivers", activedrivers);  
                     request.setAttribute("passengerscount", obj.getString("passengerscount"));  
@@ -71,6 +91,8 @@ public class MonitorServlet extends HttpServlet {
                     
                     request.getRequestDispatcher("monitorpage.jsp").forward(request, response);//show only
     }
+    
+    
         
     void getVDData(JSONObject obj){
         activevehicles.clear();
@@ -86,6 +108,9 @@ public class MonitorServlet extends HttpServlet {
             Driver d = new Driver(Integer.parseInt(obj.getJSONArray("currentvms").getJSONObject(i).getString("driver_id")),
                                                     obj.getJSONArray("currentvms").getJSONObject(i).getString("fullname"),
                                                     "", "", "");
+            d.avgtxt = obj.getJSONArray("currentvms").getJSONObject(i).getString("avgtxt");
+            d.avg = obj.getJSONArray("currentvms").getJSONObject(i).getInt("avg");
+
             activedrivers.add(d);
         }
     }

@@ -11,8 +11,8 @@ package myclassespackage;
  * @author dell
  */
 public class URLsClass {
-    //static String domain = "http://localhost:8080/mavenrestfullservice/rest/";
-    static String domain = "http://sharksrest.herokuapp.com/rest/";
+    static String domain = "http://localhost:8080/mavenrestfullservice/rest/";
+//    static String domain = "http://sharksrest.herokuapp.com/rest/";
     static String service = "websiteservice/";
     
     public static String getdrivers = domain+service+"getdrivers/";//get
@@ -42,6 +42,11 @@ public class URLsClass {
     public static String addristrictedroute = domain+service+"addristrictedroute/";//post
     
     public static String assignvehicle = domain+service+"assignvehicle/";
+
+   public static String getdriveravg = domain+service+"getdriveravg/";
+   
+       public static String getpattrens = domain+service+"getpattrens/";//get
+
 
     //public static String apikey = "AIzaSyCj2uPSrU6P6L9AIQp0IVS1Ad7qqPnXePA"; 
 

@@ -21,6 +21,10 @@ public class Driver {
     public String password;
     public String image;//byte array string
     
+    public String avgtxt;
+    public int avg;
+    
+    
     public Driver (int id){
         this.id = id;
     }
