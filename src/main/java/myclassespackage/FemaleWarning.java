@@ -9,14 +9,18 @@ package myclassespackage;
  *
  * @author dell
  */
-public class EventWarning {
-    
-    public String text;
-    public int did;
+public class FemaleWarning {
+    public Long timestamp;
     public double lat;
     public double lng;
-    public long timestamp;
+    public int tid;
     public String datetxt;
-    public String dname;
     
+    public Driver d;
+    public Passenger p;
+    
+    public FemaleWarning(){
+        d = new Driver(0);
+        p = new Passenger(0);
+    }
 }

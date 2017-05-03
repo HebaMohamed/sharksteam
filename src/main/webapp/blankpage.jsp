@@ -80,13 +80,24 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						</li>
 
 						<li>
-							<a href="${pageContext.request.contextPath}/EventServlet""><i class="fa fa-th-large nav_icon"></i>Events </a>
+							<a href="#" ><i class="fa fa-th-large nav_icon"></i>Events <span class="fa arrow"></span></a>
+                                                        <ul class="nav nav-second-level collapse">
+								<li>
+									<a href="${pageContext.request.contextPath}/FemaleServlet">Female Safety</a>
+								</li>	
+                                                                <li>
+									<a href="${pageContext.request.contextPath}/EventServlet">Warnings</a>
+								</li>
+							</ul>
 						</li>
 
 						<li>
-							<a href="${pageContext.request.contextPath}/TripServlet"><i class="fa fa-check-square-o nav_icon"></i>Trips </a>
+							<a href="${pageContext.request.contextPath}/PattrensServlet"><i class="fa fa-cogs nav_icon"></i>Pattrens </a>
 						</li>
 
+                                                <li>
+							<a href="${pageContext.request.contextPath}/TripServlet"><i class="fa fa-check-square-o nav_icon"></i>Trips </a>
+						</li>
 
 					</ul>
 					<div class="clearfix"> </div>
@@ -115,8 +126,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 				<div class="profile_details_left"><!--notifications of menu start -->
 					<ul class="nofitications-dropdown">
 						<li class="dropdown head-dpdn">
-							<a id="notifnum" href="${pageContext.request.contextPath}/PendingServlet?" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">1</span></a>
-						</li>	
+							<!--<a id="notifnum" href="${pageContext.request.contextPath}/PendingServlet?" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">1</span></a>-->
+							<a id="notifnum" href="${pageContext.request.contextPath}/PendingServlet?" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i></a>
+
+                                                </li>	
 					</ul>
 					<div class="clearfix"> </div>
 				</div>

@@ -74,6 +74,12 @@
             <version>1.8.3</version>
         </dependency>
         
+        <dependency>
+            <groupId>com.firebase</groupId>
+            <artifactId>firebase-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        
     </dependencies>
 
     <build>

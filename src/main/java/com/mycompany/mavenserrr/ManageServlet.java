@@ -6,6 +6,7 @@ package com.mycompany.mavenserrr;
  * and open the template in the editor.
  */
 
+import com.firebase.client.Firebase;
 import myclassespackage.URLsClass;
 import myclassespackage.DataClass;
 import myclassespackage.Driver;
@@ -48,6 +49,8 @@ public class ManageServlet extends HttpServlet {
     ArrayList<Driver> filtereddrivers = new ArrayList<Driver>();
     
     public static Driver selecteddriver;
+    
+    String currentDid;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -206,6 +209,7 @@ public class ManageServlet extends HttpServlet {
             else if(goflag.equals("driverreport")){
             
                 String did = request.getParameter("did");
+                currentDid=did;
                 JSONObject resObj = DataClass.getJSONObject(URLsClass.getdriveravg+did+"/", "");
                 int successf = resObj.getInt("success");
                if(successf==1){
@@ -717,6 +721,15 @@ public class ManageServlet extends HttpServlet {
             String srch = request.getParameter("searchtxt");
             searchdriver(srch);
             response.sendRedirect(request.getContextPath() + "/ManageServlet?goflag=searched"); //redirect to get method with searched paramenter
+        }
+        else if(hiddenflag.equals("sendmsg")){
+            String messagetext = request.getParameter("messagetext");
+            Firebase myFirebaseRef = new Firebase("https://sharksmapandroid-158200.firebaseio.com/");
+            Long ts = System.currentTimeMillis();
+            myFirebaseRef.child("driver").child(String.valueOf(currentDid)).child("mgrinstruction").child(String.valueOf(ts)).setValue(messagetext);
+
+            
+            response.sendRedirect(request.getContextPath() + "/ManageServlet?goflag=driverreport&did="+currentDid); //redirect to get method with searched paramenter
         }
         
 

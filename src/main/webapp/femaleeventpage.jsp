@@ -1,16 +1,19 @@
 <%-- 
-    Document   : managevehicle
-    Created on : Dec 11, 2016, 9:28:51 PM
+    Document   : trips
+    Created on : Jan 24, 2017, 9:48:22 PM
     Author     : dell
 --%>
 
-<%@page import="java.util.ArrayList"%>
 <%@page import="myclassespackage.*"%>
+<%@page import="net.sf.json.JSONArray"%>
+<%@page import="net.sf.json.JSONObject"%>
+<%@page import="java.lang.String"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-<title>Manage Vehicles</title>
+<title>Trips</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -42,6 +45,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="js/custom.js"></script>
 <link href="css/custom.css" rel="stylesheet">
 <!--//Metis Menu -->
+
+   <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+   </style>
+
 </head> 
 <body class="cbp-spmenu-push">
 	<div class="main-content">
@@ -113,7 +124,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 				<div class="clearfix"> </div>
 			</div>
-			
+
                     <div class="header-right">
 				<div class="profile_details_left"><!--notifications of menu start -->
 					<ul class="nofitications-dropdown">
@@ -158,102 +169,135 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		<div id="page-wrapper">
 			<div class="main-page">
                             
-                            <h3 class="title1">Vehicles Management</h3>
+                            
+                            <% FemaleWarning warning = (FemaleWarning) request.getAttribute("warning"); %>
 
-				<div class="blank-page widget-shadow scroll" id="style-2 div1">
-                
-                                    							
-<!--                                    <form action="${pageContext.request.contextPath}/ManageVehicleServlet" method="post"> 
-                                        <input type="hidden" name="hiddenflag" id="hiddenflag" value="openadd">-->
-
-                                        <h3><a href="${pageContext.request.contextPath}/ManageVehicleServlet?goflag=addvehicle"><span class="btn btn-primary">New Vehicle</span></a></h3>
-                                        <!--<input class="btn btn-primary" type="submit" name="button1" value="New Vehicle" />-->
-
-<!--                                    </form>-->
-                                    <br/>
-                                    	<form class="input"action="${pageContext.request.contextPath}/ManageVehicleServlet" method="post">
-                                                <input type="hidden" name="hiddenflag" id="hiddenflag" value="search">
-						<input class="sb-search-input input__field--madoka"  placeholder="Search..." type="search" name="searchtxt" id="input-31" />
-					</form>
-                                    
-                                    <br/>                                   
-                                    
-                                    
-                                    
-                                          
-<!--					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic 
-						It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here.
-					</p>-->
-				</div>
-                                    
+                            
 					<div class="col-md-12 stats-info widget-shadow">
-						<table class="table stats-table ">
-							<thead>
-								<tr>
-									<th>V.ID</th>
-									<th>Vehicle Model</th>
-                                                                        <th>Vehicle Color</th>
-									<th>Options</th>
-								</tr>
-							</thead>
-							<tbody>
-                                                           
-                                                            <% String deletef = "0"; %>
-                                                            <% ArrayList<Vehicle> vehicles = (ArrayList<Vehicle>) request.getAttribute("vehicles"); %>
-                                                                <% for(int i = 0; i < vehicles.size(); i+=1) { %>
-                                                                
-                                                            
-								<tr>
-                                                                        <th><%=vehicles.get(i).ID %></th>
-                                                                        <th><%=vehicles.get(i).Model %></th>
-                                                                        <th><%=vehicles.get(i).Color %></th>
-                                                                        <th>
-                                                                            <a href="${pageContext.request.contextPath}/ManageVehicleServlet?goflag=showvehicle&id=<%=vehicles.get(i).ID  %>"><span class="label label-primary">   View   </span></a>
+                                            
+                                            <br/>
+                            <h3 class="title1">Female Safety Warning</h3>
 
-                                                                            
-                                                                        </th>
+                                            
+                                            <div class="profile-right">
+                                                <p>Passenger Name</p>
+                                                <h4><%=warning.p.FullName%></h4>
+                                            </div> 
+                                             <div class="profile-right">
+                                                <p>Driver Name</p>
+                                                <h4><%=warning.d.name%></h4>
+                                                
+                                            <br/>
+                                            </div> 
+                                            
+                                                             
+                                            
+                                            
+                                                <h2 style="opacity: 0.1;">   . </h2>
+                                                <div id="map"></div>
+    
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+    <script>
+        
+    function initAutocomplete() {
+        var uluru = {lat: 30.045915, lng: 31.22429};//
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: uluru,
+          zoom: 14,
+          mapTypeId: 'roadmap'
+        });
+        
+        var image = new google.maps.MarkerImage('warningmaker.png',
+        new google.maps.Size(65, 124),
+        new google.maps.Point(0,0),
+        new google.maps.Point(56, 122)
+    );
+   
+     var marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+          icon: image,
+          title:"Warning Point"
+        });
+   
+      
 
-                                                                </tr>
-							     <% } %>
-                                                             
-							</tbody>
-						</table>
-                                                             
-                                                    <script type='text/javascript'>
-                                                        var id ='';
-                                                        function myFunction(d){
-                                                        //...script code
-                                                        id=d;
-                                                        <%deletef = "<script>document.writeln(id)</script>";%>
-                                                        }
-                                                        
-                                                        
-                                                        $(".tableRow").click(function(e){
-                                                           <%deletef = "<script>document.writeln(id)</script>";%>
-                                                          });
 
-                                                    </script>
-                                                             
-                                                             
-                                                             
-                                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                                <h4 class="modal-title" id="exampleModalLabel">Are you sure to delete this driver? <%=deletef%></h4>
-									</div>
-									<div class="modal-body">
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                                                                <a href="?res=yes" type="button" class="btn btn-primary">Yes</a>
-									</div>
-								</div>
-							</div>
-						</div>
+             
+//                                                              var config = {
+//                                                                   apiKey: "AIzaSyDm82ItD0ET3--vv1k99xRq3-NvBFVUYnA",
+//                                                                    authDomain: "sharksmapandroid-158200.firebaseapp.com",
+//                                                                    databaseURL: "https://sharksmapandroid-158200.firebaseio.com"
+//                                                              };
+//                                                              firebase.initializeApp(config);
+//
+//                                                              // Get a reference to the database service
+//                                                              var database = firebase.database();
+//                                                                var cRef = database.ref('vehicles');          
+//                                                                cRef.on('value', function(snapshot) {
+//                                                                    //myGauge.setValue(snapshot.val());
+//                                                                    snapshot.forEach(function(child){
+//                                                                        var vid = child.key;
+//                                                                        var vlat = child.child("Latitude").val();
+//                                                                        var vlng = child.child("Longitude").val();
+//                                                                        
+//                                                                        var currentdid=vid;
+//
+//                                                                        var newpos = {lat: vlat, lng: vlng};
+//                                                                        //get id index in driver array
+//                                                                        for (i = 0; i < mids.length; i++) {
+//                                                                            var iid = mids[i];
+//                                                                            if(iid == currentdid){
+//                                                                            marr[i].setPosition(newpos);
+////                                                                            simpleNotify.notify('dsgregrgrthtr'+currentdid, 'warning');
+////                                                                            simpleNotify.notify('dsgregrgrthtr'+currentdid, 'warning');
+////                                                                            simpleNotify.notify('dsgregrgrthtr'+iid, 'warning');
+//                                                                        }
+//                                                                    }
+//                                                                        
+//                                                                        
+//                                                                        
+//                                                                    });
+//                                                                    
+//                                                                });
 
-                                                             
+        
+        
+        
+        
+        
+        
+      }
+      
+      
+      
+        
+      
+    </script>
+   
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMkIegihYnGDWqYZukBz2eo_InQOh-XEI&libraries=places&callback=initAutocomplete"
+         async defer></script> 
+         
+         <br/>
+         
+         <div class="profile-right">
+             <p>Nearest Driver Name</p>
+             <h4>Mr Z</h4>
+         </div>
+         
+         <div class="col-md-9"></div>
+                                                                                 <div class="col-md-3">
+                                                                                     <h3>
+                                                                                        <a href="#"><span class="label label-danger">Ask him for help</span></a>
+                                                                                     
+                                            <br/><br/>
+                                                                                     </h3>
+                                                                                 </div>
+         
+         
+         
+         
+         <br/><br/>
                                                              
 					</div>
                                     
@@ -297,4 +341,3 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
    <script src="js/bootstrap.js"> </script>
 </body>
 </html>
-

@@ -36,6 +36,10 @@ public class TripServlet extends HttpServlet {
 
         static ArrayList<Trip> alltrips = new ArrayList<Trip>();
         ArrayList<Trip> filterdtrips = new ArrayList<Trip>();
+        
+        int todaycount=0;
+        int todayearnings=0;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -67,7 +71,9 @@ public class TripServlet extends HttpServlet {
                     obj = DataClass.getJSONObject(URLsClass.gettrips, "");
                     getTripsData(obj);
                     request.setAttribute("trips", alltrips);  
-            
+                    request.setAttribute("todaycount", String.valueOf(todaycount));
+                    request.setAttribute("todayearnings", String.valueOf(todayearnings));
+
                 request.getRequestDispatcher("trips.jsp").forward(request, response);//show only
             } catch (Exception ex) {
                 Logger.getLogger(TripServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,6 +94,10 @@ public class TripServlet extends HttpServlet {
             t.d= new Driver(obj.getJSONArray("trips").getJSONObject(i).getInt("driver_id"));
             t.staticmapurl=getpathwaymap(obj.getJSONArray("trips").getJSONObject(i).getInt("trip_id"));
             alltrips.add(t);
+            
+            //get today count
+            filterTrips(new Date());
+            
         }
     }
     
@@ -169,11 +179,15 @@ public class TripServlet extends HttpServlet {
     
     void filterTrips(Date lastdate){
         filterdtrips.clear();
+        todaycount=0;
+        todayearnings=0;
         Date today = new Date();
         for (int i = 0; i < alltrips.size(); i++) {
             Date d = alltrips.get(i).start_Date;
             if(d.after(lastdate) || DateUtils.isSameDay(d,today)){
                 filterdtrips.add(alltrips.get(i));
+                todaycount++;
+                todayearnings+=alltrips.get(i).price;
             }
         }
     }

@@ -12,9 +12,9 @@ package myclassespackage;
  */
 public class Passenger {
     
-    int ID;
+    public int ID;
     String Password;
-    String FullName;
+    public String FullName;
     String Gender;
     int Age;
     int Phone;

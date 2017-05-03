@@ -19,6 +19,7 @@ import myclassespackage.DataClass;
 import myclassespackage.Pattren;
 import myclassespackage.Trip;
 import myclassespackage.URLsClass;
+import myclassespackage.Vehicle;
 import net.sf.json.JSONObject;
 
 /**
@@ -29,6 +30,8 @@ import net.sf.json.JSONObject;
 public class PattrensServlet extends HttpServlet {
 
     static ArrayList<Pattren> allpattrens = new ArrayList<Pattren>();
+    
+    String currentId;
 
      
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -43,7 +46,7 @@ public class PattrensServlet extends HttpServlet {
         }
     }
     
-        void gohome(HttpServletRequest request, HttpServletResponse response) {
+        void gohome(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {   
             JSONObject obj;
                     obj = DataClass.getJSONObject(URLsClass.getpattrens, "");
@@ -51,8 +54,13 @@ public class PattrensServlet extends HttpServlet {
                     request.setAttribute("pattrens", allpattrens);  
             
                     request.getRequestDispatcher("pattrenspage.jsp").forward(request, response);//show only
+            } catch (NullPointerException ex) {
+                Logger.getLogger(PattrensServlet.class.getName()).log(Level.SEVERE, null, ex);
+                response.sendRedirect(request.getContextPath() + "/LoginServlet");
+
             } catch (Exception ex) {
                 Logger.getLogger(TripServlet.class.getName()).log(Level.SEVERE, null, ex);
+
             } 
     }
         void getPattrenssData(JSONObject obj){
@@ -67,15 +75,6 @@ public class PattrensServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -87,8 +86,22 @@ public class PattrensServlet extends HttpServlet {
                 String goflag= request.getParameter("goflag");
                 if(goflag.equals("edit")){
                     String pid= request.getParameter("pid");
-                    response.sendRedirect(request.getContextPath() + "/PattrensServlet?goflag=edit&id="+pid);
+                    String pname= request.getParameter("pname");
+                    int pmax= Integer.parseInt(request.getParameter("pmax"));
+
+                    currentId=pid;
+                    
+                    
+                Pattren p = new Pattren();
+                p.id = Integer.parseInt(pid);
+                p.name = pname;
+                p.max = pmax;
+                
+                request.setAttribute("selectedpattren", p);
+                request.getRequestDispatcher("editpattrenpage.jsp").forward(request, response);
+//                    response.sendRedirect(request.getContextPath() + "/PattrensServlet?goflag=edit&pid="+pid);
                 }
+                
                 
 //                request.getRequestDispatcher("pattrenspage.jsp").forward(request, response);//show only
                 
@@ -98,25 +111,56 @@ public class PattrensServlet extends HttpServlet {
             }
             
     }
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
+    
+    
+        @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        
+        String hiddenflag = request.getParameter("hiddenflag");
+        if(hiddenflag.equals("edit")){
+            try{
+            String pname = request.getParameter("pname");
+            String pmax = request.getParameter("pmax");
+            
+            JSONObject o = new JSONObject();
+            o.put("id", currentId);
+            o.put("name", pname);
+            o.put("max", pmax);
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+            JSONObject resObj = DataClass.getJSONObject(URLsClass.editpattren, o.toString());
+
+            int successf = resObj.getInt("success");     
+            if(successf==1){
+                gohome(request,response);
+            }
+            else
+            {           
+                    response.setContentType("text/html;charset=UTF-8");
+                    PrintWriter out = response.getWriter();
+                    out.println("<!DOCTYPE html>");
+                    out.println("<html>");
+                    out.println("<head>");
+                    out.println("<title>Servlet NewServlet</title>");            
+                    out.println("</head>");
+                    out.println("<body>");
+                    out.println(resObj.getString("msg"));
+                    out.println("</body>");
+                    out.println("</html>");   
+                
+            }
+                
+
+            } catch (Exception ex) {
+                Logger.getLogger(ManageServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+//        processRequest(request, response);
+    }
+    
+    
+    
+    
     @Override
     public String getServletInfo() {
         return "Short description";

@@ -1,18 +1,17 @@
+package com.mycompany.mavenserrr;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.mavenserrr;
 
-import com.google.gson.JsonElement;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -22,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import myclassespackage.DataClass;
 import myclassespackage.EventWarning;
+import myclassespackage.FemaleWarning;
 import myclassespackage.URLsClass;
 import net.sf.json.JSONObject;
 
@@ -29,11 +29,11 @@ import net.sf.json.JSONObject;
  *
  * @author dell
  */
-@WebServlet(name = "EventServlet", urlPatterns = {"/EventServlet"})
-public class EventServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/FemaleServlet"})
+public class FemaleServlet extends HttpServlet {
 
         
-    ArrayList<EventWarning> warnings = new ArrayList<EventWarning>();
+    ArrayList<FemaleWarning> warnings = new ArrayList<FemaleWarning>();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,7 +41,7 @@ public class EventServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
-                request.getRequestDispatcher("eventspage.jsp").forward(request, response);
+                request.getRequestDispatcher("femalepage.jsp").forward(request, response);
         } finally {
             out.close();
         }
@@ -55,7 +55,21 @@ public class EventServlet extends HttpServlet {
             try {
                 DataClass.checkSession(request, response);
                 //processRequest(request, response);
-                gohome(request, response);
+                
+//                gohome(request, response);
+                String goflag= request.getParameter("goflag");
+
+                if(goflag.equals("showevent")){
+                    String id= request.getParameter("id");
+
+                    FemaleWarning f = new FemaleWarning();
+                    f.timestamp=Long.parseLong(id);
+                    f.d.name = "mr x";
+                    f.p.FullName = "miss y";
+                    
+                    request.setAttribute("warning", f);
+                    request.getRequestDispatcher("femaleeventpage.jsp").forward(request, response);
+                }
                 
                 
             } catch (Exception ex) {
@@ -68,17 +82,17 @@ public class EventServlet extends HttpServlet {
     void gohome(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {   
             JSONObject obj;
-                    obj = DataClass.getJSONObject(URLsClass.getwanings, "");
+                    obj = DataClass.getJSONObject(URLsClass.getfemaleevents, "");
                     getWarningssData(obj);
                     request.setAttribute("warnings", warnings);  
             
-                    request.getRequestDispatcher("eventspage.jsp").forward(request, response);//show only
+                    request.getRequestDispatcher("femalepage.jsp").forward(request, response);//show only
             } catch (NullPointerException ex) {
-                Logger.getLogger(TripServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FemaleServlet.class.getName()).log(Level.SEVERE, null, ex);
                 response.sendRedirect(request.getContextPath() + "/LoginServlet");
 
             } catch (Exception ex) {
-                Logger.getLogger(EventServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FemaleServlet.class.getName()).log(Level.SEVERE, null, ex);
 
             } 
     }
@@ -86,13 +100,13 @@ public class EventServlet extends HttpServlet {
     void getWarningssData(JSONObject obj){
         warnings.clear();
         for (int i = 0; i < obj.getJSONArray("warning").size(); i++) {
-            EventWarning w = new EventWarning();
-            w.timestamp=obj.getJSONArray("warning").getJSONObject(i).getLong("timestamp");
-            w.did=obj.getJSONArray("warning").getJSONObject(i).getInt("did");
-            w.dname=obj.getJSONArray("warning").getJSONObject(i).getString("dname");
-            w.datetxt = getdatetxt(w.timestamp);
-
-            warnings.add(w);
+            FemaleWarning f = new FemaleWarning();
+            f.timestamp=obj.getJSONArray("warning").getJSONObject(i).getLong("timestamp");
+            f.tid=(int)obj.getJSONArray("warning").getJSONObject(i).getInt("tid");
+            f.lat=obj.getJSONArray("warning").getJSONObject(i).getDouble("lat");
+            f.lng=obj.getJSONArray("warning").getJSONObject(i).getDouble("lng");
+            f.datetxt=getdatetxt(f.timestamp);
+            warnings.add(f);
         }
     }
     

@@ -90,68 +90,29 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 							<!-- /nav-second-level -->
 						</li>
                                                 <li>
-							<a href="${pageContext.request.contextPath}/MonitorServlet"><i class="active fa fa-home nav_icon" ></i>Monitor</a>
+							<a href="${pageContext.request.contextPath}/MonitorServlet"><i class="fa fa-home nav_icon"></i>Monitor</a>
 						</li>
-<!--						<li class="">
-							<a href="#"><i class="fa fa-book nav_icon"></i>UI Elements <span class="fa arrow"></span></a>
-							<ul class="nav nav-second-level collapse">
+
+						<li>
+							<a href="#" ><i class="fa fa-th-large nav_icon"></i>Events <span class="fa arrow"></span></a>
+                                                        <ul class="nav nav-second-level collapse">
 								<li>
-									<a href="general.html">General<span class="nav-badge-btm">08</span></a>
-								</li>
-								<li>
-									<a href="typography.html">Typography</a>
+									<a href="${pageContext.request.contextPath}/FemaleServlet">Female Safety</a>
+								</li>	
+                                                                <li>
+									<a href="${pageContext.request.contextPath}/EventServlet">Warnings</a>
 								</li>
 							</ul>
-							 /nav-second-level 
-						</li>-->
-						<li>
-							<a href="${pageContext.request.contextPath}/EventServlet"><i class="fa fa-th-large nav_icon"></i>Events </a>
 						</li>
-<!--						<li>
-							<a href="#"><i class="fa fa-envelope nav_icon"></i>Mailbox<span class="fa arrow"></span></a>
-							<ul class="nav nav-second-level collapse">
-								<li>
-									<a href="inbox.html">Inbox <span class="nav-badge-btm">05</span></a>
-								</li>
-								<li>
-									<a href="compose.html">Compose email</a>
-								</li>
-							</ul>
-							 //nav-second-level 
-						</li>-->
+
 						<li>
+							<a href="${pageContext.request.contextPath}/PattrensServlet"><i class="fa fa-cogs nav_icon"></i>Pattrens </a>
+						</li>
+
+                                                <li>
 							<a href="${pageContext.request.contextPath}/TripServlet"><i class="fa fa-check-square-o nav_icon"></i>Trips </a>
 						</li>
-<!--						<li>
-							<a href="#"><i class="fa fa-check-square-o nav_icon"></i>Trips</a>
-							<ul class="nav nav-second-level collapse">
-								<li>
-									<a href="forms.html">Basic Forms <span class="nav-badge-btm">07</span></a>
-								</li>
-								<li>
-									<a href="validation.html">Validation</a>
-								</li>
-							</ul>
-							 //nav-second-level 
-						</li>-->
-<!--						<li>
-							<a href="#"><i class="fa fa-file-text-o nav_icon"></i>Pages<span class="nav-badge-btm">02</span><span class="fa arrow"></span></a>
-							<ul class="nav nav-second-level collapse">
-								<li>
-									<a href="login.html">Login</a>
-								</li>
-								<li>
-									<a href="signup.html">SignUp</a>
-								</li>
-								<li>
-									<a href="blank-page.html">Blank Page</a>
-								</li>
-							</ul>
-							 //nav-second-level 
-						</li>
-						<li>
-							<a href="charts.html" class="chart-nav"><i class="fa fa-bar-chart nav_icon"></i>Charts <span class="nav-badge-btm pull-right">new</span></a>
-						</li>-->
+
 					</ul>
 					<div class="clearfix"> </div>
 					<!-- //sidebar-collapse -->
@@ -273,10 +234,13 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                 <h4 class="title">Drivers Chart</h4>
                                     <canvas id="doughnut"  style="width:416px; height: 272px; padding-right: 20px;"></canvas>
                             </div>-->
-                                        <div class="col-md-12" style="background: #fff">
+
+<div class="col-md-12" style="background: #fff">
 						<h4 class="title">Drivers Average Chart</h4>
-						<canvas id="line" style="width:832px; height: 306px; padding-right: 20px;"> </canvas>
+						<canvas id="bar" style="width:832px; height: 406px; padding-right: 20px;"> </canvas>
 					</div>
+
+
                             </div>
 
                             
@@ -322,7 +286,7 @@ var lineChartData = {
 									]
 									
 								};
-new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
+new Chart(document.getElementById("bar").getContext("2d")).Line(lineChartData);
 
                             </script>
                                      

@@ -47,6 +47,13 @@ public class URLsClass {
    
        public static String getpattrens = domain+service+"getpattrens/";//get
 
+       public static String getwanings = domain+service+"getwanings/";//get
+       
+    public static String editpattren = domain+service+"editpattren/";//get
+    
+        public static String getfemaleevents = domain+service+"getfemaleevents/";//get
+
+
 
     //public static String apikey = "AIzaSyCj2uPSrU6P6L9AIQp0IVS1Ad7qqPnXePA"; 
 

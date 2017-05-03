@@ -1,15 +1,19 @@
 <%-- 
-    Document   : editdriver
-    Created on : Dec 10, 2016, 10:41:23 PM
+    Document   : trips
+    Created on : Jan 24, 2017, 9:48:22 PM
     Author     : dell
 --%>
 
 <%@page import="myclassespackage.*"%>
+<%@page import="net.sf.json.JSONArray"%>
+<%@page import="net.sf.json.JSONObject"%>
+<%@page import="java.lang.String"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>New Driver</title>
+<title>Trips</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -109,25 +113,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					</a>
 				</div>
 				<!--//logo-->
-				<!--search-box-->
-<!--				<div class="search-box">
-					<form class="input">
-						<input class="sb-search-input input__field--madoka" placeholder="Search..." type="search" id="input-31" />
-						<label class="input__label" for="input-31">
-							<svg class="graphic" width="100%" height="100%" viewBox="0 0 404 77" preserveAspectRatio="none">
-								<path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
-							</svg>
-						</label>
-					</form>
-				</div>//end-search-box-->
+
 				<div class="clearfix"> </div>
 			</div>
-			
+
                     <div class="header-right">
 				<div class="profile_details_left"><!--notifications of menu start -->
 					<ul class="nofitications-dropdown">
 						<li class="dropdown head-dpdn">
-							<a href="${pageContext.request.contextPath}/ManageServlet?goflag=showpending" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">1</span></a>
+							<a href="${pageContext.request.contextPath}/PendingServlet" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">1</span></a>
 						</li>	
 					</ul>
 					<div class="clearfix"> </div>
@@ -167,48 +161,60 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		<div id="page-wrapper">
 			<div class="main-page">
                             
-                            <br/>                            
-                            <h3 class="title1">Edit Driver</h3>
+                            <h3 class="title1">Events</h3>
+                                                        <h4 class="title1">Drivers with route restriction exceptions</h4>
+<br/>
                             
-                            <% //String servletParam = "edit"; %>
-                            <% //request.setAttribute(servletParam,servletParam); %>
+                            
+					<div class="col-md-12 stats-info widget-shadow">
+                                            
+        
+                            
+                                            
+                                            
+						<table class="table stats-table ">
+							<thead>
+								<tr>
+									<th>Driver ID</th>
+                                                                        <th>Driver Name</th>
+									<th>Datetime</th>
+									<th>Options</th>
+								</tr>
+							</thead>
+							<tbody>
+                                                           
+                                                            <% ArrayList<EventWarning> warnings = (ArrayList<EventWarning>) request.getAttribute("warnings"); %>
+                                                            
+                                                                <% for(int i = 0; i < warnings.size(); i+=1) { %>
+                                                                
+                                                               
+								<tr>
+                                                                        <th><%=warnings.get(i).did %></th>
+                                                                        <th><%=warnings.get(i).dname %></th>
+                                                                        <th><%=warnings.get(i).datetxt %></th>
+                                                                        <th>
+                                                                            <a href="${pageContext.request.contextPath}/ManageServlet?goflag=showdriver&id=<%=warnings.get(i).did%>"><span class="label label-primary">   View Profile  </span></a>
+                                                                           </th>
 
-		                    <%  Driver selectedD = (Driver)request.getAttribute("selecteddriver"); %>
-
-					<div class="form-grids row widget-shadow" data-example-id="basic-forms"> 
-						     <div class="profile-top">
-							<img width="170" height="170" src='<%=(String)request.getAttribute("image")%>' alt="">
-                                                        <h4><%=selectedD.name%></h4>
-							<h5>Driver</h5>
-						</div>
-						<div class="form-body">
-                                               
-                                                        
-							<form action="${pageContext.request.contextPath}/ManageServlet" method="post" enctype="multipart/form-data"> 
-                                                            <div class="form-group"> 
-                                                                <label for="exampleInputText1">Driver Name</label> 
-                                                                <input type="text" class="form-control" name="dname" value="<%=selectedD.name%>" placeholder="Name"> 
-                                                            </div> 
-                                                            <div class="form-group"> 
-                                                                <label for="exampleInputEmail1">Driver Email</label> 
-                                                                <input type="email" class="form-control" name="demail" value="<%=selectedD.email%>" placeholder="Email"> 
-                                                            </div> 
-                                                            <div class="form-group"> 
-                                                                <label for="exampleInputPassword1">Driver Password</label> 
-                                                                <input type="password" class="form-control" name="dpassword" value="<%=selectedD.password%>" placeholder="new Password"> 
-                                                            </div> 
-                                                            <div class="form-group"> 
-                                                                <label for="exampleInputFile">Driver Image</label> 
-                                                                <input type="file" id="dimage" name="dimage"> 
-                                                                <p class="help-block">You can upload small driver image here.</p> 
-                                                            </div> 
-                                                            <input type="hidden" name="hiddenflag" id="hiddenflag" value="edit">
-                                                            <button type="submit" name="action1" class="btn btn-primary">Save Changes</button> 
-                                                        </form> 
-						</div>
+                                                                </tr>
+							     <% } %>
+                                                             
+							</tbody>
+						</table>
+                                                    
+                                                             
+                                                             
+                                                             
+ 
+                                                    
+                                                             
+                                                             
 					</div>
-
-                            
+                                    
+                                    
+                                    
+                                    
+                              
 			</div>
 		</div>
 		<!--footer-->

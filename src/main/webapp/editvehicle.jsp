@@ -53,7 +53,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 							<a href="index.html"><i class="fa fa-home nav_icon"></i>Dashboard</a>
 						</li>-->
 						<li>
-							<a href="#"><i class="fa fa-cogs nav_icon"></i>Manage <span class="fa arrow"></span></a>
+							<a href="#"><i class="fa fa-cogs nav_icon"></i>Manage  <span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level collapse">
 								<li>
 									<a href="${pageContext.request.contextPath}/ManageServlet?goflag=showdrivers">Drivers</a>
@@ -68,15 +68,25 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 							<a href="${pageContext.request.contextPath}/MonitorServlet"><i class="fa fa-home nav_icon"></i>Monitor</a>
 						</li>
 
-                                                
 						<li>
-							<a href="${pageContext.request.contextPath}/EventServlet"><i class="fa fa-th-large nav_icon"></i>Events </a>
+							<a href="#" ><i class="fa fa-th-large nav_icon"></i>Events <span class="fa arrow"></span></a>
+                                                        <ul class="nav nav-second-level collapse">
+								<li>
+									<a href="${pageContext.request.contextPath}/FemaleServlet">Female Safety</a>
+								</li>	
+                                                                <li>
+									<a href="${pageContext.request.contextPath}/EventServlet">Warnings</a>
+								</li>
+							</ul>
 						</li>
 
 						<li>
+							<a href="${pageContext.request.contextPath}/PattrensServlet"><i class="fa fa-cogs nav_icon"></i>Pattrens </a>
+						</li>
+
+                                                <li>
 							<a href="${pageContext.request.contextPath}/TripServlet"><i class="fa fa-check-square-o nav_icon"></i>Trips </a>
 						</li>
-
 
 					</ul>
 					<div class="clearfix"> </div>

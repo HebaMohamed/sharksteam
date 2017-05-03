@@ -1,15 +1,15 @@
 <%-- 
-    Document   : editdriver
-    Created on : Dec 10, 2016, 10:41:23 PM
+    Document   : editvehicle
+    Created on : Dec 12, 2016, 1:28:29 AM
     Author     : dell
 --%>
 
 <%@page import="myclassespackage.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
-<title>New Driver</title>
+<title>Edit Vehicle</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -122,19 +122,18 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 				</div>//end-search-box-->
 				<div class="clearfix"> </div>
 			</div>
-			
                     <div class="header-right">
 				<div class="profile_details_left"><!--notifications of menu start -->
 					<ul class="nofitications-dropdown">
 						<li class="dropdown head-dpdn">
-							<a href="${pageContext.request.contextPath}/ManageServlet?goflag=showpending" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">1</span></a>
+							<a href="${pageContext.request.contextPath}/PendingServlet" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">1</span></a>
 						</li>	
 					</ul>
 					<div class="clearfix"> </div>
 				</div>
                             
-                            <% String servletParam = "showall"; %>
-                            <% request.setAttribute(servletParam,servletParam); %>
+                            <% //String servletParam = "showall"; %>
+                            <% //request.setAttribute(servletParam,servletParam); %>
                             
 				<!--notification menu end -->
 				<div class="profile_details">		
@@ -168,39 +167,23 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 			<div class="main-page">
                             
                             <br/>                            
-                            <h3 class="title1">Edit Driver</h3>
+                            <h3 class="title1">Edit Pattren</h3>
                             
-                            <% //String servletParam = "edit"; %>
-                            <% //request.setAttribute(servletParam,servletParam); %>
 
-		                    <%  Driver selectedD = (Driver)request.getAttribute("selecteddriver"); %>
+                            		                    <%  Pattren pattren = (Pattren)request.getAttribute("selectedpattren"); %>
 
+		
 					<div class="form-grids row widget-shadow" data-example-id="basic-forms"> 
-						     <div class="profile-top">
-							<img width="170" height="170" src='<%=(String)request.getAttribute("image")%>' alt="">
-                                                        <h4><%=selectedD.name%></h4>
-							<h5>Driver</h5>
-						</div>
+						
 						<div class="form-body">
-                                               
-                                                        
-							<form action="${pageContext.request.contextPath}/ManageServlet" method="post" enctype="multipart/form-data"> 
+							<form action="${pageContext.request.contextPath}/PattrensServlet" method="post" > 
                                                             <div class="form-group"> 
-                                                                <label for="exampleInputText1">Driver Name</label> 
-                                                                <input type="text" class="form-control" name="dname" value="<%=selectedD.name%>" placeholder="Name"> 
+                                                                <label for="exampleInputText1">Name</label> 
+                                                                <input type="text" class="form-control" value="<%=pattren.name %>" name="pname" placeholder="Pattren Name"> 
                                                             </div> 
                                                             <div class="form-group"> 
-                                                                <label for="exampleInputEmail1">Driver Email</label> 
-                                                                <input type="email" class="form-control" name="demail" value="<%=selectedD.email%>" placeholder="Email"> 
-                                                            </div> 
-                                                            <div class="form-group"> 
-                                                                <label for="exampleInputPassword1">Driver Password</label> 
-                                                                <input type="password" class="form-control" name="dpassword" value="<%=selectedD.password%>" placeholder="new Password"> 
-                                                            </div> 
-                                                            <div class="form-group"> 
-                                                                <label for="exampleInputFile">Driver Image</label> 
-                                                                <input type="file" id="dimage" name="dimage"> 
-                                                                <p class="help-block">You can upload small driver image here.</p> 
+                                                                <label for="exampleInputEmail1">Max</label> 
+                                                                <input type="text" class="form-control" value="<%=pattren.max %>" name="pmax" placeholder="Max Number Per Week"> 
                                                             </div> 
                                                             <input type="hidden" name="hiddenflag" id="hiddenflag" value="edit">
                                                             <button type="submit" name="action1" class="btn btn-primary">Save Changes</button> 

@@ -53,7 +53,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             <br/>
                             <div class="widget-shadow">
 					<div class="login-top">
-						<h4>Welcome back to SHARKS 1 AdminPanel ! <br> Not a Member? <a href="${pageContext.request.contextPath}/SignupServlet">  Sign Up »</a> </h4>
+						<h4>Welcome back to SHARKS AdminPanel ! <br> Not a Member? <a href="${pageContext.request.contextPath}/SignupServlet">  Sign Up »</a> </h4>
 					</div>
 					<div class="login-body">
 						<form action="${pageContext.request.contextPath}/LoginServlet" method="post"  >

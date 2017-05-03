@@ -57,10 +57,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 							<a href="index.html"><i class="fa fa-home nav_icon"></i>Dashboard</a>
 						</li>-->
 						<li>
-							<a href="#"><i class="fa fa-cogs nav_icon"></i>Manage <span class="fa arrow"></span></a>
+							<a href="#"><i class="fa fa-cogs nav_icon"></i>Manage  <span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level collapse">
 								<li>
-									<a href="${pageContext.request.contextPath}/ManageServlet?goflag=showdrivers" class="active">Drivers</a>
+									<a href="${pageContext.request.contextPath}/ManageServlet?goflag=showdrivers">Drivers</a>
 								</li>
 								<li>
 									<a href="${pageContext.request.contextPath}/ManageVehicleServlet?goflag=showvehicles">Vehicles</a>
@@ -73,42 +73,25 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						</li>
 
 						<li>
-							<a href="${pageContext.request.contextPath}/EventServlet"><i class="fa fa-th-large nav_icon"></i>Events </a>
+							<a href="#" ><i class="fa fa-th-large nav_icon"></i>Events <span class="fa arrow"></span></a>
+                                                        <ul class="nav nav-second-level collapse">
+								<li>
+									<a href="${pageContext.request.contextPath}/FemaleServlet">Female Safety</a>
+								</li>	
+                                                                <li>
+									<a href="${pageContext.request.contextPath}/EventServlet">Warnings</a>
+								</li>
+							</ul>
 						</li>
 
 						<li>
+							<a href="${pageContext.request.contextPath}/PattrensServlet"><i class="fa fa-cogs nav_icon"></i>Pattrens </a>
+						</li>
+
+                                                <li>
 							<a href="${pageContext.request.contextPath}/TripServlet"><i class="fa fa-check-square-o nav_icon"></i>Trips </a>
 						</li>
-<!--						<li>
-							<a href="#"><i class="fa fa-check-square-o nav_icon"></i>Trips</a>
-							<ul class="nav nav-second-level collapse">
-								<li>
-									<a href="forms.html">Basic Forms <span class="nav-badge-btm">07</span></a>
-								</li>
-								<li>
-									<a href="validation.html">Validation</a>
-								</li>
-							</ul>
-							 //nav-second-level 
-						</li>-->
-<!--						<li>
-							<a href="#"><i class="fa fa-file-text-o nav_icon"></i>Pages<span class="nav-badge-btm">02</span><span class="fa arrow"></span></a>
-							<ul class="nav nav-second-level collapse">
-								<li>
-									<a href="login.html">Login</a>
-								</li>
-								<li>
-									<a href="signup.html">SignUp</a>
-								</li>
-								<li>
-									<a href="blank-page.html">Blank Page</a>
-								</li>
-							</ul>
-							 //nav-second-level 
-						</li>
-						<li>
-							<a href="charts.html" class="chart-nav"><i class="fa fa-bar-chart nav_icon"></i>Charts <span class="nav-badge-btm pull-right">new</span></a>
-						</li>-->
+
 					</ul>
 					<div class="clearfix"> </div>
 					<!-- //sidebar-collapse -->
@@ -179,6 +162,31 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 			<div class="main-page">
                             
                             <h3 class="title1">Trips</h3>
+                            
+                            <div class="col-md-6 widget states-mdl" style="width: 45%">
+						<div class="stats-left ">
+							<h5>Today</h5>
+							<h4>Trips</h4>
+						</div>
+						<div class="stats-right">
+							<label><%=(String)request.getAttribute("todaycount")%></label>
+						</div>
+						<div class="clearfix"> </div>	
+					</div>
+                                                 <div class="col-md-6 widget states-last" style="width: 45%">
+                                                     <div class="stats-left " >
+							<h5>Today</h5>
+							<h4>Earnings</h4>
+						</div>
+						<div class="stats-right">
+							<label><%=(String)request.getAttribute("todayearnings")%></label>
+						</div>
+						<div class="clearfix"> </div>	
+					</div>
+                                                 </div>
+                                                
+                                                <br/>
+                            
                     <div class="col-md-12 widget-shadow">
                             <ul class="nav navbar-nav"> 
 				<li class="dropdown"> <a href="#" id="navbarDrop1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Search By Date<span class="caret"></span></a> 
