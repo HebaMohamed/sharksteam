@@ -43,8 +43,9 @@ public class URLsClass {
     
     public static String assignvehicle = domain+service+"assignvehicle/";
 
-   public static String getdriveravg = domain+service+"getdriveravg/";
-   
+    public static String getdriveravg = domain+service+"getdriveravg/";
+    public static String getdrivertrips = domain+service+"getdrivertrips/";
+
        public static String getpattrens = domain+service+"getpattrens/";//get
 
        public static String getwanings = domain+service+"getwanings/";//get
@@ -53,6 +54,9 @@ public class URLsClass {
     
         public static String getfemaleevents = domain+service+"getfemaleevents/";//get
 
+            public static String gettrip = domain+service+"gettrip/";
+
+        public static String getfemaleevent = domain+service+"getfemaleevent/";//get
 
 
     //public static String apikey = "AIzaSyCj2uPSrU6P6L9AIQp0IVS1Ad7qqPnXePA"; 

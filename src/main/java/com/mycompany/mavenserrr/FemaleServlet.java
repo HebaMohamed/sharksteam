@@ -6,6 +6,7 @@ package com.mycompany.mavenserrr;
  * and open the template in the editor.
  */
 
+import com.firebase.client.Firebase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.Format;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import myclassespackage.DataClass;
+import myclassespackage.Driver;
 import myclassespackage.EventWarning;
 import myclassespackage.FemaleWarning;
 import myclassespackage.URLsClass;
@@ -61,16 +63,38 @@ public class FemaleServlet extends HttpServlet {
 
                 if(goflag.equals("showevent")){
                     String id= request.getParameter("id");
-
+                    
+                    JSONObject obj = DataClass.getJSONObject(URLsClass.getfemaleevent+id, "");
                     FemaleWarning f = new FemaleWarning();
                     f.timestamp=Long.parseLong(id);
-                    f.d.name = "mr x";
-                    f.p.FullName = "miss y";
+                    f.lat=obj.getDouble("lat");
+                    f.lng=obj.getDouble("lng");
+                    f.d.id = obj.getInt("did");
+                    f.d.name = obj.getString("dname");
+                    f.p.ID = obj.getInt("pid");
+                    f.p.FullName = obj.getString("pname");
+                    
+                    JSONObject nd = obj.getJSONObject("neard");
+                    int nid = nd.getInt("id");
+                    String nname = nd.getString("name");
+
+                    Driver neardriver = new Driver (nid);
+                    neardriver.name=nname;
+
+//                    f.d.name = "mr x";
+//                    f.p.FullName = "miss y";
                     
                     request.setAttribute("warning", f);
+                    request.setAttribute("neardriver", neardriver);
+
                     request.getRequestDispatcher("femaleeventpage.jsp").forward(request, response);
                 }
-                
+                else if(goflag.equals("sendhelp")){
+                    String id= request.getParameter("id");
+                    
+//                Firebase  myFirebaseRef = new Firebase("https://sharksmapandroid-158200.firebaseio.com/");
+//                myFirebaseRef.child("driver").child(String.valueOf(id)).child("wallet").setValue(0);
+                }
                 
             } catch (Exception ex) {
                 Logger.getLogger(TripServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -109,6 +133,8 @@ public class FemaleServlet extends HttpServlet {
             warnings.add(f);
         }
     }
+    
+    
     
      public String getdatetxt(Long ts){            
         Date d = new Date(ts);

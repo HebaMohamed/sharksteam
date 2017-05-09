@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -31,6 +32,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import myclassespackage.MonitoringMember;
+import myclassespackage.Passenger;
+import myclassespackage.Trip;
 import myclassespackage.Vehicle;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -51,6 +54,9 @@ public class ManageServlet extends HttpServlet {
     public static Driver selecteddriver;
     
     String currentDid;
+    
+    static ArrayList<Trip> alldrivertrips = new ArrayList<Trip>();
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -553,12 +559,40 @@ public class ManageServlet extends HttpServlet {
                     out.println("</html>");   
                 }
         }
+            else if(goflag.equals("drivertripsreport")){
+                String did = request.getParameter("did");
+                currentDid=did;
+                JSONObject resObj = DataClass.getJSONObject(URLsClass.getdrivertrips+did+"/", "");
+                int successf = resObj.getInt("success");
+                if(successf==1){
+                    getTripsData(resObj);
+                    request.setAttribute("trips", alldrivertrips);  
+                    request.setAttribute("dname",resObj.getString("dname"));
+                    request.setAttribute("acceptedcount", String.valueOf(resObj.getInt("acceptedcount")));
+                    request.setAttribute("ignoredcount", String.valueOf(resObj.getInt("ignoredcount")));
+                    request.setAttribute("wallet", String.valueOf(resObj.getDouble("wallet")));
+
+                request.getRequestDispatcher("monitordrivertripspage.jsp").forward(request, response);//show only
+                }
+            }
+            
+              else if(goflag.equals("emptywallet")){
+                Firebase  myFirebaseRef = new Firebase("https://sharksmapandroid-158200.firebaseio.com/");
+                myFirebaseRef.child("driver").child(String.valueOf(currentDid)).child("wallet").setValue(0);
+//                response.sendRedirect(request.getContextPath() + "/ManageServlet");
+
+            }
+            
             
                     
             //for side menu
             if(goflag.equals("showdrivers")){
                 response.sendRedirect(request.getContextPath() + "/ManageServlet");
             }
+        }
+        catch(NullPointerException e){
+            Logger.getLogger(ManageServlet.class.getName()).log(Level.SEVERE, null, e);
+//            response.sendRedirect(request.getContextPath() + "/LoginServlet");
         }
         catch(Exception e){
             Logger.getLogger(ManageServlet.class.getName()).log(Level.SEVERE, null, e);
@@ -567,6 +601,71 @@ public class ManageServlet extends HttpServlet {
         processRequest(request, response);
     }
 
+        void getTripsData(JSONObject obj) throws Exception{
+        alldrivertrips.clear();
+        for (int i = 0; i < obj.getJSONArray("trips").size(); i++) {
+                        
+            Trip t = new Trip(
+                    obj.getJSONArray("trips").getJSONObject(i).getInt("trip_id"), 
+                    obj.getJSONArray("trips").getJSONObject(i).getString("start"), 
+                    obj.getJSONArray("trips").getJSONObject(i).getString("end"), 
+                    obj.getJSONArray("trips").getJSONObject(i).getDouble("price"), 
+                    obj.getJSONArray("trips").getJSONObject(i).getString("comment"), 
+                    obj.getJSONArray("trips").getJSONObject(i).getInt("ratting"));
+            t.p= new Passenger(obj.getJSONArray("trips").getJSONObject(i).getInt("passenger_id"));
+            t.d= new Driver(obj.getJSONArray("trips").getJSONObject(i).getInt("driver_id"));
+            t.staticmapurl=getpathwaymap(obj.getJSONArray("trips").getJSONObject(i).getInt("trip_id"));
+            
+            t.from_addr=getAddress(obj.getJSONArray("trips").getJSONObject(i).getDouble("fromlat"),obj.getJSONArray("trips").getJSONObject(i).getDouble("fromlng"));
+            t.to_addr=getAddress(obj.getJSONArray("trips").getJSONObject(i).getDouble("tolat"),obj.getJSONArray("trips").getJSONObject(i).getDouble("tolng"));
+
+            
+            alldrivertrips.add(t);            
+        }
+    }
+    
+        
+    String getAddress(double lat, double lng){
+            //get addresses
+            String formatted_address;
+            JSONObject addr;
+            try {
+                addr = DataClass.getJSONObject("http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&sensor=true", "");
+                if(!addr.getJSONArray("results").isEmpty())
+                    formatted_address = addr.getJSONArray("results").getJSONObject(0).getString("formatted_address");
+                else 
+                    formatted_address = "Wrong Coordinates";
+          } catch (Exception ex) {
+                Logger.getLogger(TripServlet.class.getName()).log(Level.SEVERE, null, ex);
+                formatted_address = "Unmoved Trip";
+            }
+        return formatted_address;            
+    }
+    
+    String getpathwaymap(int tripid){
+        String staticmapurl = "https://maps.googleapis.com/maps/api/staticmap?";
+            try {
+                JSONObject obj = DataClass.getJSONObject(URLsClass.getpathwaymap+"/"+tripid, "");
+                
+                int centersize = obj.getJSONArray("pathwaymap").size()/2;
+                String latcenter = obj.getJSONArray("pathwaymap").getJSONObject(centersize).getString("yattitude");
+                String lngcenter = obj.getJSONArray("pathwaymap").getJSONObject(centersize).getString("xlongitude");
+                
+                staticmapurl += "center="+latcenter+","+lngcenter+"&size=290x110&path=color:0x0000ff|weight:5";//&zoom=14
+
+                for (int i = 0; i < obj.getJSONArray("pathwaymap").size(); i++) {
+                    String lat = obj.getJSONArray("pathwaymap").getJSONObject(i).getString("yattitude");
+                    String lng = obj.getJSONArray("pathwaymap").getJSONObject(i).getString("xlongitude");
+                    staticmapurl+="|"+lat+","+lng;
+                }
+                staticmapurl+="&key="+URLsClass.apikey;
+            } catch (Exception ex) {
+                Logger.getLogger(TripServlet.class.getName()).log(Level.SEVERE, null, ex);
+                staticmapurl="";
+            }
+            return staticmapurl;
+    }
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -758,6 +857,7 @@ public class ManageServlet extends HttpServlet {
 //        d.Harsh_Breaking=dobj.getDouble("harsh_breaking_freq");
 //        d.Awarness_Level=dobj.getDouble("awareness_level");
         d.image=dobj.getString("image");//bytearr string
+        d.logged=dobj.getBoolean("logged");
         
         //for ristricted routes level
         JSONArray arr = obj.getJSONArray("ristrictedroute");

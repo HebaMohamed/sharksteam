@@ -33,6 +33,11 @@ double lattitude;
 public String comment;
 public int rating;
 
+public String from_addr;
+public String to_addr;
+
+public String status;
+
 public Trip(int id)
 {
     trip_ID=id;

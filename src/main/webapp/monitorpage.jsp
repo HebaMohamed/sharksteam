@@ -229,14 +229,34 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 				</div>
                             
                             <br/>
-                            <div class="row" >
+                            
+                            <div class="row"  style="background: #fff">
+                                <div class="row" style="background: #fff">
+                                <div class="col-md-3">                                                 
+                                    <h4 class="title">Drivers Availability Chart <br/></h4>
+                                </div>
+                                <div class="col-md-3">
+                                    <h4 class="title">Drivers Average Chart</h4>
+                                </div>
+                                <div class="col-md-6">
+                                     <h4 class="title"> </h4>
+                                </div>
+                            </div>
 <!--                            <div class="col-md-6 chrt-page-grids">
                                 <h4 class="title">Drivers Chart</h4>
                                     <canvas id="doughnut"  style="width:416px; height: 272px; padding-right: 20px;"></canvas>
                             </div>-->
-
-<div class="col-md-12" style="background: #fff">
-						<h4 class="title">Drivers Average Chart</h4>
+                                        <div class="col-md-3">
+                                            <div class="doughnut-grid" style="background: #fff">
+						<canvas id="doughnut" style="width:832px; height: 406px;" ></canvas>
+                                            </div>x
+                                        </div>
+                                        <div class="col-md-3">
+                                             <div class="doughnut-grid" style="background: #fff">
+						<canvas id="polarArea" style="width:832px; height: 406px;" ></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="background: #fff">
 						<canvas id="bar" style="width:832px; height: 406px; padding-right: 20px;"> </canvas>
 					</div>
 
@@ -259,6 +279,31 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								}
 							
 							];
+                                                        
+                                                        var chartData = [
+							{
+								value : <%=(Integer)request.getAttribute("bad_count")%>,
+								color: "rgba(239, 85, 58, 0.87)",
+                                                                label: "Bad"
+							},
+							{
+								value : <%=(Integer)request.getAttribute("good_count")%>,
+								color: "rgba(242, 179, 63, 0.87)",
+                                                                label: "Good"
+							},
+							{
+								value : <%=(Integer)request.getAttribute("verygood_count")%>,
+								color: "rgba(88, 88, 88, 0.87)",
+                                                                label: "Very Good"
+							},
+							{
+								value : <%=(Integer)request.getAttribute("excellent_count")%>,
+								color: "rgba(147, 88, 172, 0.87)",
+                                                                label: "Excellent"
+							}
+						];
+
+                                                        
 //new Chart(document.getElementById("doughnut").getContext("2d")).Doughnut(doughnutData);
 
 <% ArrayList<Integer> tripsratings = (ArrayList<Integer>) request.getAttribute("tripsratings"); %>
@@ -280,13 +325,13 @@ var lineChartData = {
                                                                                                 pointColor : "#4F52BA",
                                                                                                 pointStrokeColor : "#fff",
                                                                                                 data : dataa
-
-
 										}
 									]
 									
 								};
-new Chart(document.getElementById("bar").getContext("2d")).Line(lineChartData);
+new Chart(document.getElementById("bar").getContext("2d")).Bar(lineChartData);
+						new Chart(document.getElementById("doughnut").getContext("2d")).Doughnut(doughnutData);
+new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chartData);
 
                             </script>
                                      

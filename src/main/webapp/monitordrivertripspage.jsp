@@ -1,6 +1,6 @@
 <%-- 
-    Document   : trips
-    Created on : Jan 24, 2017, 9:48:22 PM
+    Document   : managedriver
+    Created on : Dec 9, 2016, 12:29:56 AM
     Author     : dell
 --%>
 
@@ -13,7 +13,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Trips</title>
+<title>Sharks Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -45,6 +45,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="js/custom.js"></script>
 <link href="css/custom.css" rel="stylesheet">
 <!--//Metis Menu -->
+<!-- chart -->
+<script src="js/Chart.js"></script>
+
 </head> 
 <body class="cbp-spmenu-push">
 	<div class="main-content">
@@ -127,8 +130,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					<div class="clearfix"> </div>
 				</div>
                             
-                            <% String servletParam = "showall"; %>
-                            <% request.setAttribute(servletParam,servletParam); %>
+                                                
                             
 				<!--notification menu end -->
 				<div class="profile_details">		
@@ -147,7 +149,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								</div>	
 							</a>
 							<ul class="dropdown-menu drp-mnu">
-								<li> <a href="${pageContext.request.contextPath}/LoginServlet?goflag=logout"><i class="fa fa-sign-out"></i> Logout</a> </li>
+							<li> <a href="${pageContext.request.contextPath}/LoginServlet?goflag=logout"><i class="fa fa-sign-out"></i> Logout</a> </li>
 							</ul>
 						</li>
 					</ul>
@@ -159,55 +161,57 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		<!-- //header-ends -->
 		<!-- main content start-->
 		<div id="page-wrapper">
-			<div class="main-page">
+			<div class="main-page chrt-page-grids" style="width: 100%">
                             
-                            <h3 class="title1">Trips</h3>
                             
-                    <div class="col-md-12 widget-shadow">
-                            <div class="row">
-                                        <div class="col-md-6 widget states-mdl" style="width: 45%">
-						<div class="stats-left ">
-							<h5>Today</h5>
-							<h4>Trips</h4>
+                            <div class="col-md-10 ">
+                                <h3 class="title1">Driver Trips</h3>
+                            <h4 class="title1">Driver Name : <%=(String)request.getAttribute("dname")%></h4>
+                            <br/>
+                            </div>
+                            <div class="col-md-2">                 
+
+                            </div>
+                            
+                                                    <div class="col-md-6" style="width: 50%">
+                                                        
+                                                                <canvas id="doughnut" ></canvas>
+                                                                <center>            <h4 class="title">Trips Acceptance Chart</h4> </center>
+
+                                                    </div>
+                            
+                                                 <div class="col-md-4 widget states-last" style="width: 45%">
+						<div class="stats-left">
+							<h5>Last</h5>
+							<h4>Wallet</h4>
 						</div>
 						<div class="stats-right">
-							<label><%=(String)request.getAttribute("todaycount")%></label>
+							<label><%=(String)request.getAttribute("wallet")%>$</label>
 						</div>
 						<div class="clearfix"> </div>	
-					</div>
-                                                 <div class="col-md-6 widget states-last" style="width: 45%">
-                                                     <div class="stats-left " >
-							<h5>Today</h5>
-							<h4>Earnings</h4>
-                                                        </div>
-                                                        <div class="stats-right">
-                                                                <label><%=(String)request.getAttribute("todayearnings")%></label>
-                                                        </div>
-                                                        <div class="clearfix"> </div>	
-                                                </div>
                                                 
                                                 </div>
-                                                
+                            
+                                          <div class="row">
+                                                        <div class="col-md-6">
+                                                            <br/><br/><br/><br/>
+                                                            <center>
+                                                        <h3><a href="#" data-toggle="modal" data-whatever="@mdo" data-target="#exampleModall" ><span class="label label-primary">Reset Wallet</span></a></h3>
+                                                        </center>
+                                                        </div>
+                                                </div>
+                            
+                            
+                            
+
+                                                 </div>
                                                 
                                                 <br/>
                             
-                            <ul class="nav navbar-nav"> 
-				<li class="dropdown"> <a href="#" id="navbarDrop1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Search By Date<span class="caret"></span></a> 
-					<ul class="dropdown-menu" aria-labelledby="navbarDrop1"> 
-                                            <li class=""><a href="${pageContext.request.contextPath}/TripServlet?goflag=today">Today</a></li> 
-                                            <li class=""><a href="${pageContext.request.contextPath}/TripServlet?goflag=lastweek">Last Week</a></li> 	
-                                            <li class=""><a href="${pageContext.request.contextPath}/TripServlet?goflag=lastmonth">Last Month</a></li> 
-                                            <li class=""><a href="${pageContext.request.contextPath}/TripServlet?goflag=lastyear">Last Year</a></li> 
-                                            <li class=""><a href="${pageContext.request.contextPath}/TripServlet?goflag=all">All Trips</a></li> 
-                                        </ul> 
-				</li> 
-										
-                            </ul>
+                            <br/>
 
-                    </div>
-                                    
-					<div class="col-md-12 stats-info widget-shadow">
-						<table class="table stats-table ">
+                            
+                            <table class="table stats-table " style="background: #fff">
 							<thead>
 								<tr>
 									<th>T.ID</th>
@@ -226,7 +230,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                            
                                                             <% String deletef = "0"; %>
                                                             <% ArrayList<Trip> trips = (ArrayList<Trip>) request.getAttribute("trips"); %>
-                                                            <%double total = 0;%>
+                                                            
                                                                 <% for(int i = 0; i < trips.size(); i+=1) { %>
                                                                 
                                                                 <%//calculate ratting 
@@ -274,68 +278,66 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                         <th><%=trips.get(i).comment %></th>
                                                                         
                                                                         <th>
-                                                                            <!--<a href="${pageContext.request.contextPath}/ManageServlet?goflag=showdriver&id=<%=trips.get(i).d.id  %>"><span class="label label-primary">View Driver</span></a>-->
-                                                                            <a href="${pageContext.request.contextPath}/TripServlet?goflag=showtrip&tid=<%=trips.get(i).trip_ID  %>"><span class="label label-primary">View Details</span></a>
+                                                                            <a href="${pageContext.request.contextPath}/ManageServlet?goflag=showdriver&id=<%=trips.get(i).d.id  %>"><span class="label label-primary">View Driver</span></a>
 
                                                                            </th>
 
-                                                                           <%total+=trips.get(i).price;%>
                                                                 </tr>
 							     <% } %>
                                                              
 							</tbody>
 						</table>
-                                                             <div class="row">
-                                                                 <div class="col-md-10"></div>
-                                                                 <div class="col-md-2"
-                                                                       <h2>Total : <%=total%>$</h2>
-                                                                 </div>
-                                                             </div>
-                                                    <script type='text/javascript'>
-                                                        var id ='';
-                                                        function myFunction(d){
-                                                        //...script code
-                                                        id=d;
-                                                        <%deletef = "<script>document.writeln(id)</script>";%>
-                                                        }
-                                                        
-                                                        
-                                                        $(".tableRow").click(function(e){
-                                                           <%deletef = "<script>document.writeln(id)</script>";%>
-                                                          });
+                                                             
+                            <script>
+                                
+                                var doughnutData = [
+								{
+									value: <%=(String)request.getAttribute("acceptedcount")%>,
+									color : "#585858",
+                                                                        label: "Accepted Trips"
+								},
+								{
+									value: <%=(String)request.getAttribute("ignoredcount")%>,
+									color : "#e94e02",
+                                                                        label: "Ignored Trips"
+								}
+							
+							];
+                                                        new Chart(document.getElementById("doughnut").getContext("2d")).Doughnut(doughnutData);
 
-                                                    </script>
-                                                             
-                                                             
-                                                             
-                                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                                <h4 class="modal-title" id="exampleModalLabel">Are you sure to delete this driver? <%=deletef%></h4>
-									</div>
-									<div class="modal-body">
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                                                                <a href="?res=yes" type="button" class="btn btn-primary">Yes</a>
-									</div>
-								</div>
-							</div>
-						</div>
-
-                                                             
-                                                             
-					</div>
-
+                                
+                            </script>
+                            
+                            
                                     
-                                     </div>
+                            
+                                    
+                                    
                                     
                               
 			</div>
 		</div>
-                                                                        
+                            
+                            
+                            <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                <h4 class="modal-title" id="exampleModalLabel">Are you sure to empty this driver wallet?</h4>
+									</div>
+<!--									<div class="modal-body">
+									</div>-->
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                                                <a href="${pageContext.request.contextPath}/ManageServlet?goflag=emptywallet" class="btn btn-primary">Yes</a>
+									</div>
+								</div>
+							</div>
+						</div>
+                                            
+                            
+                                            
 		<!--footer-->
 		<div class="footer">
 		   <p>&copy; 2016 Novus Admin Panel. All Rights Reserved | Design by <a href="https://w3layouts.com/" target="_blank">w3layouts</a></p>

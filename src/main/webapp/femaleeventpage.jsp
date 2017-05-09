@@ -171,6 +171,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             
                             
                             <% FemaleWarning warning = (FemaleWarning) request.getAttribute("warning"); %>
+                            <% Driver neardriver = (Driver) request.getAttribute("neardriver"); %>
 
                             
 					<div class="col-md-12 stats-info widget-shadow">
@@ -200,7 +201,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <script>
         
     function initAutocomplete() {
-        var uluru = {lat: 30.045915, lng: 31.22429};//
+//        var uluru = {lat: 30.045915, lng: 31.22429};//
+var lat = <%=warning.lat%>;
+var lng = <%=warning.lng%>;
+        var uluru = {lat: lat, lng: lng};//
+
         var map = new google.maps.Map(document.getElementById('map'), {
           center: uluru,
           zoom: 14,
@@ -282,13 +287,13 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
          
          <div class="profile-right">
              <p>Nearest Driver Name</p>
-             <h4>Mr Z</h4>
+             <h4><%=neardriver.name%></h4>
          </div>
          
          <div class="col-md-9"></div>
                                                                                  <div class="col-md-3">
                                                                                      <h3>
-                                                                                        <a href="#"><span class="label label-danger">Ask him for help</span></a>
+                                                                                        <a href="${pageContext.request.contextPath}/FemaleServlet?goflag=sendhelp&id=<%=neardriver.id%>"><span class="label label-danger">Ask him for help</span></a>
                                                                                      
                                             <br/><br/>
                                                                                      </h3>

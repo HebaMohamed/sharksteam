@@ -55,13 +55,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <link rel="stylesheet" href="speedmeterfiles/jg/css/jgauge.css" type="text/css" />
 <!--<link rel="stylesheet" href="speedmeterfiles/jg/css/page.css" type="text/css" />-->
 
-<script type="text/javascript" language="javascript" src="speedmeterfiles/jg/js/excanvas.min.js"></script>
+<!--<script type="text/javascript" language="javascript" src="speedmeterfiles/jg/js/excanvas.min.js"></script>
 <script  language="javascript" type="text/javascript"  src="speedmeterfiles/jg/js/jquery-1.4.2.min.js"></script>
 <script language="javascript" type="text/javascript" src="speedmeterfiles/jg/js/jQueryRotate.min.js"></script>
 <script language="javascript" type="text/javascript" src="speedmeterfiles/jg/js/jgauge-0.3.0.a3.js"></script>
-<script language="javascript" type="text/javascript" src="speedmeterfiles/jg/js/jgauge-0.3.0.a3.min.js"></script>
+<script language="javascript" type="text/javascript" src="speedmeterfiles/jg/js/jgauge-0.3.0.a3.min.js"></script>-->
 <!--<script src="js/jquery-1.11.1.min.js"></script>-->
 
+
+<script src="speedmeterfiles/justgage/raphael-2.1.4.min.js"></script>
+<script src="speedmeterfiles/justgage/justgage.js"></script>
 
 <!--end for speed meter-->
 
@@ -200,7 +203,19 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						<div class="profile-top">
                                                     <img width="170" height="170" src='<%=(String)request.getAttribute("image")%>' alt="">
                                                         <h4><%=selectedD.name%></h4>
-							<h5>Driver</h5>
+							<!--<h5>Driver</h5>-->
+                                                        <%boolean logged = Boolean.valueOf((String)request.getAttribute("logged"));%>
+                                                        <%if(selectedD.logged==true) {%>
+                                                            <h3><a><span class="label label-success">Online</span></a></h3>
+                                                        <%}else{%>
+                                                            <h3><a><span class="label label-default">Offline</span></a></h3>             
+                                                        <%}%>
+                                                        <%if(selectedD.intrip==true) {%>
+                                                        <h4><span class="badge">On Trip</span></h4>
+                                                        <%}else{%>
+                                                        <h4><span class="badge">Not On Trip</span></h4>
+                                                        <%}%>
+
 						</div>
 						<div class="profile-text">
 							<div class="profile-row">
@@ -219,7 +234,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								</div>
 								<div class="profile-right">
                                                                         <p>Contact Number</p>
-									<h4>222-555-111 to be added</h4>
+									<h4>222-555-111</h4>
 								</div> 
 								<div class="clearfix"> </div>	
 							</div>
@@ -256,8 +271,21 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								</div> 
 								<div class="clearfix"> </div>	
 							</div>
-						</div>
                                                  
+                                                                        
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <div id="gauge1" class="200x160px"></div>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div id="gauge2" class="200x160px"></div>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div id="gauge3" class="200x160px"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        
+						</div>
 
                                                 <!--<div  style="background-color: #5252c4" >-->
                                                     
@@ -270,7 +298,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                     <!--<div class="GaugeMeter" id="PreviewGaugeMeter_1" name="PreviewGaugeMeter_1" data-percent="50" data-prepend="<font style='color:White;font-size:35px;margin-left:-15px'>&ndash;</font>" data-size="188" data-theme="White" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="2" data-label="Years" data-label_color="#FFF"></div>-->
                                                    <!--<div class="container" id="exdiv" style="margin:50px;">-->
                                                        
-                                                       <div class="profile-btm" style="background-color: #5252c4">
+<!--                                                       <div class="profile-btm" style="background-color: #5252c4">
                                                         <ul>
                                                             <li>
                                                                 <h4 style="text-align: center;">RPM</h4>
@@ -282,68 +310,141 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                             </li>
                                                             <li>
                                                                 <h4 style="text-align: center;">Throttle</h4>
-                                                             <div id="jGaugeDemo3" class="jgauge" style="text-align: center;"></div>
+                                                                <div id="jGaugeDemo4" class="jgauge" style="text-align: center;"></div>
+
+                                                            </li>
+                                                            <li>
+                                                                <h4 style="text-align: center;">Heading</h4>
+                                                                <div id="jGaugeDemo3" class="jgauge" style="text-align: center;"></div>
                                                             </li>
                                                        </ul>
-                                                       </div>
+                                                       </div>-->
+
+
+
                                                    
                                                    <div class="profile-btm">
                                                        <div class="row">
-							<div class="col-md-4">
+							<div class="col-md-3">
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
                                                             <center>
                                                                 <h3>
-                                                   <a href="${pageContext.request.contextPath}/ManageServlet?goflag=driverreport&did=<%=selectedD.id %>"><span class="label label-primary">View Driver Report</span></a>
+                                                   <a href="${pageContext.request.contextPath}/ManageServlet?goflag=driverreport&did=<%=selectedD.id %>"><span class="label label-primary">View Driver Behavior Report</span></a>
                                                                 </h3>
                                                             </center>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
+                                                            <center>
+                                                                <h3>
+                                                   <a href="${pageContext.request.contextPath}/ManageServlet?goflag=drivertripsreport&did=<%=selectedD.id %>"><span class="label label-primary">View Driver Trips Report</span></a>
+                                                                </h3>
+                                                            </center>
+                                                        </div>
+                                                        <div class="col-md-3">
 							</div>
+                                                                
                                                        </div>
                                                         </div>
 
-<!--                                                    <div class="GaugeMeter" id="PreviewGaugeMeter_2" data-percent="88" data-append="mph" data-size="200" data-theme="White" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="Speed" data-style="Arch" data-label_color="#FFF"></div>
-                                                    <div class="GaugeMeter" id="PreviewGaugeMeter_3" data-percent="100" data-text="<font style='color:White;font-size:35px;letter-spacing:-1px'>1.21</font>" data-append="<font style='color:white'>GW</font>" data-size="200" data-theme="White" data-back="RGBa(0,0,0,.1)" data-width="15" data-label="Mr Fusion" data-style="Semi" data-label_color="#FFF"></div>
-                                                    <div class="GaugeMeter" id="PreviewGaugeMeter_4" data-percent="100" data-append="Y" data-size="180" data-theme="White" data-back="RGBa(0,0,0,.1)" data-animate_gauge_colors="1" data-animate_text_colors="1" data-width="15" data-label="Flux Capacitor" data-label_color="#FFF" data-stripe="2"></div>
-                                                  -->
-                                                <!--</div>-->
-
+                                                                
+                                                
 <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
     
                                                     <script type="text/javascript">
                                                             
-//                                                            $(".GaugeMeter").gaugeMeter();//init
-//                                                                $("#results").myfunc({divFact:10});
-
-                                                            var myGauge = new jGauge(); // Create a new jGauge.
-                                                            myGauge.id = 'jGaugeDemo'; // Link the new jGauge to the placeholder DIV.
-                                                            myGauge.imagePath = 'speedmeterfiles/jg/img/jgauge_face_default.png';
-                                                            myGauge.needle.imagePath = 'speedmeterfiles/jg/img/jgauge_needle_default.png';
-                                                            myGauge.width=250;
-                                                            myGauge.ticks.end=7000;
-
-                                                            
-                                                            var myGauge2 = new jGauge(); // Create a new jGauge.
-                                                            myGauge2.id = 'jGaugeDemo2'; // Link the new jGauge to the placeholder DIV.
-                                                            myGauge2.imagePath = 'speedmeterfiles/jg/img/jgauge_face_default.png';
-                                                            myGauge2.needle.imagePath = 'speedmeterfiles/jg/img/jgauge_needle_default.png';
-                                                            myGauge2.width=250;
-                                                            myGauge2.ticks.end=260;
-                                                            
-                                                            var myGauge3 = new jGauge(); // Create a new jGauge.
-                                                            myGauge3.id = 'jGaugeDemo3'; // Link the new jGauge to the placeholder DIV.
-                                                            myGauge3.imagePath = 'speedmeterfiles/jg/img/jgauge_face_default.png';
-                                                            myGauge3.needle.imagePath = 'speedmeterfiles/jg/img/jgauge_needle_default.png';
-                                                            myGauge3.width=250;
-                                                            myGauge3.ticks.end=100;
+//                                                            
+//                                                            var myGauge = new jGauge(); // Create a new jGauge.
+//                                                            myGauge.id = 'jGaugeDemo'; // Link the new jGauge to the placeholder DIV.
+//                                                            myGauge.imagePath = 'speedmeterfiles/jg/img/jgauge_face_default.png';
+//                                                            myGauge.needle.imagePath = 'speedmeterfiles/jg/img/jgauge_needle_default.png';
+//                                                            myGauge.width=250;
+//                                                            myGauge.ticks.end=7000;
+//
+//                                                            
+//                                                            var myGauge2 = new jGauge(); // Create a new jGauge.
+//                                                            myGauge2.id = 'jGaugeDemo2'; // Link the new jGauge to the placeholder DIV.
+//                                                            myGauge2.imagePath = 'speedmeterfiles/jg/img/jgauge_face_default.png';
+//                                                            myGauge2.needle.imagePath = 'speedmeterfiles/jg/img/jgauge_needle_default.png';
+//                                                            myGauge2.width=250;
+//                                                            myGauge2.ticks.end=260;
+//                                                            
+//                                                            var myGauge3 = new jGauge(); // Create a new jGauge.
+//                                                            myGauge3.id = 'jGaugeDemo3'; // Link the new jGauge to the placeholder DIV.
+//                                                            myGauge3.imagePath = 'speedmeterfiles/jg/img/jgauge_face_default.png';
+//                                                            myGauge3.needle.imagePath = 'speedmeterfiles/jg/img/jgauge_needle_default.png';
+//                                                            myGauge3.width=250;
+//                                                            myGauge3.ticks.end=100;
+//                                                            
+//                                                            var myGauge4 = new jGauge(); // Create a new jGauge.
+//                                                            myGauge4.id = 'jGaugeDemo4'; // Link the new jGauge to the placeholder DIV.
+//                                                            myGauge4.imagePath = 'speedmeterfiles/jg/img/jgauge_face_default.png';
+//                                                            myGauge4.needle.imagePath = 'speedmeterfiles/jg/img/jgauge_needle_default.png';
+//                                                            myGauge4.width=250;
+//                                                            myGauge4.ticks.end=359;
+//                                                            
+                                                              var gauge1 = new JustGage({
+                                                                id: "gauge1",
+                                                                value: 67,
+                                                                min: 0,
+                                                                max: 7000,
+                                                                title: "RPM",
+                                                                pointer: true,
+                                                                pointerOptions: {
+                                                                  toplength: -15,
+                                                                  bottomlength: 10,
+                                                                  bottomwidth: 12,
+                                                                  color: '#8e8e93',
+                                                                  stroke: '#ffffff',
+                                                                  stroke_width: 3,
+                                                                  stroke_linecap: 'round'
+                                                                }
+                                                              });
+                                                              var gauge2 = new JustGage({
+                                                                id: "gauge2",
+                                                                value: 67,
+                                                                min: 0,
+                                                                max: 260,
+                                                                title: "Speed",
+                                                                pointer: true,
+                                                                pointerOptions: {
+                                                                  toplength: -15,
+                                                                  bottomlength: 10,
+                                                                  bottomwidth: 12,
+                                                                  color: '#8e8e93',
+                                                                  stroke: '#ffffff',
+                                                                  stroke_width: 3,
+                                                                  stroke_linecap: 'round'
+                                                                }
+                                                              });
+                                                              var gauge3 = new JustGage({
+                                                                id: "gauge3",
+                                                                value: 67,
+                                                                min: 0,
+                                                                max: 100,
+                                                                title: "Throttle",
+                                                                pointer: true,
+                                                                pointerOptions: {
+                                                                  toplength: -15,
+                                                                  bottomlength: 10,
+                                                                  bottomwidth: 12,
+                                                                  color: '#8e8e93',
+                                                                  stroke: '#ffffff',
+                                                                  stroke_width: 3,
+                                                                  stroke_linecap: 'round'
+                                                                }
+                                                              });
                                                             
                                                             
                                                             // This function is called by jQuery once the page has finished loading.
                                                             $(document).ready(function(){
-                                                               myGauge.init(); // Put the jGauge on the page by initialising it.
-                                                               myGauge2.init();
-                                                               myGauge3.init();
+//                                                               myGauge.init(); // Put the jGauge on the page by initialising it.
+//                                                               myGauge2.init();
+//                                                               myGauge3.init();
+//                                                               myGauge4.init();
+                                                                gauge1.init();
+                                                                gauge2.init();
+                                                                gauge3.init();
                                                             });
 
                                                             
@@ -361,17 +462,25 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                 var cRef = database.ref('vehicles').child(<%=selectedD.id%>).child('RPM');
                                                                 cRef.on('value', function(snapshot) {
 //                                                                    messageResults.value += '\n' + snapshot.val();
-                                                                    myGauge.setValue(snapshot.val());
+//                                                                    myGauge.setValue(snapshot.val());
+                                                                      gauge1.refresh(snapshot.val());
                                                                 });
                                                                 var cRef2 = database.ref('vehicles').child(<%=selectedD.id%>).child('Speed');
                                                                 cRef2.on('value', function(snapshot) {
 //                                                                    messageResults.value += '\n' + snapshot.val();
-                                                                    myGauge2.setValue(snapshot.val());
+//                                                                    myGauge2.setValue(snapshot.val());
+                                                                      gauge2.refresh(snapshot.val());
                                                                 });
                                                                 var cRef3 = database.ref('vehicles').child(<%=selectedD.id%>).child('Throttle');
                                                                 cRef3.on('value', function(snapshot) {
 //                                                                    messageResults.value += '\n' + snapshot.val();
-                                                                    myGauge3.setValue(snapshot.val());
+//                                                                    myGauge3.setValue(snapshot.val());
+                                                                      gauge3.refresh(snapshot.val());
+                                                                });
+                                                                 var cRef4 = database.ref('vehicles').child(<%=selectedD.id%>).child('Heading');
+                                                                cRef4.on('value', function(snapshot) {
+//                                                                    messageResults.value += '\n' + snapshot.val();
+//                                                                    myGauge4.setValue(snapshot.val());
                                                                 });
                                                               
 

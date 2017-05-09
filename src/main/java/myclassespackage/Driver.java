@@ -24,6 +24,11 @@ public class Driver {
     public String avgtxt;
     public int avg;
     
+    public boolean logged;
+    public boolean intrip;
+
+
+    
     
     public Driver (int id){
         this.id = id;

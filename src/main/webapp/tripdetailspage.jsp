@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Vehicle Profile</title>
+<title>Trip Details</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -41,6 +41,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="js/custom.js"></script>
 <link href="css/custom.css" rel="stylesheet">
 <!--//Metis Menu -->
+<!-- chart -->
+<script src="js/Chart.js"></script>
 </head> 
 <body class="cbp-spmenu-push">
 	<div class="main-content">
@@ -132,9 +134,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					<div class="clearfix"> </div>
 				</div>
                             
-                            <% String servletParam = "showall"; %>
-                            <% request.setAttribute(servletParam,servletParam); %>
-                            
+                                                
 				<!--notification menu end -->
 				<div class="profile_details">		
 					<ul>
@@ -164,27 +164,36 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		<!-- //header-ends -->
 		<!-- main content start-->
 		<div id="page-wrapper">
+                    
+                    
+                            <h3 class="title1">Trip Details</h3>
 			
                     
-                    <%  Vehicle selectedV = (Vehicle)request.getAttribute("selectedvehicle"); %>
+                    <%  Trip selectedT = (Trip)request.getAttribute("selectedtrip"); %>
                     
                     
                     
                     <div class="blank-page widget-shadow scroll">
-						<h4 class="title3">Vehicle Profile</h4>
-						<div class="profile-top">
-							<img src='images/carflat.png' alt="">
-                                                        <h4><%=selectedV.Model %></h4>
+						<!--<h4 class="title3">Trip Details</h4>-->
+<!--						<div class="profile-top">
+							<img src='' alt="">
+                                                        <h4></h4>
 							<h5>Vehicle</h5>
-						</div>
-						<div class="profile-text">
+						</div>-->
+<br/>
+                                            
+                                        <center><img src='<%= selectedT.staticmapurl %>' alt=""></center>
+
+						<div class="profile-text col-md-12">
 							<div class="profile-row">
 								<div class="profile-left">
 									<!--<i class="fa fa-envelope profile-icon"></i>-->
 								</div>
 								<div class="profile-right">
-									<h4><%=selectedV.Color %></h4>
-									<p>Color</p>
+                                                                    <p>Pickup Address <span style="float:right"> <%=selectedT.getStartdate()%></span></p>
+								    <h4><%=selectedT.from_addr%></h4>
+                                                                     <p>Destination Address <span style="float:right"> <%=selectedT.getEnddate()%></span></p>
+								    <h4><%=selectedT.to_addr%></h4>
 								</div> 
 								<div class="clearfix"> </div>	
 							</div>
@@ -193,8 +202,41 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									<!--<i class="fa fa-mobile profile-icon"></i>-->
 								</div>
 								<div class="profile-right">
-									<h4><%=selectedV.Plate_number %></h4>
-									<p>Plate Number</p>
+								    <p>Driver Name <span style="float:right"> ID : <%=selectedT.d.id%></span></p>
+								    <h4><%=selectedT.d.name%></h4>
+                                                                    <p>Passenger Name <span style="float:right"> ID : <%=selectedT.p.ID%></span></p>
+								    <h4><%=selectedT.p.FullName%></h4>
+								</div> 
+								<div class="clearfix"> </div>	
+							</div>
+                                                        <div class="profile-row">
+								<div class="profile-left">
+									<!--<i class="fa fa-facebook profile-icon"></i>-->
+								</div>
+								<div class="profile-right">
+                                                                    <p>Detected Pattrens</p>
+                                                                    <h4><%=(String)request.getAttribute("p1_name")%> : <%=(Integer)request.getAttribute("p1")%></h4>
+                                                                    <h4><%=(String)request.getAttribute("p2_name")%> : <%=(Integer)request.getAttribute("p2")%></h4>
+                                                                    <h4><%=(String)request.getAttribute("p3_name")%> : <%=(Integer)request.getAttribute("p3")%></h4>
+                                                                    <h4><%=(String)request.getAttribute("p4_name")%> : <%=(Integer)request.getAttribute("p4")%></h4>
+                                                                    <h4><%=(String)request.getAttribute("p5_name")%> : <%=(Integer)request.getAttribute("p5")%></h4>
+                                                                    <h4><%=(String)request.getAttribute("p6_name")%> : <%=(Integer)request.getAttribute("p6")%></h4>
+                                                                    <h4><%=(String)request.getAttribute("p7_name")%> : <%=(Integer)request.getAttribute("p7")%></h4>
+                                                                    <h4><%=(String)request.getAttribute("p8_name")%> : <%=(Integer)request.getAttribute("p8")%></h4>
+                                                                    <h4><%=(String)request.getAttribute("p9_name")%> : <%=(Integer)request.getAttribute("p9")%></h4>
+                                                                    <h4><%=(String)request.getAttribute("p10_name")%> : <%=(Integer)request.getAttribute("p10")%></h4>
+                                                                    <h4><%=(String)request.getAttribute("p11_name")%> : <%=(Integer)request.getAttribute("p11")%></h4>
+                                                                    <h4><%=(String)request.getAttribute("p12_name")%> : <%=(Integer)request.getAttribute("p12")%></h4>
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                        </div>
+<!--                                                                     <div class="col-md-8 chrt-page-grids">
+                                                                        <br/>
+                                                                        <canvas id="line" height="300" width="400" style="width: 400px; height: 300px;"></canvas>
+                                                                     </div>-->
+                                                
+                                                                    </div>
 								</div> 
 								<div class="clearfix"> </div>	
 							</div>
@@ -203,8 +245,40 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									<!--<i class="fa fa-facebook profile-icon"></i>-->
 								</div>
 								<div class="profile-right">
-									<h4><%=selectedV.Outside_working %></h4>
-									<p>Working State</p>
+                                                                    <p>Price</p>
+                                                                    <h4><%=selectedT.price%>$</h4>
+								    <p>Feedback</p>
+								    <!--<h4>*****</h4>-->
+                                                                     <%//calculate ratting 
+                                                                 
+                                                                    String label = "";
+                                                                    String stars = "";
+                                                                    
+                                                                    if(selectedT.rating==1){
+                                                                        label = "label label-danger";
+                                                                        stars = "★";
+                                                                    }
+                                                                    else if(selectedT.rating==2){
+                                                                        label = "label label-info";
+                                                                        stars = "★★";
+                                                                    }
+                                                                    else if(selectedT.rating==3){
+                                                                        label = "label label-warning";
+                                                                        stars = "★★★";
+                                                                    }
+                                                                    else if(selectedT.rating==4){
+                                                                        label = "label label-success";
+                                                                        stars = "★★★★";
+                                                                    }
+                                                                    else if(selectedT.rating==5){
+                                                                        label = "label label-success";
+                                                                        stars = "★★★★★";
+                                                                    }
+                                                                
+                                                                %>
+                                                                    <h4><span class="<%=label %>"><%=stars %></span></h4>
+                                                                    <br/>
+								    <h4><%=selectedT.comment%></h4>
 								</div> 
 								<div class="clearfix"> </div>	
 							</div>
@@ -221,9 +295,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 							</div>
 							<div class="col-md-3">
 								
-                                                                            <a href="${pageContext.request.contextPath}/ManageVehicleServlet?goflag=editvehicle&id=<%=selectedV.ID %>"><span class="label label-warning">Edit</span></a>
-                                                                            <a href="#" data-toggle="modal" data-whatever="@mdo" data-target="#exampleModall"><span class="label label-danger">Delete</span></a>
-                                                                                         
+                                                            
+                                                                            <a href="${pageContext.request.contextPath}/ManageServlet?goflag=showdriver&id=<%=selectedT.d.id  %>"><span class="label label-primary">View Driver</span></a>
 							</div>
 							<div class="clearfix"> </div>
 						</div>
@@ -237,28 +310,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                             
                                                                             
                                                                             
-                                                      
-                                                                            
-                                                <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                                <h4 class="modal-title" id="exampleModalLabel">Are you sure to delete this vehicle?</h4>
-									</div>
-<!--									<div class="modal-body">
-									</div>-->
-									<div class="modal-footer">
-                                                                            <form action="${pageContext.request.contextPath}/ManageVehicleServlet" method="post">
-                                                                                <input type="hidden" name="hiddenflag" id="hiddenflag" value="delete">
-										<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                                                                <button type="submit" class="btn btn-primary">Yes</button>
-                                                                            </form>
-									</div>
-								</div>
-							</div>
-						</div>
-                    
+                       
+                                                                            <script>
+//                                                                                new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
+                                                                            </script>
                                                                                                                                    
                                                                         
                     

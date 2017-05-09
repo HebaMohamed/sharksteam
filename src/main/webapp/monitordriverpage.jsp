@@ -130,9 +130,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					<div class="clearfix"> </div>
 				</div>
                             
-                            <% String servletParam = "showall"; %>
-                            <% request.setAttribute(servletParam,servletParam); %>
-                            
 				<!--notification menu end -->
 				<div class="profile_details">		
 					<ul>
@@ -162,22 +159,18 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		<!-- //header-ends -->
 		<!-- main content start-->
 		<div id="page-wrapper">
-			<div class="main-page">
-                            
-
-
-                            
-                            
+                    <div class="main-page chrt-page-grids" style="width: 100%" >
+                           
                             
                             <div class="col-md-10 ">
-                                <h3 class="title1">Driver Behavior</h3>
-                            <h2 class="title1">Driver : <%=(String)request.getAttribute("dname")%></h2>
+                                <h3 class="title1">Driver Driving Behavior</h3>
+                            <h4 class="title1">Driver Name : <%=(String)request.getAttribute("dname")%></h4>
                             <br/>
                             </div>
                             <div class="col-md-2">                            
-                            <h2>
+                            <h1>
 				<a><span class="<%=(String)request.getAttribute("avgtxtlable")%>"><%=(String)request.getAttribute("avgtxt")%></span></a>
-                            </h2>
+                            </h1>
 
                             </div>
                             
@@ -221,7 +214,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                 
                                         <div class="col-md-10 chrt-page-grids">
 						<h4 class="title">Trips Ratings Chart</h4>
-						<div class="doughnut-grid">
+
+                                                <!--<span class="badge" style="background: #9358ac"><p style="color:#9358ac;">.</p></span>-->
+                                                <h4 style="color:#9358ac;">★★★★★: <%=String.valueOf((Integer)request.getAttribute("rates_5"))%> trips</h4>
+                                                <h4 style="color:#e94e02;">★★★★  : <%=String.valueOf((Integer)request.getAttribute("rates_4"))%> trips</h4>
+                                                <h4 style="color:#585858;">★★★   : <%=String.valueOf((Integer)request.getAttribute("rates_3"))%> trips</h4>
+                                                <h4 style="color:#F2B33F;">★★     : <%=String.valueOf((Integer)request.getAttribute("rates_2"))%> trips</h4>
+                                                <h4 style="color:#4F52BA;">★      : <%=String.valueOf((Integer)request.getAttribute("rates_1"))%> trips</h4>
+
+                                                <div class="doughnut-grid">
 							<canvas id="doughnut" ></canvas>
 						</div>
 					</div>
@@ -456,20 +457,19 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 										<h4 class="modal-title" id="exampleModalLabel">New Instruction</h4>
 									</div>
-									<div class="modal-body">
-										<form>
-											<div class="form-group" class="input"action="${pageContext.request.contextPath}/ManageServlet" method="post" >
-                                                                                            <input type="hidden" name="hiddenflag" id="hiddenflag" value="sendmsg">
-												
-                                                                                            <label for="messagetext" class="control-label">Message:</label>
-												<textarea class="form-control" id="messagetext"></textarea>
-											</div>
-										</form>
-									</div>
+
+<!--									<div class="modal-body">
+									</div>-->
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										<a type="button" class="btn btn-primary" data-dismiss="modal">Send message</a>
+                                                                            <form action="${pageContext.request.contextPath}/ManageServlet" method="post">
+                                                                                <input type="hidden" name="hiddenflag" id="hiddenflag" value="delete">
+										<label for="message-text" class="control-label">Message:</label>
+										<textarea class="form-control" id="message-text"></textarea>
+										<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                                                <button type="submit" class="btn btn-primary">Yes</button>
+                                                                            </form>
 									</div>
+
 								</div>
 							</div>
 						</div>

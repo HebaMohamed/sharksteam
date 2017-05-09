@@ -278,7 +278,7 @@ public class ManageVehicleServlet extends HttpServlet {
         if(vobj.getString("outside_working_time_state").equals("yes"))
             ow="Outside working time state";
         else
-            ow="No outside working time state";
+            ow="In working time state";
         
         v = new Vehicle(vobj.getInt("vehicle_id"),
                                     vobj.getString("model"), 

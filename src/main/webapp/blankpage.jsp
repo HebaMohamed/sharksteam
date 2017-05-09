@@ -194,47 +194,64 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             
 
                              
-<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.4.3.js"></script>
+<!--<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.4.3.js"></script>-->
 <script>
-    var pubnub = new PubNub({
-    subscribeKey: "sub-c-a92c9e70-e683-11e6-b3b8-0619f8945a4f",
-    publishKey: "pub-c-b04f5dff-3f09-4dc6-8b4e-58034b4b85bb",
-    ssl: true
-})
+//    var pubnub = new PubNub({
+//    subscribeKey: "sub-c-a92c9e70-e683-11e6-b3b8-0619f8945a4f",
+//    publishKey: "pub-c-b04f5dff-3f09-4dc6-8b4e-58034b4b85bb",
+//    ssl: true
+//})
+//
+//pubnub.addListener({
+//    status: function(statusEvent) {
+//        if (statusEvent.category === "PNConnectedCategory") {
+//            var payload = {
+//                my: 'payload'
+//            };
+//            pubnub.publish(
+//                { 
+//                    message: payload
+//                }, 
+//                function (status) {
+//                    // handle publish response
+//                }
+//            );
+//        }
+//    },
+//    message: function(message) {
+//        // handle message
+//        var msg = message.message;
+//        //alert(msg.text);//msg is jsonobject and txt is properity
+//        //simpleNotify.notify('Hey! This is a simple notification.');
+//        //simpleNotify.notify('Hey! This is a warning notification.', 'warning');
+//        simpleNotify.notify(''+msg.text, 'warning');
+//
+//    },
+//    presence: function(presenceEvent) {
+//        // handle presence
+//    }
+//})
+// 
+//pubnub.subscribe({
+//    channels: ['driver1', 'notifych', 'ch3']
+//});
+////////////////////////////////////////////////////////////////////////////////////
 
-pubnub.addListener({
-    status: function(statusEvent) {
-        if (statusEvent.category === "PNConnectedCategory") {
-            var payload = {
-                my: 'payload'
-            };
-            pubnub.publish(
-                { 
-                    message: payload
-                }, 
-                function (status) {
-                    // handle publish response
-                }
-            );
-        }
-    },
-    message: function(message) {
-        // handle message
-        var msg = message.message;
-        //alert(msg.text);//msg is jsonobject and txt is properity
-        //simpleNotify.notify('Hey! This is a simple notification.');
-        //simpleNotify.notify('Hey! This is a warning notification.', 'warning');
-        simpleNotify.notify(''+msg.text, 'warning');
+                                                              var config = {
+                                                                   apiKey: "AIzaSyDm82ItD0ET3--vv1k99xRq3-NvBFVUYnA",
+                                                                    authDomain: "sharksmapandroid-158200.firebaseapp.com",
+                                                                    databaseURL: "https://sharksmapandroid-158200.firebaseio.com"
+                                                              };
+                                                              firebase.initializeApp(config);
 
-    },
-    presence: function(presenceEvent) {
-        // handle presence
-    }
-})
- 
-pubnub.subscribe({
-    channels: ['driver1', 'notifych', 'ch3']
-});
+                                                              // Get a reference to the database service
+                                                              var database = firebase.database();
+                                                                var cRef = database.ref('warning');          
+                                                                cRef.on('value', function(snapshot) {
+                                                                    
+                                                                    simpleNotify.notify('There is a warning !, please check warnings section', 'warning');
+                                                                    
+                                                                });
 
 
 

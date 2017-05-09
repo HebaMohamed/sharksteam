@@ -24,6 +24,7 @@ import myclassespackage.Passenger;
 import myclassespackage.Trip;
 import myclassespackage.URLsClass;
 import myclassespackage.Vehicle;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.time.DateUtils;
 
@@ -80,9 +81,10 @@ public class TripServlet extends HttpServlet {
             } 
     }
         
-    void getTripsData(JSONObject obj){
+    void getTripsData(JSONObject obj) throws Exception{
         alltrips.clear();
         for (int i = 0; i < obj.getJSONArray("trips").size(); i++) {
+                        
             Trip t = new Trip(
                     obj.getJSONArray("trips").getJSONObject(i).getInt("trip_id"), 
                     obj.getJSONArray("trips").getJSONObject(i).getString("start"), 
@@ -93,12 +95,34 @@ public class TripServlet extends HttpServlet {
             t.p= new Passenger(obj.getJSONArray("trips").getJSONObject(i).getInt("passenger_id"));
             t.d= new Driver(obj.getJSONArray("trips").getJSONObject(i).getInt("driver_id"));
             t.staticmapurl=getpathwaymap(obj.getJSONArray("trips").getJSONObject(i).getInt("trip_id"));
+            
+            t.from_addr=getAddress(obj.getJSONArray("trips").getJSONObject(i).getDouble("fromlat"),obj.getJSONArray("trips").getJSONObject(i).getDouble("fromlng"));
+            t.to_addr=getAddress(obj.getJSONArray("trips").getJSONObject(i).getDouble("tolat"),obj.getJSONArray("trips").getJSONObject(i).getDouble("tolng"));
+
+            
             alltrips.add(t);
             
             //get today count
             filterTrips(new Date());
             
         }
+    }
+    
+    String getAddress(double lat, double lng){
+            //get addresses
+            String formatted_address;
+            JSONObject addr;
+            try {
+                addr = DataClass.getJSONObject("http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&sensor=true", "");
+                if(!addr.getJSONArray("results").isEmpty())
+                    formatted_address = addr.getJSONArray("results").getJSONObject(0).getString("formatted_address");
+                else 
+                    formatted_address = "Wrong Coordinates";
+          } catch (Exception ex) {
+                Logger.getLogger(TripServlet.class.getName()).log(Level.SEVERE, null, ex);
+                formatted_address = "Unmoved Trip";
+            }
+        return formatted_address;            
     }
     
     String getpathwaymap(int tripid){
@@ -119,7 +143,8 @@ public class TripServlet extends HttpServlet {
                 }
                 staticmapurl+="&key="+URLsClass.apikey;
             } catch (Exception ex) {
-                Logger.getLogger(TripServlet.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(TripServlet.class.getName()).log(Level.SEVERE, null, ex);
+                staticmapurl="";
             }
             return staticmapurl;
     }
@@ -152,6 +177,97 @@ public class TripServlet extends HttpServlet {
                 }
                 else if(goflag.equals("all")){
                     request.setAttribute("trips", alltrips);  
+                }
+                else if(goflag.equals("showtrip")){
+                    String tid = request.getParameter("tid");
+                    JSONObject resObj = DataClass.getJSONObject(URLsClass.gettrip+tid+"/", "");
+                    int successf = resObj.getInt("success");
+                    if(successf==1){
+                        
+                        JSONObject t = resObj.getJSONObject("trip");
+                        Trip tt = new Trip(Integer.parseInt(tid),
+                                t.getString("start"),
+                                t.getString("end"),
+                                t.getDouble("price"), 
+                                t.getString("comment"),
+                                t.getInt("ratting"));
+                        tt.d=new Driver(t.getInt("did"));
+                        tt.d.name=t.getString("drivername");
+                        tt.p=new Passenger(t.getInt("pid"));
+                        tt.p.FullName=t.getString("passengername");
+                        tt.status=t.getString("status");
+                        
+                        tt.from_addr=getAddress(t.getDouble("ilat"), t.getDouble("ilng"));
+                        tt.to_addr=getAddress(t.getDouble("destlat"), t.getDouble("destlng"));
+                        
+                        tt.staticmapurl=getpathwaymap(Integer.parseInt(tid));
+
+                        
+                        request.setAttribute("selectedtrip", tt);
+                        
+                        JSONArray pattrens = resObj.getJSONArray("pattrens");
+                        int p1=0,p2=0,p3=0,p4=0,p5=0,p6=0,p7=0,p8=0,p9=0,p10=0,p11=0,p12=0;
+                        
+                        for (int i = 0; i < pattrens.size(); i++) {
+                            if(pattrens.getJSONObject(i).getInt("pattrenid")==1)
+                                p1++;
+                            else if(pattrens.getJSONObject(i).getInt("pattrenid")==2)
+                                p2++;
+                            else if(pattrens.getJSONObject(i).getInt("pattrenid")==3)
+                                p3++;
+                            else if(pattrens.getJSONObject(i).getInt("pattrenid")==4)
+                                p4++;
+                            else if(pattrens.getJSONObject(i).getInt("pattrenid")==5)
+                                p5++;
+                            else if(pattrens.getJSONObject(i).getInt("pattrenid")==6)
+                                p6++;
+                            else if(pattrens.getJSONObject(i).getInt("pattrenid")==7)
+                                p7++;
+                            else if(pattrens.getJSONObject(i).getInt("pattrenid")==8)
+                                p8++;
+                            else if(pattrens.getJSONObject(i).getInt("pattrenid")==9)
+                                p9++;
+                            else if(pattrens.getJSONObject(i).getInt("pattrenid")==10)
+                                p10++;
+                            else if(pattrens.getJSONObject(i).getInt("pattrenid")==11)
+                                p11++;
+                            else if(pattrens.getJSONObject(i).getInt("pattrenid")==12)
+                                p12++;
+                            
+                            
+                        }
+                        
+                        request.setAttribute("p1_name", resObj.getString("p1_name"));
+                        request.setAttribute("p2_name", resObj.getString("p2_name"));
+                        request.setAttribute("p3_name", resObj.getString("p3_name"));
+                        request.setAttribute("p4_name", resObj.getString("p4_name"));
+                        request.setAttribute("p5_name", resObj.getString("p5_name"));
+                        request.setAttribute("p6_name", resObj.getString("p6_name"));
+                        request.setAttribute("p7_name", resObj.getString("p7_name"));
+                        request.setAttribute("p8_name", resObj.getString("p8_name"));
+                        request.setAttribute("p9_name", resObj.getString("p9_name"));
+                        request.setAttribute("p10_name", resObj.getString("p10_name"));
+                        request.setAttribute("p11_name", resObj.getString("p11_name"));
+                        request.setAttribute("p12_name", resObj.getString("p12_name"));
+
+                        request.setAttribute("p1", p1);
+                        request.setAttribute("p2", p2);
+                        request.setAttribute("p3", p3);
+                        request.setAttribute("p4", p4);
+                        request.setAttribute("p5", p5);
+                        request.setAttribute("p6", p6);
+                        request.setAttribute("p7", p7);
+                        request.setAttribute("p8", p8);
+                        request.setAttribute("p9", p9);
+                        request.setAttribute("p10", p10);
+                        request.setAttribute("p11", p11);
+                        request.setAttribute("p12", p12);
+
+
+                    
+
+                    request.getRequestDispatcher("tripdetailspage.jsp").forward(request, response);//show only
+                    }
                 }
                 else{
                     gohome(request, response);
