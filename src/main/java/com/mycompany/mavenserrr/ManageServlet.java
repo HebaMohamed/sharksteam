@@ -710,7 +710,8 @@ public class ManageServlet extends HttpServlet {
               
               
                 if(successf==1)
-                    request.getRequestDispatcher("managedriver.jsp").forward(request, response);//show only
+                    response.sendRedirect(request.getContextPath() + "/ManageServlet");
+//                    request.getRequestDispatcher("managedriver.jsp").forward(request, response);//show only
                 else
                 {           
                     response.setContentType("text/html;charset=UTF-8");

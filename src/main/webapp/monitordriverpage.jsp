@@ -462,9 +462,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									</div>-->
 									<div class="modal-footer">
                                                                             <form action="${pageContext.request.contextPath}/ManageServlet" method="post">
-                                                                                <input type="hidden" name="hiddenflag" id="hiddenflag" value="delete">
-										<label for="message-text" class="control-label">Message:</label>
-										<textarea class="form-control" id="message-text"></textarea>
+                                                                                <input type="hidden" name="hiddenflag" id="hiddenflag" value="sendmsg">
+										<label for="messagetext" class="control-label">Message:</label>
+										<textarea class="form-control" name="messagetext" id="messagetext"></textarea>
 										<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                                                                                 <button type="submit" class="btn btn-primary">Yes</button>
                                                                             </form>
