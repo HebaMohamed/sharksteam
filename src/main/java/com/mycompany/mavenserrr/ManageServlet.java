@@ -739,6 +739,8 @@ public class ManageServlet extends HttpServlet {
                 String dname = request.getParameter("dname").replaceAll("\\s",",");//replace 3shn lma yb3t fl url ynf3
                 String demail = request.getParameter("demail");
                 String dpassword = request.getParameter("dpassword");
+                int did = Integer.parseInt(request.getParameter("did"));
+
                 Part p =  request.getPart("dimage");
                 InputStream inputStream=null;
                 if(p!=null)
@@ -751,7 +753,7 @@ public class ManageServlet extends HttpServlet {
                 }
 //                String str = new String(byteArray);
                 String str = new sun.misc.BASE64Encoder().encode(byteArray);
-                Driver d = new Driver(1, dname, demail, dpassword, str);
+                Driver d = new Driver(did, dname, demail, dpassword, str);
                 if(d.password.equals(""))//3shn lw fady hy3ml prob 3shn l url
                     d.password="null";
                 

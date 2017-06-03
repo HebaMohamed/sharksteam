@@ -18,9 +18,11 @@ public class FemaleWarning {
     
     public Driver d;
     public Passenger p;
+    public Vehicle v;
     
     public FemaleWarning(){
         d = new Driver(0);
         p = new Passenger(0);
+        v = new Vehicle(0);
     }
 }

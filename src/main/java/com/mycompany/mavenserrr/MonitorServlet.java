@@ -110,6 +110,7 @@ public class MonitorServlet extends HttpServlet {
                                                     "", "", "");
             d.avgtxt = obj.getJSONArray("currentvms").getJSONObject(i).getString("avgtxt");
             d.avg = obj.getJSONArray("currentvms").getJSONObject(i).getInt("avg");
+            d.lastavg = obj.getJSONArray("currentvms").getJSONObject(i).getInt("lastavg");
 
             activedrivers.add(d);
         }

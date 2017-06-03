@@ -45,6 +45,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="js/custom.js"></script>
 <link href="css/custom.css" rel="stylesheet">
 <!--//Metis Menu -->
+   <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+   </style>
+
+
 </head> 
 <body class="cbp-spmenu-push">
 	<div class="main-content">
@@ -163,6 +171,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             
                             <h3 class="title1">Trips</h3>
                             
+                            <% ArrayList<Trip> trips = (ArrayList<Trip>) request.getAttribute("trips"); %>
+                            
                     <div class="col-md-12 widget-shadow">
                             <div class="row">
                                         <div class="col-md-6 widget states-mdl" style="width: 45%">
@@ -185,8 +195,126 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                         </div>
                                                         <div class="clearfix"> </div>	
                                                 </div>
-                                                
+                                                        <br/>
                                                 </div>
+                                                        <br/>
+                                                            <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                                                         <div id="map"></div>
+                                                             <script>
+
+    var map;//3shn yb2a pub
+      
+    var selecteddtogo = "";
+    
+    var marr = [];
+    var mids = [];
+    
+    function initAutocomplete() {
+        var uluru = {lat: 30.045915, lng: 31.22429};//
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: uluru,
+          zoom: 14,
+          mapTypeId: 'roadmap'
+        });
+      
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+        
+        
+        //for me
+        //initMap();
+        
+        var image = new google.maps.MarkerImage('personwalking.png',
+        new google.maps.Size(65, 124),
+        new google.maps.Point(0,0),
+        new google.maps.Point(56, 122)
+    );
+    
+<% for(int i = 0; i < trips.size(); i+=1) { %>
+        
+        new google.maps.Marker({
+              map: map,
+              icon: image,
+              title: "Pickup",
+              position: {lat: <%=trips.get(i).lattitude%>, lng: <%=trips.get(i).longtude%>}
+            });
+        
+<% } %>
+    
+    
+        
+        
+      }
+      
+      
+      
+    </script>
+    
+    
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMkIegihYnGDWqYZukBz2eo_InQOh-XEI&libraries=places&callback=initAutocomplete"
+         async defer></script>
+                
+                <!--end map part-->
+                                                         
+                                                         
+                                                         
                                                 
                                                 
                                                 <br/>
@@ -225,7 +353,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 							<tbody>
                                                            
                                                             <% String deletef = "0"; %>
-                                                            <% ArrayList<Trip> trips = (ArrayList<Trip>) request.getAttribute("trips"); %>
                                                             <%double total = 0;%>
                                                                 <% for(int i = 0; i < trips.size(); i+=1) { %>
                                                                 

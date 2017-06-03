@@ -23,7 +23,8 @@ public class Driver {
     
     public String avgtxt;
     public int avg;
-    
+    public int lastavg;
+
     public boolean logged;
     public boolean intrip;
 

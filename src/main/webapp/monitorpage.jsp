@@ -60,7 +60,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
    <style>
        #map {
-        height: 400px;
+        height: 700px;
         width: 100%;
        }
    </style>
@@ -283,22 +283,22 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                         var chartData = [
 							{
 								value : <%=(Integer)request.getAttribute("bad_count")%>,
-								color: "rgba(239, 85, 58, 0.87)",
+								color: "#e74c3c",
                                                                 label: "Bad"
 							},
 							{
 								value : <%=(Integer)request.getAttribute("good_count")%>,
-								color: "rgba(242, 179, 63, 0.87)",
+								color: "#f1c40f",
                                                                 label: "Good"
 							},
 							{
 								value : <%=(Integer)request.getAttribute("verygood_count")%>,
-								color: "rgba(88, 88, 88, 0.87)",
+								color: "#3498db",
                                                                 label: "Very Good"
 							},
 							{
 								value : <%=(Integer)request.getAttribute("excellent_count")%>,
-								color: "rgba(147, 88, 172, 0.87)",
+								color: "#2ecc71",
                                                                 label: "Excellent"
 							}
 						];
@@ -320,7 +320,7 @@ var lineChartData = {
 									labels : ["Bad","Good","Very Good","Excellent"],
 									datasets : [
 										{
-												fillColor : "rgba(79, 82, 186, 0.83)",
+												fillColor : "#e67e22",
                                                                                                 strokeColor : "#ef553a",
                                                                                                 pointColor : "#4F52BA",
                                                                                                 pointStrokeColor : "#fff",
@@ -339,7 +339,7 @@ new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chart
                             
 
                             
-                            <br/>
+                            <!--<br/>-->
                             
                             
                             
@@ -347,11 +347,14 @@ new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chart
                                                             <% ArrayList<Vehicle> activevehicles = (ArrayList<Vehicle>) request.getAttribute("activevehicles"); %>
                                                              <% ArrayList<Driver> activedrivers = (ArrayList<Driver>) request.getAttribute("activedrivers"); %>
 
-                                                             <h2 style="opacity: 0.1;">   . </h2>
+                                                             <!--<h2 style="opacity: 0.1;">   . </h2>-->
                                                                         <!--map part-->
                 
     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div class="row">
+        <div class="col-md-6" style="height: 700px">
     <div id="map"></div>
+    </div>
     
 <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
     <script>
@@ -417,9 +420,16 @@ new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chart
 //      });
 //  }
       ////////////////////////////////////////////////////////////
+    var map;//3shn yb2a pub
+      
+    var selecteddtogo = "";
+    
+    var marr = [];
+    var mids = [];
+    
     function initAutocomplete() {
         var uluru = {lat: 30.045915, lng: 31.22429};//
-        var map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
           center: uluru,
           zoom: 14,
           mapTypeId: 'roadmap'
@@ -494,9 +504,6 @@ new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chart
         new google.maps.Point(56, 122)
     );
     
-    
-    var marr = [];
-    var mids = [];
 <% for(int i = 0; i < activevehicles.size(); i+=1) { %>
         //uluru for example then it'll move
    marr.push( new google.maps.Marker({
@@ -625,8 +632,6 @@ new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chart
     
     
     
-    
-    
 <!--    <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATc18NoAmLoEZFU9gIbIb8uGpXEbLoTDk&callback=initMap">
     </script>-->
@@ -637,20 +642,21 @@ new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chart
                 <!--end map part-->
                 
                 
-                
+                                	<div class="col-md-6 stats-info widget-shadow" style="height: 700px">
+
                 <br/>
                 <h4>Current Vehicles & Drivers</h4>
                 <br/>
-                	<div class="col-md-12 stats-info widget-shadow">
 						<table class="table stats-table ">
 							<thead>
 								<tr>
-                                                                        <th>D</th>
+                                                                        <th> </th>
                                                                         <th>Driver Name</th>
-									<th>V.ID</th>
-                                                                        <th>D.ID</th>
-									<th>Vehicle Plate Number</th>
                                                                         <th>Average</th>
+                                                                        <th>Progress</th>
+<!--									<th>V.ID</th>
+                                                                        <th>D.ID</th>-->
+									<th>Vehicle Plate Number</th>
 									<th>Options</th>
 								</tr>
 							</thead>
@@ -668,10 +674,6 @@ new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chart
                                                                             </div>
                                                                         </th>
                                                                         <th><%=activedrivers.get(i).name %></th>
-                                                                        <th><%=activevehicles.get(i).ID %></th>
-                                                                        <th><%=activedrivers.get(i).id %></th>
-                                                                        <th><%=activevehicles.get(i).Plate_number %></th>
-                                                                        
                                                                         <%String avgtxtclass = "";%>
                                                                         <% if(activedrivers.get(i).avg<3){%>
                                                                         <% avgtxtclass = "label label-danger"; %>
@@ -685,9 +687,24 @@ new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chart
                                                                         
                                                                         <th><span class="<%=avgtxtclass%>"><%=activedrivers.get(i).avgtxt%></span></th>
                                                                         
+                                                                        <%if(activedrivers.get(i).avg>activedrivers.get(i).lastavg){%>
+                                                                                <td><h5>Up <i class="fa fa-level-up"></i></h5></td>
+                                                                        <%}else{%>
+                                                                                <td><h5  class="down">Down <i class="fa fa-level-down"></i></h5></td>
+                                                                        <%}%>
+                                                                        
+                                                                        
+<!--                                                                        <th><%=activevehicles.get(i).ID %></th>
+                                                                        <th><%=activedrivers.get(i).id %></th>-->
+                                                                        <th><%=activevehicles.get(i).Plate_number %></th>
+                                                                        
+                                                                        
                                                                         <th>
 <!--                                                                            <a href="${pageContext.request.contextPath}/ManageVehicleServlet?goflag=showvehicle&id=<%=activevehicles.get(i).ID  %>"><span class="label label-primary">   View   </span></a>-->
-                                                                            <a href="${pageContext.request.contextPath}/ManageServlet?goflag=showdriver&id=<%=activedrivers.get(i).id  %>"><span class="label label-primary">View Driver</span></a>
+
+                                                                            <a id="navbtn" style="padding:10px;cursor:pointer;" onclick="gonav(<%=i%>,<%=activedrivers.get(i).id %>)"><span class="label label-warning">Select</span></a>
+                                                                            
+                                                                            <a href="${pageContext.request.contextPath}/ManageServlet?goflag=showdriver&id=<%=activedrivers.get(i).id  %>"><span class="label label-primary">View Profile</span></a>
 
                                                                             
                                                                         </th>
@@ -702,7 +719,34 @@ new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chart
                                                              
                                                              
 					</div>
-                
+                        </div>
+                                                             
+                                                             <script>
+//                                                                 $(document).ready(function () {
+//                                                                    $("#navbtn").on('click', function () {
+////                                                                         newLocation(48.1293954,11.556663);
+//
+//                                                                            simpleNotify.notify('dsgregrgrthtr'+selecteddtogo, 'warning');
+//                                                                            simpleNotify.notify('dsgregrgrthtr'+selecteddtogo, 'warning');
+//                                                                            simpleNotify.notify('dsgregrgrthtr'+selecteddtogo, 'warning');
+//                                                                            simpleNotify.notify('dsgregrgrthtr'+selecteddtogo, 'warning');
+//
+//                                                                       });
+//                                                                 });
+
+                                                                function gonav(index, id) {
+                                                                    selecteddtogo=id;
+//                                                                    map.panTo(marr[index].getPosition());
+                                                                    google.maps.event.trigger(map, "resize");
+                                                                    map.panTo(marr[index].getPosition());
+                                                                    map.setZoom(14);
+//                                                                      simpleNotify.notify('dsgregrgrthtr'+selecteddtogo, 'warning');
+//                                                                      simpleNotify.notify('dsgregrgrthtr'+s, 'warning');
+//                                                                      simpleNotify.notify('dsgregrgrthtr'+s, 'warning');
+
+    }
+
+                                                             </script>
                             
                             
                             

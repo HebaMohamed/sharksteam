@@ -194,48 +194,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             
 
                              
-<!--<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.4.3.js"></script>-->
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
 <script>
-//    var pubnub = new PubNub({
-//    subscribeKey: "sub-c-a92c9e70-e683-11e6-b3b8-0619f8945a4f",
-//    publishKey: "pub-c-b04f5dff-3f09-4dc6-8b4e-58034b4b85bb",
-//    ssl: true
-//})
-//
-//pubnub.addListener({
-//    status: function(statusEvent) {
-//        if (statusEvent.category === "PNConnectedCategory") {
-//            var payload = {
-//                my: 'payload'
-//            };
-//            pubnub.publish(
-//                { 
-//                    message: payload
-//                }, 
-//                function (status) {
-//                    // handle publish response
-//                }
-//            );
-//        }
-//    },
-//    message: function(message) {
-//        // handle message
-//        var msg = message.message;
-//        //alert(msg.text);//msg is jsonobject and txt is properity
-//        //simpleNotify.notify('Hey! This is a simple notification.');
-//        //simpleNotify.notify('Hey! This is a warning notification.', 'warning');
-//        simpleNotify.notify(''+msg.text, 'warning');
-//
-//    },
-//    presence: function(presenceEvent) {
-//        // handle presence
-//    }
-//})
-// 
-//pubnub.subscribe({
-//    channels: ['driver1', 'notifych', 'ch3']
-//});
-////////////////////////////////////////////////////////////////////////////////////
+    
 
                                                               var config = {
                                                                    apiKey: "AIzaSyDm82ItD0ET3--vv1k99xRq3-NvBFVUYnA",
@@ -250,7 +211,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                 cRef.on('value', function(snapshot) {
                                                                     
                                                                     simpleNotify.notify('There is a warning !, please check warnings section', 'warning');
-                                                                    
+                                                                    simpleNotify.notify('There is a warning !, please check warnings section', 'warning');
+                                                                    simpleNotify.notify('There is a warning !, please check warnings section', 'warning');
+                      
                                                                 });
 
 

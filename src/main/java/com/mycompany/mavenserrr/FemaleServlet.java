@@ -73,6 +73,7 @@ public class FemaleServlet extends HttpServlet {
                     f.d.name = obj.getString("dname");
                     f.p.ID = obj.getInt("pid");
                     f.p.FullName = obj.getString("pname");
+                    f.v.ID = obj.getInt("vid");
                     
                     JSONObject nd = obj.getJSONObject("neard");
                     int nid = nd.getInt("id");
@@ -91,9 +92,12 @@ public class FemaleServlet extends HttpServlet {
                 }
                 else if(goflag.equals("sendhelp")){
                     String id= request.getParameter("id");
+                    String vid= request.getParameter("vid");
                     
-//                Firebase  myFirebaseRef = new Firebase("https://sharksmapandroid-158200.firebaseio.com/");
-//                myFirebaseRef.child("driver").child(String.valueOf(id)).child("wallet").setValue(0);
+                Firebase  myFirebaseRef = new Firebase("https://sharksmapandroid-158200.firebaseio.com/");
+                myFirebaseRef.child("driver").child(String.valueOf(id)).child("warninghelp").child("vid").setValue(vid);
+                myFirebaseRef.child("driver").child(String.valueOf(id)).child("warninghelp").child("did").setValue(id);
+
                 }
                 
             } catch (Exception ex) {

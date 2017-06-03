@@ -28,8 +28,8 @@ public int trip_ID;
 public Date start_Date;
 public Date end_Date;
 public double price;
-double longtude;
-double lattitude;
+public double longtude;
+public double lattitude;
 public String comment;
 public int rating;
 

@@ -9,7 +9,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>New Driver</title>
+<title>Edit Driver</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -203,6 +203,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                 <p class="help-block">You can upload small driver image here.</p> 
                                                             </div> 
                                                             <input type="hidden" name="hiddenflag" id="hiddenflag" value="edit">
+                                                            <input type="hidden" name="did" id="did" value="<%=selectedD.id%>">
                                                             <button type="submit" name="action1" class="btn btn-primary">Save Changes</button> 
                                                         </form> 
 						</div>

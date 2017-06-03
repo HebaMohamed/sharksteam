@@ -66,7 +66,7 @@ public class TripServlet extends HttpServlet {
     }
     
         
-    void gohome(HttpServletRequest request, HttpServletResponse response) {
+    void gohome(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {   
             JSONObject obj;
                     obj = DataClass.getJSONObject(URLsClass.gettrips, "");
@@ -78,6 +78,7 @@ public class TripServlet extends HttpServlet {
                 request.getRequestDispatcher("trips.jsp").forward(request, response);//show only
             } catch (Exception ex) {
                 Logger.getLogger(TripServlet.class.getName()).log(Level.SEVERE, null, ex);
+                response.sendRedirect(request.getContextPath() + "/LoginServlet");
             } 
     }
         
@@ -94,12 +95,14 @@ public class TripServlet extends HttpServlet {
                     obj.getJSONArray("trips").getJSONObject(i).getInt("ratting"));
             t.p= new Passenger(obj.getJSONArray("trips").getJSONObject(i).getInt("passenger_id"));
             t.d= new Driver(obj.getJSONArray("trips").getJSONObject(i).getInt("driver_id"));
-            t.staticmapurl=getpathwaymap(obj.getJSONArray("trips").getJSONObject(i).getInt("trip_id"));
+            t.staticmapurl=getpathwaymap(obj.getJSONArray("trips").getJSONObject(i).getInt("trip_id"),290,110);
             
             t.from_addr=getAddress(obj.getJSONArray("trips").getJSONObject(i).getDouble("fromlat"),obj.getJSONArray("trips").getJSONObject(i).getDouble("fromlng"));
             t.to_addr=getAddress(obj.getJSONArray("trips").getJSONObject(i).getDouble("tolat"),obj.getJSONArray("trips").getJSONObject(i).getDouble("tolng"));
 
-            
+            t.lattitude = obj.getJSONArray("trips").getJSONObject(i).getDouble("fromlat");
+            t.longtude = obj.getJSONArray("trips").getJSONObject(i).getDouble("fromlng");
+
             alltrips.add(t);
             
             //get today count
@@ -125,7 +128,7 @@ public class TripServlet extends HttpServlet {
         return formatted_address;            
     }
     
-    String getpathwaymap(int tripid){
+    String getpathwaymap(int tripid, int width, int height){
         String staticmapurl = "https://maps.googleapis.com/maps/api/staticmap?";
             try {
                 JSONObject obj = DataClass.getJSONObject(URLsClass.getpathwaymap+"/"+tripid, "");
@@ -134,7 +137,7 @@ public class TripServlet extends HttpServlet {
                 String latcenter = obj.getJSONArray("pathwaymap").getJSONObject(centersize).getString("yattitude");
                 String lngcenter = obj.getJSONArray("pathwaymap").getJSONObject(centersize).getString("xlongitude");
                 
-                staticmapurl += "center="+latcenter+","+lngcenter+"&size=290x110&path=color:0x0000ff|weight:5";//&zoom=14
+                staticmapurl += "center="+latcenter+","+lngcenter+"&size="+width+"x"+height+"&path=color:0x0000ff|weight:5";//&zoom=14
 
                 for (int i = 0; i < obj.getJSONArray("pathwaymap").size(); i++) {
                     String lat = obj.getJSONArray("pathwaymap").getJSONObject(i).getString("yattitude");
@@ -197,10 +200,13 @@ public class TripServlet extends HttpServlet {
                         tt.p.FullName=t.getString("passengername");
                         tt.status=t.getString("status");
                         
+                        tt.lattitude = t.getDouble("ilat");
+                        tt.longtude = t.getDouble("ilng");
+                        
                         tt.from_addr=getAddress(t.getDouble("ilat"), t.getDouble("ilng"));
                         tt.to_addr=getAddress(t.getDouble("destlat"), t.getDouble("destlng"));
                         
-                        tt.staticmapurl=getpathwaymap(Integer.parseInt(tid));
+                        tt.staticmapurl=getpathwaymap(Integer.parseInt(tid),800,300);
 
                         
                         request.setAttribute("selectedtrip", tt);

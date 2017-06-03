@@ -177,7 +177,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								<tr>
 									<th>Driver ID</th>
                                                                         <th>Driver Name</th>
-									<th>Datetime</th>
+									<th>Event Datetime</th>
 									<th>Options</th>
 								</tr>
 							</thead>

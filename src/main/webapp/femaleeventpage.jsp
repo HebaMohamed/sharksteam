@@ -293,7 +293,7 @@ var lng = <%=warning.lng%>;
          <div class="col-md-9"></div>
                                                                                  <div class="col-md-3">
                                                                                      <h3>
-                                                                                        <a href="${pageContext.request.contextPath}/FemaleServlet?goflag=sendhelp&id=<%=neardriver.id%>"><span class="label label-danger">Ask him for help</span></a>
+                                                                                        <a href="${pageContext.request.contextPath}/FemaleServlet?goflag=sendhelp&id=<%=neardriver.id%>&vid=<%=warning.v.ID%>"><span class="label label-danger">Ask him for help</span></a>
                                                                                      
                                             <br/><br/>
                                                                                      </h3>
