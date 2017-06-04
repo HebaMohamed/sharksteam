@@ -94,7 +94,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						</li>
 
 						<li>
-							<a href="#" ><i class="fa fa-th-large nav_icon"></i>Events <span class="fa arrow"></span></a>
+							<a href="#" ><i class="fa fa-th-large nav_icon"></i>Events <span id="eventsf" class="nav-badge-btm"></span><span class="fa arrow"></span></a>
                                                         <ul class="nav nav-second-level collapse">
 								<li>
 									<a href="${pageContext.request.contextPath}/FemaleServlet">Female Safety</a>
@@ -152,7 +152,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 				<div class="profile_details_left"><!--notifications of menu start -->
 					<ul class="nofitications-dropdown">
 						<li class="dropdown head-dpdn">
-							<a href="${pageContext.request.contextPath}/PendingServlet" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">1</span></a>
+							<a href="${pageContext.request.contextPath}/PendingServlet" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i><span id="memberf" class="badge blue"></span></a>
 						</li>	
 					</ul>
 					<div class="clearfix"> </div>
@@ -604,22 +604,62 @@ new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chart
                                                                             var iid = mids[i];
                                                                             if(iid == currentdid){
                                                                             marr[i].setPosition(newpos);
-//                                                                            simpleNotify.notify('dsgregrgrthtr'+currentdid, 'warning');
-//                                                                            simpleNotify.notify('dsgregrgrthtr'+currentdid, 'warning');
-//                                                                            simpleNotify.notify('dsgregrgrthtr'+iid, 'warning');
+                                                                            
+//                                                                            simpleNotify.notify('dsgregrgrthtr', 'warning');
+//                                                                            simpleNotify.notify('dsgregrgrthtr', 'warning');
+//                                                                            simpleNotify.notify('dsgregrgrthtr'+vlat, 'warning');
                                                                         }
+                                                                        
                                                                     }
                                                                         
                                                                         
                                                                         
                                                                     });
                                                                     
+                                                                    
+                                                                    
                                                                 });
 
         
         
         
-        
+        ///////for notifications
+         var cRef2 = database.ref('notifications');   
+         cRef2.on('value', function(snapshot) {
+             var driverwarning = snapshot.child("driverwarning").val();
+             var femalewarning = snapshot.child("femalewarning").val();
+             var newmember = snapshot.child("newmember").val();
+             
+            if(newmember != ""){
+                 document.getElementById("memberf").style.visibility = "visible";
+                document.getElementById("memberf").innerHTML = newmember;
+            }
+            else{
+                document.getElementById("memberf").style.visibility = "hidden";
+            }
+            
+            if(driverwarning != "" || femalewarning != ""){
+                document.getElementById("eventsf").style.visibility = "visible";
+                document.getElementById("eventsf").innerHTML = "NEW";
+            }
+            else{
+                document.getElementById("eventsf").style.visibility = "hidden";
+            }
+
+         });
+         var cRef3 = database.ref('warning');
+         var x = 0;
+         cRef3.on('value', function(snapshot) {
+             if(x!=0){
+             simpleNotify.notify('There is a new Warning!, Please check events section', 'warning');
+             simpleNotify.notify('', 'warning');
+             simpleNotify.notify('', 'warning');
+            }
+            else{
+                x = 1;//3shn awl mra msh ybyn notifications
+            }
+         });
+         
         
         
       }
@@ -737,7 +777,7 @@ new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chart
                                                                 function gonav(index, id) {
                                                                     selecteddtogo=id;
 //                                                                    map.panTo(marr[index].getPosition());
-                                                                    google.maps.event.trigger(map, "resize");
+//                                                                    google.maps.event.trigger(map, "resize");
                                                                     map.panTo(marr[index].getPosition());
                                                                     map.setZoom(14);
 //                                                                      simpleNotify.notify('dsgregrgrthtr'+selecteddtogo, 'warning');

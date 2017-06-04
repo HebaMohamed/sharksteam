@@ -127,7 +127,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					<ul class="nofitications-dropdown">
 						<li class="dropdown head-dpdn">
 							<!--<a id="notifnum" href="${pageContext.request.contextPath}/PendingServlet?" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">1</span></a>-->
-							<a id="notifnum" href="${pageContext.request.contextPath}/PendingServlet?" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i></a>
+							<a id="notifnum" href="${pageContext.request.contextPath}/PendingServlet?" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"><span id="memberf" class="badge blue"></span></i></a>
 
                                                 </li>	
 					</ul>
@@ -207,14 +207,44 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
                                                               // Get a reference to the database service
                                                               var database = firebase.database();
-                                                                var cRef = database.ref('warning');          
-                                                                cRef.on('value', function(snapshot) {
-                                                                    
-                                                                    simpleNotify.notify('There is a warning !, please check warnings section', 'warning');
-                                                                    simpleNotify.notify('There is a warning !, please check warnings section', 'warning');
-                                                                    simpleNotify.notify('There is a warning !, please check warnings section', 'warning');
-                      
-                                                                });
+                                                              
+                                                              
+        ///////for notifications
+         var cRef2 = database.ref('notifications');   
+         cRef2.on('value', function(snapshot) {
+             var driverwarning = snapshot.child("driverwarning").val();
+             var femalewarning = snapshot.child("femalewarning").val();
+             var newmember = snapshot.child("newmember").val();
+             
+            if(newmember != ""){
+                 document.getElementById("memberf").style.visibility = "visible";
+                document.getElementById("memberf").innerHTML = newmember;
+            }
+            else{
+                document.getElementById("memberf").style.visibility = "hidden";
+            }
+            
+            if(driverwarning != "" || femalewarning != ""){
+                document.getElementById("eventsf").style.visibility = "visible";
+                document.getElementById("eventsf").innerHTML = "NEW";
+            }
+            else{
+                document.getElementById("eventsf").style.visibility = "hidden";
+            }
+
+         });
+         var cRef3 = database.ref('warning');
+         var x = 0;
+         cRef3.on('value', function(snapshot) {
+             if(x!=0){
+             simpleNotify.notify('There is a new Warning!, Please check events section', 'warning');
+             simpleNotify.notify('', 'warning');
+             simpleNotify.notify('', 'warning');
+            }
+            else{
+                x = 1;//3shn awl mra msh ybyn notifications
+            }
+         });
 
 
 

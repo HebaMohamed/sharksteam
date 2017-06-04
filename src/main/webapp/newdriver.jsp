@@ -115,7 +115,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 				<div class="profile_details_left"><!--notifications of menu start -->
 					<ul class="nofitications-dropdown">
 						<li class="dropdown head-dpdn">
-							<a href="${pageContext.request.contextPath}/PendingServlet" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">1</span></a>
+							<a href="${pageContext.request.contextPath}/PendingServlet" class="dropdown-toggle" aria-expanded="false"><i class="fa fa-bell"></i><span id="memberf" class="badge blue"></span></a>
 						</li>	
 					</ul>
 					<div class="clearfix"> </div>
@@ -192,6 +192,63 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             
 			</div>
 		</div>
+                                                            
+                <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+<script>
+    
+
+                                                              var config = {
+                                                                   apiKey: "AIzaSyDm82ItD0ET3--vv1k99xRq3-NvBFVUYnA",
+                                                                    authDomain: "sharksmapandroid-158200.firebaseapp.com",
+                                                                    databaseURL: "https://sharksmapandroid-158200.firebaseio.com"
+                                                              };
+                                                              firebase.initializeApp(config);
+
+                                                              // Get a reference to the database service
+                                                              var database = firebase.database();
+                                                              
+                                                              
+        ///////for notifications
+         var cRef2 = database.ref('notifications');   
+         cRef2.on('value', function(snapshot) {
+             var driverwarning = snapshot.child("driverwarning").val();
+             var femalewarning = snapshot.child("femalewarning").val();
+             var newmember = snapshot.child("newmember").val();
+             
+            if(newmember != ""){
+                 document.getElementById("memberf").style.visibility = "visible";
+                document.getElementById("memberf").innerHTML = newmember;
+            }
+            else{
+                document.getElementById("memberf").style.visibility = "hidden";
+            }
+            
+            if(driverwarning != "" || femalewarning != ""){
+                document.getElementById("eventsf").style.visibility = "visible";
+                document.getElementById("eventsf").innerHTML = "NEW";
+            }
+            else{
+                document.getElementById("eventsf").style.visibility = "hidden";
+            }
+
+         });
+         var cRef3 = database.ref('warning');
+         var x = 0;
+         cRef3.on('value', function(snapshot) {
+             if(x!=0){
+             simpleNotify.notify('There is a new Warning!, Please check events section', 'warning');
+             simpleNotify.notify('', 'warning');
+             simpleNotify.notify('', 'warning');
+            }
+            else{
+                x = 1;//3shn awl mra msh ybyn notifications
+            }
+         });
+
+
+
+</script>                                            
+                                                            
 		<!--footer-->
 		<div class="footer">
 		   <p>&copy; 2016 Novus Admin Panel. All Rights Reserved | Design by <a href="https://w3layouts.com/" target="_blank">w3layouts</a></p>

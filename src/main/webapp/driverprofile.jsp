@@ -484,7 +484,47 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                 });
                                                               
 
-                                                    </script>
+                                                              
+        ///////for notifications
+         var cRef2 = database.ref('notifications');   
+         cRef2.on('value', function(snapshot) {
+             var driverwarning = snapshot.child("driverwarning").val();
+             var femalewarning = snapshot.child("femalewarning").val();
+             var newmember = snapshot.child("newmember").val();
+             
+            if(newmember != ""){
+                 document.getElementById("memberf").style.visibility = "visible";
+                document.getElementById("memberf").innerHTML = newmember;
+            }
+            else{
+                document.getElementById("memberf").style.visibility = "hidden";
+            }
+            
+            if(driverwarning != "" || femalewarning != ""){
+                document.getElementById("eventsf").style.visibility = "visible";
+                document.getElementById("eventsf").innerHTML = "NEW";
+            }
+            else{
+                document.getElementById("eventsf").style.visibility = "hidden";
+            }
+
+         });
+         var cRef3 = database.ref('warning');
+         var x = 0;
+         cRef3.on('value', function(snapshot) {
+             if(x!=0){
+             simpleNotify.notify('There is a new Warning!, Please check events section', 'warning');
+             simpleNotify.notify('', 'warning');
+             simpleNotify.notify('', 'warning');
+            }
+            else{
+                x = 1;//3shn awl mra msh ybyn notifications
+            }
+         });
+
+
+
+</script>
 						</div>
                                                                         
                                                                         
