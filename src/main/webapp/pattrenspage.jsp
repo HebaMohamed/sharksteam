@@ -73,7 +73,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						</li>
 
 						<li>
-							<a href="#" ><i class="fa fa-th-large nav_icon"></i>Events <span class="fa arrow"></span></a>
+							<a href="#" ><i class="fa fa-th-large nav_icon"></i>Events <span id="eventsf" class="nav-badge-btm"></span><span class="fa arrow"></span></a>
                                                         <ul class="nav nav-second-level collapse">
 								<li>
 									<a href="${pageContext.request.contextPath}/FemaleServlet">Female Safety</a>

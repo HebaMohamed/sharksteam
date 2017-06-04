@@ -113,6 +113,8 @@ public class FemaleServlet extends HttpServlet {
                     obj = DataClass.getJSONObject(URLsClass.getfemaleevents, "");
                     getWarningssData(obj);
                     request.setAttribute("warnings", warnings);  
+                    
+                    emptyNotifications();
             
                     request.getRequestDispatcher("femalepage.jsp").forward(request, response);//show only
             } catch (NullPointerException ex) {
@@ -123,6 +125,12 @@ public class FemaleServlet extends HttpServlet {
                 Logger.getLogger(FemaleServlet.class.getName()).log(Level.SEVERE, null, ex);
 
             } 
+    }
+    
+    void emptyNotifications(){
+        //empty notifications
+        Firebase myFirebaseRef = new Firebase("https://sharksmapandroid-158200.firebaseio.com/");
+        myFirebaseRef.child("notifications").child("femalewarning").setValue("");
     }
     
     void getWarningssData(JSONObject obj){

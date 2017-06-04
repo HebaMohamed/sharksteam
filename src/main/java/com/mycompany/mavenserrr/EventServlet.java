@@ -5,6 +5,7 @@
  */
 package com.mycompany.mavenserrr;
 
+import com.firebase.client.Firebase;
 import com.google.gson.JsonElement;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -71,6 +72,8 @@ public class EventServlet extends HttpServlet {
                     obj = DataClass.getJSONObject(URLsClass.getwanings, "");
                     getWarningssData(obj);
                     request.setAttribute("warnings", warnings);  
+                    
+                    emptyNotifications();
             
                     request.getRequestDispatcher("eventspage.jsp").forward(request, response);//show only
             } catch (NullPointerException ex) {
@@ -81,6 +84,12 @@ public class EventServlet extends HttpServlet {
                 Logger.getLogger(EventServlet.class.getName()).log(Level.SEVERE, null, ex);
 
             } 
+    }
+    
+    void emptyNotifications(){
+        //empty notifications
+        Firebase myFirebaseRef = new Firebase("https://sharksmapandroid-158200.firebaseio.com/");
+        myFirebaseRef.child("notifications").child("driverwarning").setValue("");
     }
     
     void getWarningssData(JSONObject obj){

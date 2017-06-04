@@ -6,6 +6,7 @@ package com.mycompany.mavenserrr;
  * and open the template in the editor.
  */
 
+import com.firebase.client.Firebase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -38,6 +39,9 @@ public class PendingServlet extends HttpServlet {
 
             //ex 
             //DataClass.currentMM=new MonitoringMember(1, "ki", "omjio", "in");
+            
+            emptyNotifications();
+            
             gohome(request, response);
             
         } catch (Exception ex) {
@@ -47,6 +51,11 @@ public class PendingServlet extends HttpServlet {
         }
     }
 
+    void emptyNotifications(){
+        //empty notifications
+        Firebase myFirebaseRef = new Firebase("https://sharksmapandroid-158200.firebaseio.com/");
+        myFirebaseRef.child("notifications").child("newmember").setValue("");
+    }
         
     void gohome(HttpServletRequest request, HttpServletResponse response) throws Exception {
                     JSONObject obj;
