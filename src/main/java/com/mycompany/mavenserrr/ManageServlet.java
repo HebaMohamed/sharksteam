@@ -582,6 +582,16 @@ public class ManageServlet extends HttpServlet {
 //                response.sendRedirect(request.getContextPath() + "/ManageServlet");
 
             }
+            else if(goflag.equals("showlivetrip")){
+                String dId= request.getParameter("id");
+                currentId = Integer.parseInt(dId);
+                //get Driver
+                selecteddriver = getDriver(Integer.parseInt(dId)); 
+                
+                request.setAttribute("selecteddriver", selecteddriver);
+                request.getRequestDispatcher("livetripjsp.jsp").forward(request, response);
+            }
+            
             
             
                     
@@ -861,6 +871,18 @@ public class ManageServlet extends HttpServlet {
 //        d.Awarness_Level=dobj.getDouble("awareness_level");
         d.image=dobj.getString("image");//bytearr string
         d.logged=dobj.getBoolean("logged");
+        d.intrip=dobj.getBoolean("intrip");
+        
+        if(d.intrip){
+            d.trip=new Trip(dobj.getJSONObject("trip").getInt("tid"));
+            d.trip.ilat = dobj.getJSONObject("trip").getDouble("ilat");
+            d.trip.ilng = dobj.getJSONObject("trip").getDouble("ilng");
+            d.trip.dlat = dobj.getJSONObject("trip").getDouble("destlat");
+            d.trip.dlng = dobj.getJSONObject("trip").getDouble("destlng");
+            d.trip.start_Date=new Date(dobj.getJSONObject("trip").getLong("start"));
+        }
+        
+        
         
         //for ristricted routes level
         JSONArray arr = obj.getJSONArray("ristrictedroute");

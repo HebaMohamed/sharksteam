@@ -55,6 +55,8 @@ public class Driver {
     
     public Vehicle vehicle;
     public String vehicle_datetime;
+    
+    public Trip trip;
 
     public ArrayList<Double> restrictedLats = new ArrayList<Double>();
     public ArrayList<Double> restrictedLngs = new ArrayList<Double>();

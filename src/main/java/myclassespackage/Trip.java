@@ -38,6 +38,12 @@ public String to_addr;
 
 public String status;
 
+public double ilat;
+public double ilng;
+
+public double dlat;
+public double dlng;
+
 public Trip(int id)
 {
     trip_ID=id;
