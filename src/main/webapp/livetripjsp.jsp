@@ -45,6 +45,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="js/custom.js"></script>
 <link href="css/custom.css" rel="stylesheet">
 <!--//Metis Menu -->
+
+<!--for speed meter-->
+
+<link rel="stylesheet" href="speedmeterfiles/jg/css/jgauge.css" type="text/css" />
+
+<script src="speedmeterfiles/justgage/raphael-2.1.4.min.js"></script>
+<script src="speedmeterfiles/justgage/justgage.js"></script>
+
+<!--end for speed meter-->
+
    <style>
        #map {
         height: 400px;
@@ -173,11 +183,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <%  Driver selectedD = (Driver)request.getAttribute("selecteddriver"); %>
                             <h3 class="title1">Live Trip</h3>
                             
-                            <% //ArrayList<Trip> trips = (ArrayList<Trip>) request.getAttribute("trips"); %>
+                            <h5>This is a real-time trip location with traffic layer and directions</h5>
+                            <br/>
+                            
                             
                     <div class="col-md-12 widget-shadow">
-                            <div class="row">
-                                        
                                                          <div id="map"></div>
                                                              <script>
 
@@ -190,72 +200,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     var vmarker;
     
     function initAutocomplete() {
-        var uluru = {lat: 30.045915, lng: 31.22429};//
+        var uluru = {lat: <%=selectedD.trip.ilat%>, lng: <%=selectedD.trip.ilng%>}//{lat: 30.045915, lng: 31.22429};//
         map = new google.maps.Map(document.getElementById('map'), {
           center: uluru,
-          zoom: 14,
+          zoom: 5,
           mapTypeId: 'roadmap'
         });
       
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('pac-input');
-        var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function() {
-          searchBox.setBounds(map.getBounds());
-        });
-
-        var markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function() {
-          var places = searchBox.getPlaces();
-
-          if (places.length == 0) {
-            return;
-          }
-
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-
-          // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
-          places.forEach(function(place) {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            var icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
-
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            }));
-
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
-          map.fitBounds(bounds);
-        });
-        
+      
         
         //for me
         //initMap();
@@ -276,69 +228,150 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         new google.maps.Point(0,0),
         new google.maps.Point(56, 122)
     );
-        new google.maps.Marker({
-              map: map,
-              icon: image1,
-              title: "Start Location",
-              position: {lat: <%=selectedD.trip.ilat%>, lng: <%=selectedD.trip.ilng%>}
-            });
-        new google.maps.Marker({
-              map: map,
-              icon: image2,
-              title: "Destination Location",
-              position: {lat: <%=selectedD.trip.dlat%>, lng: <%=selectedD.trip.dlng%>}
-            });
+//        new google.maps.Marker({
+//              map: map,
+//              icon: image1,
+//              title: "Start Location",
+//              position: {lat: <%=selectedD.trip.ilat%>, lng: <%=selectedD.trip.ilng%>}
+//            });
+//        new google.maps.Marker({
+//              map: map,
+//              icon: image2,
+//              title: "Destination Location",
+//              position: {lat: <%=selectedD.trip.dlat%>, lng: <%=selectedD.trip.dlng%>}
+//            });
             
             vmarker = new google.maps.Marker({
               map: map,
               icon: sharkimg,
-              title: "Destination Location",
+              title: "Vehicle Location",
               position: {lat: <%=selectedD.trip.ilat%>, lng: <%=selectedD.trip.ilng%>}
             });
             
             
+            //for directions
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer;
+            directionsDisplay.setMap(map);
+            calculateAndDisplayRoute(directionsService, directionsDisplay);
+            
+            //show traffic
+            var trafficLayer = new google.maps.TrafficLayer();
+            trafficLayer.setMap(map);
       }
       
+       function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        directionsService.route({
+          origin: {lat: <%=selectedD.trip.ilat%>, lng: <%=selectedD.trip.ilng%>},
+          destination: {lat: <%=selectedD.trip.dlat%>, lng: <%=selectedD.trip.dlng%>},
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
       
       
     </script>
     
     
+                                                <!--speedometers-->
+                                                <div class="col-md-12">
+                                                    <div class="col-md-4">
+                                                        <div id="gauge1" class="200x160px"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div id="gauge2" class="200x160px"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div id="gauge3" class="200x160px"></div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <br/>
+                                                
+<!--                                                <div class="col-md-12 panel-grids">
+						<div class="panel panel-danger"> 
+                                                    <div class="panel-heading"> 
+                                                        <h3 class="panel-title">Trip Warning</h3> 
+                                                    </div> 
+                                                    <div class="panel-body"> There is no warning until now</div> 
+                                                </div>
+					</div>-->
+
     
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMkIegihYnGDWqYZukBz2eo_InQOh-XEI&libraries=places&callback=initAutocomplete"
          async defer></script>
-                
-                <!--end map part-->
-                                                         
-                                                         
-                                                         
-                                                
-                                                
-                                            
 
-                    </div>
-                                    
-					<div class="col-md-12 stats-info widget-shadow">
-						
-                                                    
-                                                             
-                                                             
-                                                             
-                                                   
-
-                                                             
-                                                             
-					</div>
-
-                                    
-                                     </div>
-                                    
-                              
-			</div>
-		</div>
                                                                         
                <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
 <script>
+    
+    
+                                                              var gauge1 = new JustGage({
+                                                                id: "gauge1",
+                                                                value: 67,
+                                                                min: 0,
+                                                                max: 7000,
+                                                                title: "RPM",
+                                                                pointer: true,
+                                                                pointerOptions: {
+                                                                  toplength: -15,
+                                                                  bottomlength: 10,
+                                                                  bottomwidth: 12,
+                                                                  color: '#8e8e93',
+                                                                  stroke: '#ffffff',
+                                                                  stroke_width: 3,
+                                                                  stroke_linecap: 'round'
+                                                                }
+                                                              });
+                                                              var gauge2 = new JustGage({
+                                                                id: "gauge2",
+                                                                value: 67,
+                                                                min: 0,
+                                                                max: 260,
+                                                                title: "Speed",
+                                                                pointer: true,
+                                                                pointerOptions: {
+                                                                  toplength: -15,
+                                                                  bottomlength: 10,
+                                                                  bottomwidth: 12,
+                                                                  color: '#8e8e93',
+                                                                  stroke: '#ffffff',
+                                                                  stroke_width: 3,
+                                                                  stroke_linecap: 'round'
+                                                                }
+                                                              });
+                                                              var gauge3 = new JustGage({
+                                                                id: "gauge3",
+                                                                value: 67,
+                                                                min: 0,
+                                                                max: 100,
+                                                                title: "Throttle",
+                                                                pointer: true,
+                                                                pointerOptions: {
+                                                                  toplength: -15,
+                                                                  bottomlength: 10,
+                                                                  bottomwidth: 12,
+                                                                  color: '#8e8e93',
+                                                                  stroke: '#ffffff',
+                                                                  stroke_width: 3,
+                                                                  stroke_linecap: 'round'
+                                                                }
+                                                              });
+                                                            
+                                                            
+                                                            // This function is called by jQuery once the page has finished loading.
+                                                            $(document).ready(function(){
+                                                                gauge1.init();
+                                                                gauge2.init();
+                                                                gauge3.init();
+                                                            });
+                                                            
+                                                            ////////////////////////////////////////
     
 
                                                               var config = {
@@ -350,6 +383,38 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
                                                               // Get a reference to the database service
                                                               var database = firebase.database();
+                                                              
+                                                              
+                                                              //listen to gaugesss
+                                                               var cRefg = database.ref('vehicles').child(<%=selectedD.id%>).child('RPM');
+                                                                cRefg.on('value', function(snapshot) {
+//                                                                    messageResults.value += '\n' + snapshot.val();
+//                                                                    myGauge.setValue(snapshot.val());
+                                                                      gauge1.refresh(snapshot.val());
+                                                                });
+                                                                var cRefg2 = database.ref('vehicles').child(<%=selectedD.id%>).child('Speed');
+                                                                cRefg2.on('value', function(snapshot) {
+//                                                                    messageResults.value += '\n' + snapshot.val();
+//                                                                    myGauge2.setValue(snapshot.val());
+                                                                      gauge2.refresh(snapshot.val());
+                                                                });
+                                                                var cRefg3 = database.ref('vehicles').child(<%=selectedD.id%>).child('Throttle');
+                                                                cRefg3.on('value', function(snapshot) {
+//                                                                    messageResults.value += '\n' + snapshot.val();
+//                                                                    myGauge3.setValue(snapshot.val());
+                                                                      gauge3.refresh(snapshot.val());
+                                                                });
+                                                                 var cRefg4 = database.ref('vehicles').child(<%=selectedD.id%>).child('Heading');
+                                                                cRefg4.on('value', function(snapshot) {
+//                                                                    messageResults.value += '\n' + snapshot.val();
+//                                                                    myGauge4.setValue(snapshot.val());
+                                                                });
+                                                              
+                                                              
+                                                              
+                                                              
+                                                              
+                                                              
                                                               
                                                               
         ///////for notifications
@@ -376,7 +441,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             }
 
          });
-         var cRef3 = database.ref('warning');
+         var cRef3 = database.ref('warning').ref("femalesaftey");
          var x = 0;
          cRef3.on('value', function(snapshot) {
              if(x!=0){
@@ -389,6 +454,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             }
          });
          
+         var vid="";
          var vid = <%=selectedD.vehicle.ID%>;
          //for moving vehicle
             var cRefv = database.ref('vehicles').ref(vid);          
@@ -400,11 +466,115 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 
                 vmarker.setPosition(newpos);
             });
+            
+            
+            
+            ///for chat
+//               var tid = <%=selectedD.trip.trip_ID%>;
+//                                                        var chRef = database.ref('trips').ref(tid).ref('talk');
+//                                                        chRef.on('value', function(snapshot) {
+////                                                           var div1 = document.createElement("div");
+////                                                            div1.setAttribute('class', 'activity-row activity-row1 activity-right');
+////                                                            div1.innerHTML = "<div class="col-xs-3 activity-img"><img src="images/1.png" class="img-responsive" alt=""></div> "+
+////                                                                            "<div class="col-xs-9 activity-img1">"+
+////                                                                            "<div class="activity-desc-sub">"+
+////                                                                            "<p>from jssssss</p>"+
+////                                                                            "</div>"+
+////                                                                            "</div>"+
+////                                                                            "<div class="clearfix"> </div>";
+//
+//                                                        
+////                                                        document.getElementById("tripchatbox").appCendChild(div1);
+//                                                        });
+//                                                        simpleNotify.notify('ss', 'warning');simpleNotify.notify('s', 'warning');simpleNotify.notify('ssss', 'warning');
+
+                                                        
 
 
 
-</script>                                                         
-                                                                        
+</script>        
+                
+                <!--end map part-->
+                                                         
+                                                         
+                                                                                                        
+                                                
+                                                
+                                                <br/>
+                                                
+                                                
+                                                
+<!--                                                <div class="col-md-6 profile widget-shadow chat-mdl-grid" style="width:48%">
+						<h4 class="title3">Conversation</h4>
+						<div id="tripchatbox" class="scrollbar scrollbar1">
+                                                    
+                                                    
+                                                    <script>
+                                                        
+                                                     
+                                                         
+                                                        
+                                                    </script>
+                                                    
+                                                    
+							<div class="activity-row activity-row1 activity-right">
+								<div class="col-xs-3 activity-img"><img src="images/1.png" class="img-responsive" alt=""></div>
+								<div class="col-xs-9 activity-img1">
+									<div class="activity-desc-sub">
+										<p>Hello ! Lorem ipsum dolor sit</p>
+										<span>10:00 PM</span>
+									</div>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+							<div class="activity-row activity-row1 activity-left">
+								<div class="col-xs-9 activity-img2">
+									<div class="activity-desc-sub1">
+										<p>What about our next meeting?</p>
+										<span class="right">9:55 PM</span>
+									</div>
+								</div>
+								<div class="col-xs-3 activity-img"><img src="images/3.png" class="img-responsive" alt=""></div>
+								<div class="clearfix"> </div>
+							</div>
+						</div>
+					</div>
+
+                                                
+                                            <div class="col-md-6 profile widget-shadow" style="width:48%">
+						<div class="activity_box activity_box2">
+							<h4 class="title3">Warnings</h4>
+							<div class="scrollbar scrollbar1">
+								<div class="single-bottom">
+									
+								</div>
+							</div>
+							<div class="chat-bottom">
+								<form>
+									<input type="text" placeholder="What next ?" required="">
+								</form>
+							</div>
+						</div>
+					</div>
+                                                -->
+					<!--<div class="clearfix"> </div>-->	
+
+
+                                    
+
+                                    
+                                     </div>
+                                    
+                              
+			</div>
+		</div>
+                                                 
+                                              
+<!--<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/>-->
 		<!--footer-->
 		<div class="footer">
 		   <p>&copy; 2016 Novus Admin Panel. All Rights Reserved | Design by <a href="https://w3layouts.com/" target="_blank">w3layouts</a></p>
