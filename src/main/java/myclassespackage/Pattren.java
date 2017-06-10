@@ -13,4 +13,6 @@ public class Pattren {
     public int id;
     public String name;
     public int max;
+    
+    public int value;//optional
 }

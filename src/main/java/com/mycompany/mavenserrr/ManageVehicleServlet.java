@@ -8,7 +8,10 @@ package com.mycompany.mavenserrr;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -19,8 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 import myclassespackage.DataClass;
 import myclassespackage.Driver;
 import myclassespackage.MonitoringMember;
+import myclassespackage.Pattren;
 import myclassespackage.URLsClass;
 import myclassespackage.Vehicle;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -33,6 +38,10 @@ public class ManageVehicleServlet extends HttpServlet {
     int currentId;
     ArrayList<Vehicle> allvehicles = new ArrayList<Vehicle>();
     ArrayList<Vehicle> filteredvehicles = new ArrayList<Vehicle>();
+    
+    ArrayList<String> pattrensnames = new ArrayList<String>();
+    ArrayList<Driver> lastdriverslist = new ArrayList<Driver>();
+
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -96,6 +105,8 @@ public class ManageVehicleServlet extends HttpServlet {
                   //get Vehicle
                 Vehicle v = getVehicle(Integer.parseInt(dId));
                 request.setAttribute("selectedvehicle", v);
+                request.setAttribute("lastdriverslist", lastdriverslist);
+                request.setAttribute("pattrensnames", pattrensnames);
                 request.getRequestDispatcher("vehicleprofile.jsp").forward(request, response);
             }
             else if(goflag.equals("searched")){
@@ -268,6 +279,7 @@ public class ManageVehicleServlet extends HttpServlet {
     }
     
         Vehicle getVehicle(int id) throws Exception{
+            lastdriverslist.clear();
         JSONObject obj = DataClass.getJSONObject(URLsClass.getvehicle+id, "");
         Vehicle v;
         int success = obj.getInt("success");
@@ -285,6 +297,48 @@ public class ManageVehicleServlet extends HttpServlet {
                                     vobj.getString("color"),
                                     0, 0, ow,
                                     vobj.getString("plate_number"));
+        ////////////
+        JSONArray lastdriversarr = obj.getJSONArray("drivers");
+        
+            for (int i = 0; i < lastdriversarr.size(); i++) {
+                JSONObject d = lastdriversarr.getJSONObject(i);
+                Driver pastdriver = new Driver(d.getInt("did"));
+                pastdriver.name = d.getString("name");
+                pastdriver.vehicle_datetime = convertdatetostring(d.getLong("starttimestamp"));
+                
+                pastdriver.pattrenscount.add(0);//init
+                pastdriver.pattrenscount.add(d.getJSONObject("pattrens").getInt("p1"));
+                pastdriver.pattrenscount.add(d.getJSONObject("pattrens").getInt("p2"));
+                pastdriver.pattrenscount.add(d.getJSONObject("pattrens").getInt("p3"));
+                pastdriver.pattrenscount.add(d.getJSONObject("pattrens").getInt("p4"));
+                pastdriver.pattrenscount.add(d.getJSONObject("pattrens").getInt("p5"));
+                pastdriver.pattrenscount.add(d.getJSONObject("pattrens").getInt("p6"));
+                pastdriver.pattrenscount.add(d.getJSONObject("pattrens").getInt("p7"));
+                pastdriver.pattrenscount.add(d.getJSONObject("pattrens").getInt("p8"));
+                pastdriver.pattrenscount.add(d.getJSONObject("pattrens").getInt("p9"));
+                pastdriver.pattrenscount.add(d.getJSONObject("pattrens").getInt("p10"));
+                pastdriver.pattrenscount.add(d.getJSONObject("pattrens").getInt("p11"));
+                pastdriver.pattrenscount.add(d.getJSONObject("pattrens").getInt("p12"));
+                
+                lastdriverslist.add(pastdriver);
+            }
+
+            JSONObject namesobj = obj.getJSONObject("pattrennames");
+            
+            pattrensnames.add("");//init
+            pattrensnames.add(namesobj.getString("p1"));
+            pattrensnames.add(namesobj.getString("p2"));
+            pattrensnames.add(namesobj.getString("p3"));
+            pattrensnames.add(namesobj.getString("p4"));
+            pattrensnames.add(namesobj.getString("p5"));
+            pattrensnames.add(namesobj.getString("p6"));
+            pattrensnames.add(namesobj.getString("p7"));
+            pattrensnames.add(namesobj.getString("p8"));
+            pattrensnames.add(namesobj.getString("p9"));
+            pattrensnames.add(namesobj.getString("p10"));
+            pattrensnames.add(namesobj.getString("p11"));
+            pattrensnames.add(namesobj.getString("p12"));
+
         
         }
         else{
@@ -295,4 +349,10 @@ public class ManageVehicleServlet extends HttpServlet {
         return v;
     }
 
+        public String convertdatetostring(long l){
+            Date date = new Date(l);
+            Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String s = formatter.format(date);
+            return s;
+        }
 }

@@ -98,6 +98,9 @@ public class FemaleServlet extends HttpServlet {
                 myFirebaseRef.child("driver").child(String.valueOf(id)).child("warninghelp").child("vid").setValue(vid);
                 myFirebaseRef.child("driver").child(String.valueOf(id)).child("warninghelp").child("did").setValue(id);
 
+                //go back
+                String referer = request.getHeader("Referer");
+                response.sendRedirect(referer);
                 }
                 
             } catch (Exception ex) {

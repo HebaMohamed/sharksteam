@@ -1,5 +1,7 @@
 package myclassespackage;
 
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,6 +20,8 @@ public double Longtude;
 public double Attitude;
 public String Outside_working;
 public String Plate_number;
+
+public ArrayList<Driver> lastdrivers = new ArrayList<Driver>();
 
 public Vehicle(int id)
 {

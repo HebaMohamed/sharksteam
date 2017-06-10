@@ -4,6 +4,7 @@
     Author     : dell
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="myclassespackage.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -231,6 +232,68 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                         
                                                                         
                                                                         
+                                                                            
+                                                                            
+                                                                            
+             <% ArrayList<Driver> lastdriverslist = (ArrayList<Driver>) request.getAttribute("lastdriverslist"); %>
+
+             
+             
+                    
+                                                                                <br/>
+                                                                                <h3>Drivers History</h3>
+                                                <div class="row">                           
+                                                    <div class="col-md-12">
+                                                        <table class="table stats-table ">
+							<thead>
+								<tr>
+                                                                        <th> </th>
+                                                                        <th>Driver Name</th>
+                                                                        <th>Started At</th>
+									<th>Options</th>
+								</tr>
+							</thead>
+							<tbody>
+                                                           
+                                                            <% for(int i = 0; i < lastdriverslist.size(); i+=1) { %>
+                                                                
+								<tr>
+                                                                        <th>
+                                                                            <div class="chat-left">
+                                                                                <img class="img-circle" width="30" height="30" src="images/admin_icon.jpg" alt="">
+										<label class="small-badge bg-green"></label>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th><%=lastdriverslist.get(i).name %></th>
+                                                                        <th><%=lastdriverslist.get(i).vehicle_datetime %></th>
+                                                                        
+                                                                        
+                                                                        <th>
+
+                                                                            <!--<a id="navbtn" style="padding:10px;cursor:pointer;" onclick="gonav(<%=lastdriverslist.get(i).id %>)"><span class="label label-warning">Show Patrens</span></a>-->
+                                                                            
+                                                                            <a href="${pageContext.request.contextPath}/ManageServlet?goflag=showdriver&id=<%=lastdriverslist.get(i).id  %>"><span class="label label-primary">View Profile</span></a>
+
+                                                                            
+                                                                        </th>
+
+                                                                </tr>
+							     <% } %>
+                                                             
+							</tbody>
+						</table>
+                                                            
+
+                                                    </div>  
+<!--                                                    <div class="col-md-6">
+                                                        
+                                                    </div>-->
+                                                </div>
+                                                                    
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                         
 					</div>
                                                                             
@@ -257,17 +320,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									</div>
 								</div>
 							</div>
-						</div>
-                    
-                                                <div class="row">                           
-                                                    <div class="col-md-6">
-                                                        
-                                                    </div>  
-                                                    <div class="col-md-6">
-                                                        
-                                                    </div>
-                                                </div>
-                                                                              
+						</div>          
                     
 		</div>
                                                                                 

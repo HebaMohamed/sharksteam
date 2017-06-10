@@ -56,6 +56,8 @@ public class Driver {
     public Vehicle vehicle;
     public String vehicle_datetime;
     
+    public ArrayList<Integer> pattrenscount = new ArrayList<Integer>();//optional
+    
     public Trip trip;
 
     public ArrayList<Double> restrictedLats = new ArrayList<Double>();
