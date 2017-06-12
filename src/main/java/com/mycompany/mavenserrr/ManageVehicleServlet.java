@@ -157,7 +157,7 @@ public class ManageVehicleServlet extends HttpServlet {
                 go.put("vcolor", vcolor);
                 go.put("vplatenumber", vplatenumber);
             
-            JSONObject resObj = DataClass.getJSONObject(URLsClass.addvehicle+vmodel, go.toString());
+            JSONObject resObj = DataClass.getJSONObject(URLsClass.addvehicle, go.toString());
 
             int successf = resObj.getInt("success");     
             if(successf==1){

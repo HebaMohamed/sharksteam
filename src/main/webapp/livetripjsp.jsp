@@ -441,7 +441,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             }
 
          });
-         var cRef3 = database.ref('warning').ref("femalesaftey");
+         var cRef3 = database.ref('warning').child("femalesaftey");
          var x = 0;
          cRef3.on('value', function(snapshot) {
              if(x!=0){
@@ -457,7 +457,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
          var vid="";
          var vid = <%=selectedD.vehicle.ID%>;
          //for moving vehicle
-            var cRefv = database.ref('vehicles').ref(vid);          
+            var cRefv = database.ref('vehicles').child(vid);          
             cRefv.on('value', function(snapshot) {
                 var vlat = snapshot.child("Latitude").val();
                 var vlng = snapshot.child("Longitude").val();
@@ -469,26 +469,70 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             
             
             
-            ///for chat
-//               var tid = <%=selectedD.trip.trip_ID%>;
-//                                                        var chRef = database.ref('trips').ref(tid).ref('talk');
-//                                                        chRef.on('value', function(snapshot) {
-////                                                           var div1 = document.createElement("div");
-////                                                            div1.setAttribute('class', 'activity-row activity-row1 activity-right');
-////                                                            div1.innerHTML = "<div class="col-xs-3 activity-img"><img src="images/1.png" class="img-responsive" alt=""></div> "+
-////                                                                            "<div class="col-xs-9 activity-img1">"+
-////                                                                            "<div class="activity-desc-sub">"+
-////                                                                            "<p>from jssssss</p>"+
-////                                                                            "</div>"+
-////                                                                            "</div>"+
-////                                                                            "<div class="clearfix"> </div>";
+//            ///for chat
+                var tid = "";
+                tid = <%=selectedD.trip.trip_ID%>;
+                                                        var chRef = database.ref('trips').child(tid).child('talk');
+                                                        chRef.on('value', function(snapshot) {
+                                                            document.getElementById("tripchatbox").innerHTML="";//3shn y7t mra w7da bs
+                                                            snapshot.forEach(function(child){
+                                                            var f = child.child("f").val();
+                                                            var msg = child.child("msg").val();
+                                                            
+                                                            
+                                                                    var div1 = document.createElement("div");
+                                                                     div1.setAttribute("class", "activity-row activity-row1 activity-right");
+                                                                     div1.innerHTML = "<div class=\"col-xs-3 activity-img\"><img src=\"images/1.png\" class=\"img-responsive\" alt=\"\"></div> "+
+                                                                                     "<div class=\"col-xs-9 activity-img1\">"+
+                                                                                     "<div class=\"activity-desc-sub\">"+
+                                                                                     "<p>"+msg+"</p>"+
+                                                                                     "</div>"+
+                                                                                     "</div>"+
+                                                                                     "<div class=\"clearfix\"> </div>";
+
+                                                                     var div2 = document.createElement("div");
+                                                                     div2.setAttribute("class", "activity-row activity-row1 activity-left");
+                                                                     div2.innerHTML = "<div class=\"col-xs-9 activity-img2\">"+
+                                                                                      "<div class=\"activity-desc-sub1\">"+
+                                                                                      "<p>"+msg+"</p>"+
+                                                                                      "</div>"+
+                                                                                      "</div>"+
+                                                                                      "<div class=\"col-xs-3 activity-img\"><img src=\"images/3.png\" class=\"img-responsive\" alt=\"\"></div>"+
+                                                                                      "<div class=\"clearfix\"> </div>";
+
+                                                                if(f=="p"){
+                                                                     document.getElementById("tripchatbox").appendChild(div1);
+                                                                 }
+                                                                 else{
+                                                                     document.getElementById("tripchatbox").appendChild(div2);
+                                                                 }
+                                                            });
+                                                    
+                                                        
+                                                        });
+//                                                        simpleNotify.notify('ss', 'warning');simpleNotify.notify('s', 'warning');simpleNotify.notify('ssss', 'warning');
 //
 //                                                        
-////                                                        document.getElementById("tripchatbox").appCendChild(div1);
-//                                                        });
-//                                                        simpleNotify.notify('ss', 'warning');simpleNotify.notify('s', 'warning');simpleNotify.notify('ssss', 'warning');
 
-                                                        
+////////////////////////////////////////////////////////
+                                                        var wRef = database.ref('warning').child('femalesaftey');
+                                                        wRef.on('value', function(snapshot) {
+                                                            document.getElementById("warningssection").innerHTML="";//3shn y7t mra w7da bs
+                                                            snapshot.forEach(function(child){
+                                                                var wtid = child.child("tid").val();
+                                                                var ts = child.key;
+                                                                if(wtid==tid){
+                                                                    var div = document.createElement("div");
+                                                                    div.innerHTML = "<h3>There is a new Female Safety Warning !</h3>"+
+                                                                     "<a href=\"${pageContext.request.contextPath}/FemaleServlet?goflag=showevent&id="+ts+"\"><span class=\"label label-primary\">   View Details  </span></a>";
+                                                                    document.getElementById("warningssection").appendChild(div);
+                                                                        
+
+                                                                }
+                                                            });
+                                                        });
+
+
 
 
 
@@ -504,13 +548,13 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                 
                                                 
                                                 
-<!--                                                <div class="col-md-6 profile widget-shadow chat-mdl-grid" style="width:48%">
+                                                <div class="col-md-6 profile widget-shadow chat-mdl-grid" style="width:48%">
 						<h4 class="title3">Conversation</h4>
 						<div id="tripchatbox" class="scrollbar scrollbar1">
                                                     
                                                     
                                                     
-							<div class="activity-row activity-row1 activity-right">
+<!--							<div class="activity-row activity-row1 activity-right">
 								<div class="col-xs-3 activity-img"><img src="images/1.png" class="img-responsive" alt=""></div>
 								<div class="col-xs-9 activity-img1">
 									<div class="activity-desc-sub">
@@ -529,7 +573,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								</div>
 								<div class="col-xs-3 activity-img"><img src="images/3.png" class="img-responsive" alt=""></div>
 								<div class="clearfix"> </div>
-							</div>
+							</div>-->
 						</div>
 					</div>
 
@@ -538,19 +582,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						<div class="activity_box activity_box2">
 							<h4 class="title3">Warnings</h4>
 							<div class="scrollbar scrollbar1">
-								<div class="single-bottom">
+								<div id="warningssection" class="single-bottom">
 									
 								</div>
 							</div>
-							<div class="chat-bottom">
-								<form>
-									<input type="text" placeholder="What next ?" required="">
-								</form>
-							</div>
 						</div>
 					</div>
-                                                -->
-					<!--<div class="clearfix"> </div>-->	
+                                                
+					<div class="clearfix"> </div>	
 
 
                                     
