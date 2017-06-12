@@ -172,6 +172,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             
                             <% FemaleWarning warning = (FemaleWarning) request.getAttribute("warning"); %>
                             <% Driver neardriver = (Driver) request.getAttribute("neardriver"); %>
+                            <% int neardriverflag = (Integer) request.getAttribute("neardriverflag"); %>
 
                             
 					<div class="col-md-12 stats-info widget-shadow">
@@ -339,15 +340,20 @@ var lng = <%=warning.lng%>;
          
          <div class="profile-right">
              <p>Nearest Driver Name</p>
+             <%if(neardriverflag == 1){%>
              <h4><%=neardriver.name%></h4>
+             <%}else{%>
+             <h4>There is no nearby drivers !</h4>
+             <%}%>
          </div>
          
-         <div class="col-md-9"></div>
+                                                                                <div class="col-md-9"></div>
                                                                                  <div class="col-md-3">
                                                                                      <h3>
-                                                                                        <a href="${pageContext.request.contextPath}/FemaleServlet?goflag=sendhelp&id=<%=neardriver.id%>&vid=<%=warning.v.ID%>"><span class="label label-danger">Ask him for help</span></a>
-                                                                                     
-                                            <br/><br/>
+                                                                                         <%if(neardriverflag == 1){%>
+                                                                                            <a href="${pageContext.request.contextPath}/FemaleServlet?goflag=sendhelp&id=<%=neardriver.id%>&vid=<%=warning.v.ID%>"><span class="label label-danger">Ask him for help</span></a>
+                                                                                        <%}%>
+                                                                                        <br/><br/>
                                                                                      </h3>
                                                                                  </div>
          

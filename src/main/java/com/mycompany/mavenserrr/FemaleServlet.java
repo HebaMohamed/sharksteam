@@ -76,17 +76,21 @@ public class FemaleServlet extends HttpServlet {
                     f.v.ID = obj.getInt("vid");
                     
                     JSONObject nd = obj.getJSONObject("neard");
+                    int flag = nd.getInt("f");
                     int nid = nd.getInt("id");
                     String nname = nd.getString("name");
 
                     Driver neardriver = new Driver (nid);
                     neardriver.name=nname;
 
+                    
 //                    f.d.name = "mr x";
 //                    f.p.FullName = "miss y";
                     
                     request.setAttribute("warning", f);
                     request.setAttribute("neardriver", neardriver);
+                    request.setAttribute("neardriverflag", flag);
+
 
                     request.getRequestDispatcher("femaleeventpage.jsp").forward(request, response);
                 }

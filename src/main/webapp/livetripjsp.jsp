@@ -509,13 +509,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						<div id="tripchatbox" class="scrollbar scrollbar1">
                                                     
                                                     
-                                                    <script>
-                                                        
-                                                     
-                                                         
-                                                        
-                                                    </script>
-                                                    
                                                     
 							<div class="activity-row activity-row1 activity-right">
 								<div class="col-xs-3 activity-img"><img src="images/1.png" class="img-responsive" alt=""></div>

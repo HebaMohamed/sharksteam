@@ -150,7 +150,14 @@ public class ManageVehicleServlet extends HttpServlet {
             String vcolor = request.getParameter("vcolor");
             String vplatenumber = request.getParameter("vplatenumber");
             
-            JSONObject resObj = DataClass.getJSONObject(URLsClass.addvehicle+vmodel+"/"+vcolor+"/"+vplatenumber+"/", "");
+            
+            //as a post request
+                JSONObject go = new JSONObject();          
+                go.put("vmodel", vmodel);
+                go.put("vcolor", vcolor);
+                go.put("vplatenumber", vplatenumber);
+            
+            JSONObject resObj = DataClass.getJSONObject(URLsClass.addvehicle+vmodel, go.toString());
 
             int successf = resObj.getInt("success");     
             if(successf==1){

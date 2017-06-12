@@ -97,12 +97,12 @@ public class LoginServlet extends HttpServlet {
                         response.sendRedirect(request.getContextPath() + "/IndexServlet");
                    }
                    else{
-                        DataClass.displayAlert(response,request,"Your account in pending state","/IndexServlet");
+                        DataClass.displayAlert(response,request,"Your account in pending state","/LoginServlet");
                    }
                }
                 else
                 {           
-                    DataClass.displayAlert(response,request,resObj.getString("msg"),"/IndexServlet");
+                    DataClass.displayAlert(response,request,resObj.getString("msg"),"/LoginServlet");
                 }
             } catch (Exception ex) {
                 Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
