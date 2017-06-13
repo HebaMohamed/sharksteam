@@ -10,6 +10,9 @@ package myclassespackage;
  * @author dell
  */
 public class FemaleWarning {
+    
+    public String status;
+
     public Long timestamp;
     public double lat;
     public double lng;

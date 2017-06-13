@@ -180,6 +180,25 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                             <br/>
                             <h3 class="title1">Female Safety Warning</h3>
                             
+                            <%if(warning.status.equals("new")){%>
+                            
+                            <div class="alert alert-danger" role="alert">
+				<strong>New !</strong> take an action ASAP!
+		            </div>
+                            
+                            <%} else if(warning.status.equals("assigned")){%>
+                            
+                            <div class="alert alert-warning" role="alert">
+				<strong>Nearest driver has been notified with this issue location</strong> 
+			    </div>
+                            <%} else {%>
+                            <div class="alert alert-success" role="alert">
+				<strong>Closed issue</strong> This issue is marked as closed
+			    </div>
+                            <%}%>
+
+
+
 
                                             
                                             <div class="profile-right">
@@ -335,6 +354,12 @@ var lng = <%=warning.lng%>;
          });
 
 
+         var rcRef = database.ref('driver').child(<%=neardriver.id%>).child("warninghelp");
+         rcRef.on('value', function(snapshot) {
+             var res = snapshot.child("response").val();
+             document.getElementById("dresponse").innerHTML = "<h4>"+res+"</h4>";
+         });
+
 
 </script>
    
@@ -343,24 +368,38 @@ var lng = <%=warning.lng%>;
          
          <br/>
          
+         
          <div class="profile-right">
+                    <%if(!warning.status.equals("closed")){%>
              <p>Nearest Driver Name</p>
              <%if(neardriverflag == 1){%>
              <h4><%=neardriver.name%></h4>
              <%}else{%>
              <h4>There is no nearby drivers !</h4>
              <%}%>
+                    <%}%>
+                    
+                    <%if(!warning.status.equals("assigned")){%>
+                    <p>Driver Response</p>
+                    <div id="dresponse"><h4>.......</h4></div>
+                    <%}%>
          </div>
          
-                                                                                <div class="col-md-9"></div>
-                                                                                 <div class="col-md-3">
-                                                                                     <h3>
-                                                                                         <%if(neardriverflag == 1){%>
-                                                                                            <a href="${pageContext.request.contextPath}/FemaleServlet?goflag=sendhelp&id=<%=neardriver.id%>&vid=<%=warning.v.ID%>&fid=<%=warning.timestamp%>"><span class="label label-danger">Ask him for help</span></a>
-                                                                                        <%}%>
-                                                                                        <br/><br/>
-                                                                                     </h3>
-                                                                                 </div>
+         <div class="col-md-9"></div>
+         <div class="col-md-3">
+             <h3>
+                 <%if(neardriverflag == 1){%>
+                 <%if(!warning.status.equals("new")){%>
+                    <a href="${pageContext.request.contextPath}/FemaleServlet?goflag=sendhelp&id=<%=neardriver.id%>&nearvid=<%=neardriver.vehicle.ID%>&fid=<%=warning.timestamp%>"><span class="label label-danger">Ask him for help</span></a>
+                 <%}%>
+                 <%}%>
+                 <br/><br/>
+             </h3>
+                 
+                 <h3>
+                     <a href="${pageContext.request.contextPath}/FemaleServlet?goflag=close&id=<%=neardriver.id%>&nearvid=<%=neardriver.vehicle.ID%>&fid=<%=warning.timestamp%>"><span class="label label-warning">Close issue</span></a>
+                 </h3>
+         </div>
          
          
          

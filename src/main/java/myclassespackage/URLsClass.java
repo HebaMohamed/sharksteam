@@ -58,6 +58,10 @@ public class URLsClass {
 
         public static String getfemaleevent = domain+service+"getfemaleevent/";//get
 
+        
+                public static String sendhelp = domain+service+"sendhelp/";//get
+                public static String closehelp = domain+service+"closehelp/";//get
+
 
     //public static String apikey = "AIzaSyCj2uPSrU6P6L9AIQp0IVS1Ad7qqPnXePA"; 
 

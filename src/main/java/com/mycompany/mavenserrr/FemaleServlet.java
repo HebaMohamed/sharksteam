@@ -25,6 +25,7 @@ import myclassespackage.Driver;
 import myclassespackage.EventWarning;
 import myclassespackage.FemaleWarning;
 import myclassespackage.URLsClass;
+import myclassespackage.Vehicle;
 import net.sf.json.JSONObject;
 
 /**
@@ -67,6 +68,7 @@ public class FemaleServlet extends HttpServlet {
                     JSONObject obj = DataClass.getJSONObject(URLsClass.getfemaleevent+id, "");
                     FemaleWarning f = new FemaleWarning();
                     f.timestamp=Long.parseLong(id);
+                    f.status=obj.getString("status");
                     f.lat=obj.getDouble("lat");
                     f.lng=obj.getDouble("lng");
                     f.d.id = obj.getInt("did");
@@ -78,10 +80,12 @@ public class FemaleServlet extends HttpServlet {
                     JSONObject nd = obj.getJSONObject("neard");
                     int flag = nd.getInt("f");
                     int nid = nd.getInt("id");
+                    int nearvid = nd.getInt("vid");
                     String nname = nd.getString("name");
 
                     Driver neardriver = new Driver (nid);
                     neardriver.name=nname;
+                    neardriver.vehicle=new Vehicle(nearvid);
 
                     
 //                    f.d.name = "mr x";
@@ -96,18 +100,27 @@ public class FemaleServlet extends HttpServlet {
                 }
                 else if(goflag.equals("sendhelp")){
                     String id= request.getParameter("id");
-                    String vid= request.getParameter("vid");
+                    String nearvid= request.getParameter("nearvid");
                     String fid= request.getParameter("fid");
+                    
+                    JSONObject obj = DataClass.getJSONObject(URLsClass.sendhelp+fid+"/"+id+"/"+nearvid, "");
 
-                Firebase  myFirebaseRef = new Firebase("https://sharksmapandroid-158200.firebaseio.com/");
-                myFirebaseRef.child("driver").child(String.valueOf(id)).child("warninghelp").child("vid").setValue(vid);
-//                myFirebaseRef.child("driver").child(String.valueOf(id)).child("warninghelp").child("did").setValue(id);
 
-                //go back
-                String referer = request.getHeader("Referer");
-                response.sendRedirect(referer);
+                    //go back
+                    String referer = request.getHeader("Referer");
+                    response.sendRedirect(referer);
                 }
-                
+                else if(goflag.equals("close")){
+                    String id= request.getParameter("id");
+                    String nearvid= request.getParameter("nearvid");
+                    String fid= request.getParameter("fid");
+                    
+                    JSONObject obj = DataClass.getJSONObject(URLsClass.closehelp+fid+"/"+id+"/"+nearvid, "");
+
+                    //go back
+                    String referer = request.getHeader("Referer");
+                    response.sendRedirect(referer);
+                }
             } catch (Exception ex) {
                 Logger.getLogger(TripServlet.class.getName()).log(Level.SEVERE, null, ex);
                 gohome(request, response);
