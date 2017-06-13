@@ -179,6 +179,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                             
                                             <br/>
                             <h3 class="title1">Female Safety Warning</h3>
+                            
 
                                             
                                             <div class="profile-right">
@@ -189,6 +190,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                 <p>Driver Name</p>
                                                 <h4><%=warning.d.name%></h4>
                                                 
+                                                <div id="latlngdiv">
+                                                    <p>Latitude : <%=warning.lat%></p>
+                                                    <p>Longitude : <%=warning.lng%></p>
+                                                </div>
                                             <br/>
                                             </div> 
                                             
@@ -351,7 +356,7 @@ var lng = <%=warning.lng%>;
                                                                                  <div class="col-md-3">
                                                                                      <h3>
                                                                                          <%if(neardriverflag == 1){%>
-                                                                                            <a href="${pageContext.request.contextPath}/FemaleServlet?goflag=sendhelp&id=<%=neardriver.id%>&vid=<%=warning.v.ID%>"><span class="label label-danger">Ask him for help</span></a>
+                                                                                            <a href="${pageContext.request.contextPath}/FemaleServlet?goflag=sendhelp&id=<%=neardriver.id%>&vid=<%=warning.v.ID%>&fid=<%=warning.timestamp%>"><span class="label label-danger">Ask him for help</span></a>
                                                                                         <%}%>
                                                                                         <br/><br/>
                                                                                      </h3>

@@ -40,6 +40,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		 new WOW().init();
 	</script>
 <!--//end-animate-->
+<!-- chart -->
+<script src="js/Chart.js"></script>
+<!-- //chart -->
 <!-- Metis Menu -->
 <script src="js/metisMenu.min.js"></script>
 <script src="js/custom.js"></script>
@@ -164,11 +167,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             <h3 class="title1">Pattrens</h3>
                             
                                     
+                                            <div class="col-md-12" style="background: #fff">
+						<canvas id="bar" style="width:806px; height: 206px; padding-right: 20px;"> </canvas>
+                                            </div>
+                            
 					<div class="col-md-12 stats-info widget-shadow">
+                                            
+                                            
 						<table class="table stats-table ">
 							<thead>
 								<tr>
-									<th>Patren.ID</th>
+									<th>Pattren ID</th>
                                                                         <th>Name</th>
 									<th>Max</th>
 									<th>Options</th>
@@ -263,10 +272,57 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             }
          });
 
+///////////////////////////////////////////////////////////////////////////////////////
+//fill bar
+var dataa = [];
 
+dataa.push(<%=(Integer)request.getAttribute("p1")%>);
+dataa.push(<%=(Integer)request.getAttribute("p2")%>);
+dataa.push(<%=(Integer)request.getAttribute("p3")%>);
+dataa.push(<%=(Integer)request.getAttribute("p4")%>);
+dataa.push(<%=(Integer)request.getAttribute("p5")%>);
+dataa.push(<%=(Integer)request.getAttribute("p6")%>);
+dataa.push(<%=(Integer)request.getAttribute("p7")%>);
+dataa.push(<%=(Integer)request.getAttribute("p8")%>);
+dataa.push(<%=(Integer)request.getAttribute("p9")%>);
+dataa.push(<%=(Integer)request.getAttribute("p10")%>);
+dataa.push(<%=(Integer)request.getAttribute("p11")%>);
+dataa.push(<%=(Integer)request.getAttribute("p12")%>);
+
+var dataa2 = [];
+dataa2.push("1");
+dataa2.push("2");
+dataa2.push("3");
+dataa2.push("4");
+dataa2.push("5");
+dataa2.push("6");
+dataa2.push("7");
+dataa2.push("8");
+dataa2.push("9");
+dataa2.push("10");
+dataa2.push("11");
+dataa2.push("12");
+
+    
+
+                                                                var lineChartData = {
+									labels : dataa2,
+									datasets : [
+										{
+												fillColor : "#e67e22",
+                                                                                                strokeColor : "#ef553a",
+                                                                                                pointColor : "#4F52BA",
+                                                                                                pointStrokeColor : "#fff",
+                                                                                                data : dataa
+										}
+									]
+									
+								};
+new Chart(document.getElementById("bar").getContext("2d")).Bar(lineChartData);
 
 </script>
                                                              
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 		<!--footer-->
 		<div class="footer">
 		   <p>&copy; 2016 Novus Admin Panel. All Rights Reserved | Design by <a href="https://w3layouts.com/" target="_blank">w3layouts</a></p>

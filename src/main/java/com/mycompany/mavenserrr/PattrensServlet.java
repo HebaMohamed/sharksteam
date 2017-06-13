@@ -51,6 +51,10 @@ public class PattrensServlet extends HttpServlet {
             JSONObject obj;
                     obj = DataClass.getJSONObject(URLsClass.getpattrens, "");
                     getPattrenssData(obj);
+                    
+                    for (int i = 1; i <= 12; i++) {
+                        request.setAttribute(String.valueOf("p"+i),obj.getJSONObject("counts").getInt(String.valueOf("p"+i)));
+                    }
                     request.setAttribute("pattrens", allpattrens);  
             
                     request.getRequestDispatcher("pattrenspage.jsp").forward(request, response);//show only

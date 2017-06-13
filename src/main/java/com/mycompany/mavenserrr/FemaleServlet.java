@@ -97,10 +97,11 @@ public class FemaleServlet extends HttpServlet {
                 else if(goflag.equals("sendhelp")){
                     String id= request.getParameter("id");
                     String vid= request.getParameter("vid");
-                    
+                    String fid= request.getParameter("fid");
+
                 Firebase  myFirebaseRef = new Firebase("https://sharksmapandroid-158200.firebaseio.com/");
                 myFirebaseRef.child("driver").child(String.valueOf(id)).child("warninghelp").child("vid").setValue(vid);
-                myFirebaseRef.child("driver").child(String.valueOf(id)).child("warninghelp").child("did").setValue(id);
+//                myFirebaseRef.child("driver").child(String.valueOf(id)).child("warninghelp").child("did").setValue(id);
 
                 //go back
                 String referer = request.getHeader("Referer");
