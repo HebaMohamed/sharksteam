@@ -177,6 +177,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								<tr>
 									<th>Trip ID</th>
                                                                         <th>Datetime</th>
+                                                                        <th>Status</th>
 									<th>Options</th>
 								</tr>
 							</thead>
@@ -186,10 +187,22 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                             
                                                                 <% for(int i = 0; i < warnings.size(); i+=1) { %>
                                                                 
+                                                                <%
+                                                                    String rowtype = "";
+                                                                    if(warnings.get(i).status.equals("new")){
+                                                                     rowtype="danger";
+                                                                    }else if(warnings.get(i).status.equals("assigned")){
+                                                                     rowtype="info";
+                                                                    }else {
+                                                                     rowtype="success";
+                                                                    }
+                                                                %>
+                                                                
                                                                
-								<tr>
+								<tr class="<%=rowtype%>">
                                                                         <th><%=warnings.get(i).tid %></th>
                                                                         <th><%=warnings.get(i).datetxt %></th>
+                                                                        <th><%=warnings.get(i).status %></th>
                                                                         <th>
                                                                             <a href="${pageContext.request.contextPath}/FemaleServlet?goflag=showevent&id=<%=warnings.get(i).timestamp%>"><span class="label label-primary">   View Details  </span></a>
                                                                            </th>

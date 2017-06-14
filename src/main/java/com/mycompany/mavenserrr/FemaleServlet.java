@@ -164,6 +164,7 @@ public class FemaleServlet extends HttpServlet {
             f.tid=(int)obj.getJSONArray("warning").getJSONObject(i).getInt("tid");
             f.lat=obj.getJSONArray("warning").getJSONObject(i).getDouble("lat");
             f.lng=obj.getJSONArray("warning").getJSONObject(i).getDouble("lng");
+            f.status=obj.getJSONArray("warning").getJSONObject(i).getString("status");
             f.datetxt=getdatetxt(f.timestamp);
             warnings.add(f);
         }
