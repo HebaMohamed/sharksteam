@@ -202,16 +202,19 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
                                             
                                             <div class="profile-right">
-                                                <p>Passenger Name</p>
-                                                <h4><%=warning.p.FullName%></h4>
+                                                <p>Passenger</p>
+                                                <h4>Name : <%=warning.p.FullName%></h4>
+                                                <h4>Phone : <%=warning.p.Phone%></h4>
+                                                <h4>Relative Phone : <%=warning.p.Relative_phone%></h4>
                                             </div> 
                                              <div class="profile-right">
-                                                <p>Driver Name</p>
-                                                <h4><%=warning.d.name%></h4>
+                                                <p>Driver</p>
+                                                <h4>Name : <%=warning.d.name%></h4>
                                                 
                                                 <div id="latlngdiv">
-                                                    <p>Latitude : <%=warning.lat%></p>
-                                                    <p>Longitude : <%=warning.lng%></p>
+                                                    <p>Warning Location</p>
+                                                    <h4>Latitude : <%=warning.lat%></h4>
+                                                    <h4>Longitude : <%=warning.lng%></h4>
                                                 </div>
                                             <br/>
                                             </div> 
@@ -379,7 +382,7 @@ var lng = <%=warning.lng%>;
              <%}%>
                     <%}%>
                     
-                    <%if(!warning.status.equals("assigned")){%>
+                    <%if(warning.status.equals("assigned")){%>
                     <p>Driver Response</p>
                     <div id="dresponse"><h4>.......</h4></div>
                     <%}%>
@@ -389,7 +392,7 @@ var lng = <%=warning.lng%>;
          <div class="col-md-3">
              <h3>
                  <%if(neardriverflag == 1){%>
-                 <%if(!warning.status.equals("new")){%>
+                 <%if((!warning.status.equals("closed")) && (!warning.status.equals("assigned"))){%>
                     <a href="${pageContext.request.contextPath}/FemaleServlet?goflag=sendhelp&id=<%=neardriver.id%>&nearvid=<%=neardriver.vehicle.ID%>&fid=<%=warning.timestamp%>"><span class="label label-danger">Ask him for help</span></a>
                  <%}%>
                  <%}%>

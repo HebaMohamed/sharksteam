@@ -17,15 +17,15 @@ public class Passenger {
     public String FullName;
     String Gender;
     int Age;
-    int Phone;
-    int Relative_phones;
+    public String Phone;
+    public String Relative_phone;
     String Language;
     String UserName;
     
     public Passenger(int id){
         this.ID=id;
     }
-    public Passenger(int id,String pass,String name,String gender,int age,int phone,int R_phone,String language,String U_name)
+    public Passenger(int id,String pass,String name,String gender,int age,String phone,String R_phone,String language,String U_name)
     {
         ID=id;
         Password=pass;
@@ -33,7 +33,7 @@ public class Passenger {
         Gender=gender;
         Age=age;
         Phone=phone;
-        Relative_phones=R_phone;
+        Relative_phone=R_phone;
         Language=language;
         UserName=U_name;
         

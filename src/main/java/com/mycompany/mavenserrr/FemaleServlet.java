@@ -75,6 +75,8 @@ public class FemaleServlet extends HttpServlet {
                     f.d.name = obj.getString("dname");
                     f.p.ID = obj.getInt("pid");
                     f.p.FullName = obj.getString("pname");
+                    f.p.Phone = obj.getString("phone");
+                    f.p.Relative_phone = obj.getString("relatedphone");
                     f.v.ID = obj.getInt("vid");
                     
                     JSONObject nd = obj.getJSONObject("neard");
