@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import myclassespackage.DataClass;
 import myclassespackage.EventWarning;
 import myclassespackage.URLsClass;
+import myclassespackage.Vehicle;
 import net.sf.json.JSONObject;
 
 /**
@@ -35,6 +36,7 @@ public class EventServlet extends HttpServlet {
 
         
     ArrayList<EventWarning> warnings = new ArrayList<EventWarning>();
+    ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -72,7 +74,8 @@ public class EventServlet extends HttpServlet {
                     obj = DataClass.getJSONObject(URLsClass.getwanings, "");
                     getWarningssData(obj);
                     request.setAttribute("warnings", warnings);  
-                    
+                    request.setAttribute("vehicles", vehicles);  
+
                     emptyNotifications();
             
                     request.getRequestDispatcher("eventspage.jsp").forward(request, response);//show only
@@ -102,6 +105,14 @@ public class EventServlet extends HttpServlet {
             w.datetxt = getdatetxt(w.timestamp);
 
             warnings.add(w);
+        }
+        
+         vehicles.clear();
+        for (int i = 0; i < obj.getJSONArray("poweredvehicles").size(); i++) {
+            Vehicle v = new Vehicle(obj.getJSONArray("poweredvehicles").getJSONObject(i).getInt("vid"));
+            v.Plate_number = obj.getJSONArray("poweredvehicles").getJSONObject(i).getString("plate_number");
+
+            vehicles.add(v);
         }
     }
     

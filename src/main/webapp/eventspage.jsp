@@ -13,7 +13,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Trips</title>
+<title>Warnings</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -162,11 +162,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 			<div class="main-page">
                             
                             <h3 class="title1">Events</h3>
+                            <div class="col-md-6">
                                                         <h4 class="title1">Drivers with route restriction exceptions</h4>
-<br/>
+                            </div>
+                            <div class="col-md-6">
+                                                        <h4 class="title1">Vehicles powered on without drivers login</h4>
+                            </div>
+<br/><br/>
                             
                             
-					<div class="col-md-12 stats-info widget-shadow">
+					<div class="col-md-6 stats-info widget-shadow">
                                             
         
                             
@@ -211,6 +216,49 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                              
 					</div>
                                     
+                                    
+                                    <div class="col-md-6 stats-info widget-shadow">
+                                            
+        
+                            
+                                            
+                                            
+						<table class="table stats-table ">
+							<thead>
+								<tr>
+									<th>Vehicle ID</th>
+                                                                        <th>Plate Number</th>
+									<th>Options</th>
+								</tr>
+							</thead>
+							<tbody>
+                                                           
+                                                            <% ArrayList<Vehicle> vehicles = (ArrayList<Vehicle>) request.getAttribute("vehicles"); %>
+                                                            
+                                                                <% for(int i = 0; i < vehicles.size(); i+=1) { %>
+                                                                
+                                                               
+								<tr>
+                                                                        <th><%=vehicles.get(i).ID %></th>
+                                                                        <th><%=vehicles.get(i).Plate_number %></th>
+                                                                        <th>
+                                                                            <a href="${pageContext.request.contextPath}/ManageVehicleServlet?goflag=showvehicle&id=<%=vehicles.get(i).ID  %>"><span class="label label-primary">   View   </span></a>
+                                                                        </th>
+
+                                                                </tr>
+							     <% } %>
+                                                             
+							</tbody>
+						</table>
+                                                    
+                                                             
+                                                             
+                                                             
+ 
+                                                    
+                                                             
+                                                             
+					</div>
                                     
                                     
                                     
