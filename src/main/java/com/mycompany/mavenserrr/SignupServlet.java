@@ -66,11 +66,16 @@ public class SignupServlet extends HttpServlet {
             if(mpassword.equals(mcpassword)){
                 
                  try{
-               JSONObject resObj = DataClass.getJSONObject(URLsClass.addmonitormember+name+"/"+gender+"/"+mpassword, "");
+                     JSONObject tosend = new JSONObject();
+                     tosend.put("name", name);
+                     tosend.put("gender", gender);
+                     tosend.put("password", mpassword);
+               JSONObject resObj = DataClass.getJSONObject(URLsClass.addmonitormember, tosend.toString());
                 int successf = resObj.getInt("success");
 
                if(successf==1){
-                   DataClass.displayAlert(response,request,"Successfull Sign Up, Your account now in the pending state, please wait until acceptance","/LoginServlet");
+                   String insertedid = String.valueOf(resObj.getInt("insertedid"));
+                   DataClass.displayAlert(response,request,"Successfull Sign Up, Your account now in the pending state, please wait until acceptance, your ID is : "+insertedid,"/LoginServlet");
                    response.sendRedirect(request.getContextPath() + "/LoginServlet");
                }
                 else

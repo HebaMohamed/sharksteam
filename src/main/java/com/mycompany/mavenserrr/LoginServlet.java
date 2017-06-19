@@ -84,12 +84,11 @@ public class LoginServlet extends HttpServlet {
                    int id = m.getInt("id");
                    String name = m.getString("name");
                    String gender = m.getString("gender");
-                   String lastlogin_time = m.getString("lastlogin_time");
+                   long lastlogin_time = m.getLong("lastlogin_time");
                    String account_state = m.getString("account_state");
 
                    if(!account_state.equals("pending")){
-                        MonitoringMember loggedMember = new MonitoringMember(id, name, "Administrator",gender);
-                        loggedMember.lastlogin_time=lastlogin_time;
+                        MonitoringMember loggedMember = new MonitoringMember(id, name, "Administrator",gender,lastlogin_time);
                         loggedMember.account_state=account_state;
                         //DataClass.currentMM=loggedMember;
                         DataClass.startSession(loggedMember,request);

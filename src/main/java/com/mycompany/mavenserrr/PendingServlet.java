@@ -47,6 +47,7 @@ public class PendingServlet extends HttpServlet {
             
         } catch (Exception ex) {
             Logger.getLogger(PendingServlet.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
         } finally {
             out.close();
         }
@@ -74,9 +75,9 @@ public class PendingServlet extends HttpServlet {
                     obj.getJSONArray("members").getJSONObject(i).getInt("user_id"), 
                     obj.getJSONArray("members").getJSONObject(i).getString("fullname"), 
                     "member", 
-                    obj.getJSONArray("members").getJSONObject(i).getString("gender"));
+                    obj.getJSONArray("members").getJSONObject(i).getString("gender"),
+                    obj.getJSONArray("members").getJSONObject(i).getLong("lastlogin_time"));
             
-            m.lastlogin_time=obj.getJSONArray("members").getJSONObject(i).getString("lastlogin_time");
         
             members.add(m);
         }
@@ -88,9 +89,9 @@ public class PendingServlet extends HttpServlet {
                     obj.getJSONArray("confiremedmembers").getJSONObject(i).getInt("user_id"), 
                     obj.getJSONArray("confiremedmembers").getJSONObject(i).getString("fullname"), 
                     "confiremedmembers", 
-                    obj.getJSONArray("confiremedmembers").getJSONObject(i).getString("gender"));
+                    obj.getJSONArray("confiremedmembers").getJSONObject(i).getString("gender"),
+                    obj.getJSONArray("confiremedmembers").getJSONObject(i).getLong("lastlogin_time"));
             
-            m.lastlogin_time=obj.getJSONArray("confiremedmembers").getJSONObject(i).getString("lastlogin_time");
         
             confiremedmembers.add(m);
         }
@@ -120,20 +121,21 @@ public class PendingServlet extends HttpServlet {
 
                if(successf==1)
                     response.sendRedirect(request.getContextPath() + "/PendingServlet");
-                else
-                {           
-                    response.setContentType("text/html;charset=UTF-8");
-                    PrintWriter out = response.getWriter();
-                    out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Servlet NewServlet</title>");            
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.println(resObj.getString("msg"));
-                    out.println("</body>");
-                    out.println("</html>");   
-                }
+            } catch (Exception ex) {
+                Logger.getLogger(ManageServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else if(goflag.equals("remove")){
+           String mId = String.valueOf(request.getParameter("id"));
+           try{
+               JSONObject resObj = DataClass.getJSONObject(URLsClass.removemember+mId, "");
+                int successf = resObj.getInt("success");
+
+               if(successf==1){
+                   if(DataClass.currentMM.id == Integer.parseInt(mId)){//delete him self
+                       DataClass.endSession(request,response);
+                   }
+                    response.sendRedirect(request.getContextPath() + "/PendingServlet");
+               }
             } catch (Exception ex) {
                 Logger.getLogger(ManageServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -33,6 +33,7 @@ public class URLsClass {
     
     public static String getpmembers = domain+service+"getpmembers/";//get
     public static String acceptmember = domain+service+"acceptmember/";//get
+    public static String removemember = domain+service+"removemember/";//get
 
     public static String getcurrentvds = domain+service+"getcurrentvds/";//get
     

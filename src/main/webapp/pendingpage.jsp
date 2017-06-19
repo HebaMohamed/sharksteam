@@ -176,7 +176,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									<th>M.ID</th>
 									<th>Member Name</th>
                                                                         <th>Gender</th>
-									<th>Last login time</th>
+                                                                        <th>Last login time</th>
 									<th>Options</th>
 								</tr>
 							</thead>
@@ -193,8 +193,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                         <th><%=confiremedmembers.get(i).gender %></th>
                                                                         <th><%=confiremedmembers.get(i).lastlogin_time %></th>
                                                                         <th>
-                                                                            <a href="${pageContext.request.contextPath}/PendingServlet?goflag=approve&id=<%=confiremedmembers.get(i).id  %>"><span class="label label-primary">   Approve   </span></a>
-
+                                                                            <a href="${pageContext.request.contextPath}/PendingServlet?goflag=remove&id=<%=confiremedmembers.get(i).id  %>"><span class="label label-danger"> ✖ remove account </span></a>
                                                                         </th>
 
                                                                 </tr>
@@ -212,7 +211,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									<th>M.ID</th>
 									<th>Member Name</th>
                                                                         <th>Gender</th>
-									<th>Last login time</th>
 									<th>Options</th>
 								</tr>
 							</thead>
@@ -228,10 +226,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                         <th><%=members.get(i).id %></th>
                                                                         <th><%=members.get(i).name %></th>
                                                                         <th><%=members.get(i).gender %></th>
-                                                                        <th><%=members.get(i).lastlogin_time %></th>
                                                                         <th>
-                                                                            <a href="${pageContext.request.contextPath}/PendingServlet?goflag=approve&id=<%=members.get(i).id  %>"><span class="label label-primary">   Approve   </span></a>
 
+                                                                            <a href="${pageContext.request.contextPath}/PendingServlet?goflag=approve&id=<%=confiremedmembers.get(i).id  %>"><span class="label label-success"> ✓ </span></a>
+                                                                            <a href="${pageContext.request.contextPath}/PendingServlet?goflag=remove&id=<%=confiremedmembers.get(i).id  %>"><span class="label label-danger"> ✖ </span></a>
                                                                         </th>
 
                                                                 </tr>
