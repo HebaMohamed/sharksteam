@@ -13,7 +13,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Sharks Dashboard</title>
+<title>Drivers Management</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -160,8 +160,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		<!-- main content start-->
 		<div id="page-wrapper">
 			<div class="main-page">
-                            
-                            <h3 class="title1">Drivers Management</h3>
+                                                        
+                            <div class="col-md-10 ">
+                                <h3 class="title1">Drivers Management</h3>
+                            </div>
+                            <div class="col-md-2">                            
+                            <h1>
+				<a href="${pageContext.request.contextPath}/ManageServlet?goflag=refreshdriversavg"><span class="label label-warning">Refresh all drivers average</span></a>
+                            </h1>
+
+                            </div>
 
 				<div class="blank-page widget-shadow scroll" id="style-2 div1">
                 

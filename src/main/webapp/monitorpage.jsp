@@ -721,7 +721,7 @@ new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chart
                                                                         <% avgtxtclass = "label label-warning"; %>
                                                                         <% }else if(activedrivers.get(i).avg<9){ %>
                                                                         <% avgtxtclass = "label label-info"; %>
-                                                                        <% }else if(activedrivers.get(i).avg<=12){ %>
+                                                                        <% }else { %>
                                                                         <% avgtxtclass = "label label-success"; %>                              
                                                                         <%}%>
                                                                         

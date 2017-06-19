@@ -87,10 +87,15 @@ public class ManageServlet extends HttpServlet {
        
 
         }
+        catch(NullPointerException nex){                        
+            Logger.getLogger(ManageServlet.class.getName()).log(Level.SEVERE, null, nex);
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        }
         catch(Exception e)
         {// lw msh wla 7aga mn dol
             
             Logger.getLogger(ManageServlet.class.getName()).log(Level.SEVERE, null, e);
+
    
         } finally {
             out.close();
@@ -532,7 +537,7 @@ public class ManageServlet extends HttpServlet {
                    avgtxtlable="label label-warning";
                else if(avg<9)
                    avgtxtlable="label label-info";
-               else if(avg<=12)
+               else 
                    avgtxtlable="label label-success";
                request.setAttribute("avgtxtlable",avgtxtlable);
 
@@ -590,6 +595,15 @@ public class ManageServlet extends HttpServlet {
                 
                 request.setAttribute("selecteddriver", selecteddriver);
                 request.getRequestDispatcher("livetripjsp.jsp").forward(request, response);
+            }
+            else if(goflag.equals("refreshdriversavg")){
+                
+                for (int i = 0; i < alldrivers.size(); i++) {
+                    JSONObject resObj = DataClass.getJSONObject(URLsClass.getdrivertrips+alldrivers.get(i).id+"/", "");
+                }
+                
+                DataClass.displayAlert(response,request,"All drivers average is updated successfully!","/ManageServlet");
+                
             }
             
             
