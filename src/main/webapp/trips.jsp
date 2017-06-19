@@ -202,7 +202,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                          <div id="map"></div>
                                                              <script>
 
-    var map;//3shn yb2a pub
+    var map, heatmap;//3shn yb2a pub
       
     var selecteddtogo = "";
     
@@ -216,6 +216,20 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
           zoom: 14,
           mapTypeId: 'roadmap'
         });
+        
+        //for heat map
+        var heatarr = [];
+          <% for(int i = 0; i < trips.size(); i+=1) { %>
+                  var hm = new google.maps.LatLng(<%=trips.get(i).lattitude%>, <%=trips.get(i).longtude%>);
+                  heatarr.push(hm);
+          <%}%>
+              
+         heatmap = new google.maps.visualization.HeatmapLayer({
+          data: heatarr,
+          map: map
+        });
+        heatmap.set('radius', 40);
+        
       
         // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
@@ -288,12 +302,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     
 <% for(int i = 0; i < trips.size(); i+=1) { %>
         
-        new google.maps.Marker({
-              map: map,
-              icon: image,
-              title: "Pickup",
-              position: {lat: <%=trips.get(i).lattitude%>, lng: <%=trips.get(i).longtude%>}
-            });
+//        new google.maps.Marker({
+//              map: map,
+//              icon: image,
+//              title: "Pickup",
+//              position: {lat: <%=trips.get(i).lattitude%>, lng: <%=trips.get(i).longtude%>}
+//            });
         
 <% } %>
     
@@ -303,12 +317,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
       }
       
       
-      
     </script>
     
     
     
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMkIegihYnGDWqYZukBz2eo_InQOh-XEI&libraries=places&callback=initAutocomplete"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMkIegihYnGDWqYZukBz2eo_InQOh-XEI&libraries=places,visualization&callback=initAutocomplete"
          async defer></script>
                 
                 <!--end map part-->

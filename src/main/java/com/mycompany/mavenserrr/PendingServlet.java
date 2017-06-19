@@ -30,7 +30,8 @@ import net.sf.json.JSONObject;
 public class PendingServlet extends HttpServlet {
 
     ArrayList<MonitoringMember> members = new ArrayList<MonitoringMember>();
-    
+    ArrayList<MonitoringMember> confiremedmembers = new ArrayList<MonitoringMember>();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -62,6 +63,7 @@ public class PendingServlet extends HttpServlet {
                     obj = DataClass.getJSONObject(URLsClass.getpmembers, "");
                     getPendingData(obj);
                     request.setAttribute("members", members);  
+                    request.setAttribute("confiremedmembers", confiremedmembers);  
                     request.getRequestDispatcher("pendingpage.jsp").forward(request, response);//show only
     }
     void getPendingData(JSONObject obj){
@@ -77,6 +79,20 @@ public class PendingServlet extends HttpServlet {
             m.lastlogin_time=obj.getJSONArray("members").getJSONObject(i).getString("lastlogin_time");
         
             members.add(m);
+        }
+        
+        confiremedmembers.clear();
+        for (int i = 0; i < obj.getJSONArray("confiremedmembers").size(); i++) {
+            
+            MonitoringMember m = new MonitoringMember(
+                    obj.getJSONArray("confiremedmembers").getJSONObject(i).getInt("user_id"), 
+                    obj.getJSONArray("confiremedmembers").getJSONObject(i).getString("fullname"), 
+                    "confiremedmembers", 
+                    obj.getJSONArray("confiremedmembers").getJSONObject(i).getString("gender"));
+            
+            m.lastlogin_time=obj.getJSONArray("confiremedmembers").getJSONObject(i).getString("lastlogin_time");
+        
+            confiremedmembers.add(m);
         }
     }
     

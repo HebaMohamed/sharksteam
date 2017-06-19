@@ -158,14 +158,54 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		<div id="page-wrapper">
 			<div class="main-page">
                             
-                            <h3 class="title1">Pending Accounts</h3>
+                            <div class="col-md-8">
+                                <h3 class="title1">Monitoring Members Accounts</h3>
+                            </div>
+                            <div class="col-md-4">
+                                <h3 class="title1">Pending Accounts</h3>
+                            </div>
 
 <!--				<div class="blank-page widget-shadow scroll" id="style-2 div1">
                 
                                     	
 				</div>-->
+                            <div class="col-md-8 stats-info widget-shadow">
+                                <table class="table stats-table ">
+							<thead>
+								<tr>
+									<th>M.ID</th>
+									<th>Member Name</th>
+                                                                        <th>Gender</th>
+									<th>Last login time</th>
+									<th>Options</th>
+								</tr>
+							</thead>
+							<tbody>
+                                                           
+                                                            <% ArrayList<MonitoringMember> confiremedmembers = (ArrayList<MonitoringMember>) request.getAttribute("confiremedmembers"); %>
+                                                                <% for(int i = 0; i < confiremedmembers.size(); i+=1) { %>
+                                                                
+                                                            
+								<tr>
+                                                                    
+                                                                        <th><%=confiremedmembers.get(i).id %></th>
+                                                                        <th><%=confiremedmembers.get(i).name %></th>
+                                                                        <th><%=confiremedmembers.get(i).gender %></th>
+                                                                        <th><%=confiremedmembers.get(i).lastlogin_time %></th>
+                                                                        <th>
+                                                                            <a href="${pageContext.request.contextPath}/PendingServlet?goflag=approve&id=<%=confiremedmembers.get(i).id  %>"><span class="label label-primary">   Approve   </span></a>
+
+                                                                        </th>
+
+                                                                </tr>
+							     <% } %>
+                                                             
+							</tbody>
+						</table>
+                                             
+                            </div>
                                     
-					<div class="col-md-12 stats-info widget-shadow">
+					<div class="col-md-4 stats-info widget-shadow">
 						<table class="table stats-table ">
 							<thead>
 								<tr>
