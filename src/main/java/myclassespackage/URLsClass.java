@@ -11,11 +11,13 @@ package myclassespackage;
  * @author dell
  */
 public class URLsClass {
-    static String domain = "http://localhost:8080/mavenrestfullservice/rest/";
-//    static String domain = "http://sharksrest.herokuapp.com/rest/";
+//    static String domain = "http://localhost:8080/mavenrestfullservice/rest/";
+    static String domain = "http://sharksrest.herokuapp.com/rest/";
     static String service = "websiteservice/";
     
     public static String getdrivers = domain+service+"getdrivers/";//get
+    public static String getpassengers = domain+service+"getpassengers/";//get
+
     public static String adddriver = domain+service+"adddriver/";
     public static String getdriver = domain+service+"getdriver/";
     public static String editdriver = domain+service+"editdriver/";

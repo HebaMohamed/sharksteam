@@ -15,17 +15,19 @@ public class Passenger {
     public int ID;
     String Password;
     public String FullName;
-    String Gender;
+    public String Gender;
     int Age;
     public String Phone;
     public String Relative_phone;
-    String Language;
-    String UserName;
+    public String Language;
+    public String Email;
+
+    public boolean active;
     
     public Passenger(int id){
         this.ID=id;
     }
-    public Passenger(int id,String pass,String name,String gender,int age,String phone,String R_phone,String language,String U_name)
+    public Passenger(int id,String pass,String name,String gender,int age,String phone,String R_phone,String language, String email,boolean aactive)
     {
         ID=id;
         Password=pass;
@@ -34,10 +36,9 @@ public class Passenger {
         Age=age;
         Phone=phone;
         Relative_phone=R_phone;
-        Language=language;
-        UserName=U_name;
-        
-        
+        Language=language;        
+        Email=email;
+        active=aactive;
     }
     
     
