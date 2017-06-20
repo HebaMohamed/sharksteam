@@ -161,15 +161,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		<div id="page-wrapper">
 			<div class="main-page">
                                                         
-                            <div class="col-md-10 ">
                                 <h3 class="title1">Drivers Management</h3>
-                            </div>
-                            <div class="col-md-2">                            
+                            
+<!--                            <div class="col-md-2">                            
                             <h1>
 				<a href="${pageContext.request.contextPath}/ManageServlet?goflag=refreshdriversavg"><span class="label label-warning">Refresh all drivers average</span></a>
                             </h1>
 
-                            </div>
+                            </div>-->
 
 				<div class="blank-page widget-shadow scroll" id="style-2 div1">
                 
@@ -178,14 +177,26 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                         <input type="hidden" name="hiddenflag" id="hiddenflag" value="openadd">
 
                                         <!--<h3><a href="#"><span class="label label-primary">New Driver</span></a></h3>-->
-                                        <input class="btn btn-primary" type="submit" name="button1" value="New Driver" />
+                                        <div class="col-md-9">
+                                             
+                                            <input class="btn btn-primary" type="submit" name="button1" value="New Driver" />
 
+                                        </div>
+                                                        
+                                        <div class="col-md-3">                            
+                                            <h3>
+                                                <a href="${pageContext.request.contextPath}/ManageServlet?goflag=refreshdriversavg"><span class="label label-warning">Refresh all drivers average</span></a>
+                                            </h3>
+                                        </div>
+                                            <br/>
                                     </form>
                                     <br/>
                                     	<form class="input"action="${pageContext.request.contextPath}/ManageServlet" method="post">
+                                            <div class="col-md-12">    
                                                 <input type="hidden" name="hiddenflag" id="hiddenflag" value="search">
 						<input class="sb-search-input input__field--madoka"  placeholder="Search..." type="search" name="searchtxt" id="input-31" />
-					</form>
+                                            </div>
+                                        </form>
                                     
                                     <br/>                                   
                                     

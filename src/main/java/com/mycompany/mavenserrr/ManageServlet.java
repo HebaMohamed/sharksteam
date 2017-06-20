@@ -596,21 +596,20 @@ public class ManageServlet extends HttpServlet {
                 request.setAttribute("selecteddriver", selecteddriver);
                 request.getRequestDispatcher("livetripjsp.jsp").forward(request, response);
             }
-            else if(goflag.equals("refreshdriversavg")){
-                
-                for (int i = 0; i < alldrivers.size(); i++) {
-                    JSONObject resObj = DataClass.getJSONObject(URLsClass.getdrivertrips+alldrivers.get(i).id+"/", "");
-                }
-                
-                DataClass.displayAlert(response,request,"All drivers average is updated successfully!","/ManageServlet");
-                
-            }
             
             
             
                     
-            //for side menu
-            if(goflag.equals("showdrivers")){
+            if(goflag.equals("refreshdriversavg")){
+                
+                for (int i = 0; i < alldrivers.size(); i++) {
+                    JSONObject resObj = DataClass.getJSONObject(URLsClass.getdriveravg+alldrivers.get(i).id+"/", "");
+                }
+                
+                DataClass.displayAlert(response,request,"All drivers average is updated successfully!","/ManageServlet");
+//                response.sendRedirect(request.getContextPath() + "/ManageServlet");
+            }
+            else if(goflag.equals("showdrivers")){                        //for side menu
                 response.sendRedirect(request.getContextPath() + "/ManageServlet");
             }
         }
