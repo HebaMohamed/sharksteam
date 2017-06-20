@@ -63,6 +63,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								<li>
 									<a href="${pageContext.request.contextPath}/ManageVehicleServlet?goflag=showvehicles">Vehicles</a>
 								</li>
+                                                                <li>
+									<a href="${pageContext.request.contextPath}/PassengersServlet">Passengers</a>
+								</li>
 							</ul>
 							<!-- /nav-second-level -->
 						</li>

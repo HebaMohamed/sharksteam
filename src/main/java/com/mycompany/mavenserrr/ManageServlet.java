@@ -226,6 +226,7 @@ public class ManageServlet extends HttpServlet {
                if(successf==1){
                String avgtxt = resObj.getString("avgtxt");
                int avg = resObj.getInt("avg");
+               int lastavg = resObj.getInt("lastavg");
                request.setAttribute("p1_name",resObj.getString("p1_name"));
                request.setAttribute("p2_name",resObj.getString("p2_name"));
                request.setAttribute("p3_name",resObj.getString("p3_name"));
@@ -540,6 +541,11 @@ public class ManageServlet extends HttpServlet {
                else 
                    avgtxtlable="label label-success";
                request.setAttribute("avgtxtlable",avgtxtlable);
+               
+               if(lastavg<=avg)
+                   request.setAttribute("updownflag","up");
+               else
+                   request.setAttribute("updownflag","down");
 
 
 

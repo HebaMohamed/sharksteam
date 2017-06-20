@@ -13,7 +13,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Sharks Dashboard</title>
+<title>Driver Driving Behavior Report</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -67,6 +67,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								</li>
 								<li>
 									<a href="${pageContext.request.contextPath}/ManageVehicleServlet?goflag=showvehicles">Vehicles</a>
+								</li>
+                                                                <li>
+									<a href="${pageContext.request.contextPath}/PassengersServlet">Passengers</a>
 								</li>
 							</ul>
 							<!-- /nav-second-level -->
@@ -162,7 +165,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <div class="main-page chrt-page-grids" style="width: 100%" >
                            
                             
-                            <div class="col-md-10 ">
+                            <div class="col-md-8 ">
                                 <h3 class="title1">Driver Driving Behavior</h3>
                             <h4 class="title1">Driver Name : <%=(String)request.getAttribute("dname")%></h4>
                             <br/>
@@ -172,6 +175,27 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 				<a><span class="<%=(String)request.getAttribute("avgtxtlable")%>"><%=(String)request.getAttribute("avgtxt")%></span></a>
                             </h1>
 
+                            </div>
+                            <div class="col-md-1">
+                                <%int avg = (Integer)request.getAttribute("avg");%>
+                                <%if(avg<3){%>
+                                <span class="prfil-img"><img style="width: 70px; height: 70px;" src="images/confused4.png" alt="<%=(String)request.getAttribute("avgtxt")%>"> </span> 
+                                <%}else if(avg<6){%>
+                                <span class="prfil-img"><img style="width: 70px; height: 70px;" src="images/smile3.png" alt="<%=(String)request.getAttribute("avgtxt")%>"> </span> 
+                                <%}else if(avg<9){%>
+                                <span class="prfil-img"><img style="width: 70px; height: 70px;" src="images/happy2.png" alt="<%=(String)request.getAttribute("avgtxt")%>"> </span> 
+                                <%}else{%>
+                                <span class="prfil-img"><img style="width: 70px; height: 70px;" src="images/happy1.png" alt="<%=(String)request.getAttribute("avgtxt")%>"> </span> 
+                                <%}%>
+                            </div>
+                            
+                            <div class="col-md-1">
+                                <%String updownflag = (String)request.getAttribute("updownflag");%>
+                                <%if(updownflag.equals("up")){%>
+                                <span class="prfil-img"><img style="width: 70px; height: 70px;" src="images/arrowup.png" alt="<%=(String)request.getAttribute("avgtxt")%>"> </span> 
+                               <%}else{%>
+                                <span class="prfil-img"><img style="width: 70px; height: 70px;" src="images/arrowdown.png" alt="<%=(String)request.getAttribute("avgtxt")%>"> </span> 
+                                <%}%>
                             </div>
                             
                             <br/>
