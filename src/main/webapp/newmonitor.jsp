@@ -51,8 +51,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             <br/>                            <br/>
 
 				<h3 class="title1">SignUp Here</h3>
-				<p class="creating">Having hands on experience in creating innovative designs,I do offer design 
-							solutions which harness.</p>
+				<p class="creating">After login you have to wait for monitoring members approval</p>
 				<div class="sign-up-row widget-shadow">
                                     
                                     <form  action="${pageContext.request.contextPath}/SignupServlet" method="post"  >

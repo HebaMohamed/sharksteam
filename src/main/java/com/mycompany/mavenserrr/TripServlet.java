@@ -105,8 +105,11 @@ public class TripServlet extends HttpServlet {
 
             alltrips.add(t);
             
+            todayearnings+=obj.getJSONArray("trips").getJSONObject(i).getDouble("price");
+            todaycount++;
+            
             //get today count
-            filterTrips(new Date());
+            //filterTrips(new Date());
             
         }
     }
