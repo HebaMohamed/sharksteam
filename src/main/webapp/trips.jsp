@@ -216,7 +216,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         var uluru = {lat: 30.045915, lng: 31.22429};//
         map = new google.maps.Map(document.getElementById('map'), {
           center: uluru,
-          zoom: 14,
+          zoom: 10,
           mapTypeId: 'roadmap'
         });
         

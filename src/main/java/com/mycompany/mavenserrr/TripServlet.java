@@ -282,7 +282,7 @@ public class TripServlet extends HttpServlet {
                     gohome(request, response);
                 }
                 
-                request.getRequestDispatcher("trips.jsp").forward(request, response);//show only
+//                request.getRequestDispatcher("trips.jsp").forward(request, response);//show only
                 
             } catch (Exception ex) {
                 Logger.getLogger(TripServlet.class.getName()).log(Level.SEVERE, null, ex);

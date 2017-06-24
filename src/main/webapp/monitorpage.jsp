@@ -730,7 +730,7 @@ new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chart
                                                                         
                                                                         <th><span class="<%=avgtxtclass%>"><%=activedrivers.get(i).avgtxt%></span></th>
                                                                         
-                                                                        <%if(activedrivers.get(i).avg>activedrivers.get(i).lastavg){%>
+                                                                        <%if(activedrivers.get(i).avg>=activedrivers.get(i).lastavg){%>
                                                                                 <td><h5>Up <i class="fa fa-level-up"></i></h5></td>
                                                                         <%}else{%>
                                                                                 <td><h5  class="down">Down <i class="fa fa-level-down"></i></h5></td>

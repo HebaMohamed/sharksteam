@@ -65,7 +65,7 @@ public class MonitorServlet extends HttpServlet {
                             good_count++;
                         else if(davg<9)
                             verygood_count++;
-                        else if(davg<=12)
+                        else
                             excellent_count++;
                     }
                     
