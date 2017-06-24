@@ -76,7 +76,8 @@ public class SignupServlet extends HttpServlet {
                if(successf==1){
                    String insertedid = String.valueOf(resObj.getInt("insertedid"));
                    DataClass.displayAlert(response,request,"Successfull Sign Up, Your account now in the pending state, please wait until acceptance, your ID is : "+insertedid,"/LoginServlet");
-                   response.sendRedirect(request.getContextPath() + "/LoginServlet");
+//                   request.getRequestDispatcher("index.jsp").forward(request, response);
+                   //response.sendRedirect(request.getContextPath() + "/LoginServlet");
                }
                 else
                 {           
@@ -89,7 +90,7 @@ public class SignupServlet extends HttpServlet {
             }
 
         }
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     
