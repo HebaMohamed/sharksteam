@@ -18,8 +18,9 @@ public String Model;
 public String Color;
 public double Longtude;
 public double Attitude;
-public String Outside_working;
+public boolean Outside_working;
 public String Plate_number;
+public int status;
 
 public ArrayList<Driver> lastdrivers = new ArrayList<Driver>();
 
@@ -27,7 +28,7 @@ public Vehicle(int id)
 {
     ID=id;
 }
-public Vehicle(int id,String model,String color,double lngtude,double atitude,String outside_working, String plate_number)
+public Vehicle(int id,String model,String color,double lngtude,double atitude,boolean outside_working, String plate_number)
 {
     ID=id;
     Model=model;

@@ -218,21 +218,25 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								</div>
 								<div class="profile-right">
                                                                     <p>Detected Pattrens</p>
-                                                                    <h4><%=(String)request.getAttribute("p1_name")%> : <%=(Integer)request.getAttribute("p1")%></h4>
-                                                                    <h4><%=(String)request.getAttribute("p2_name")%> : <%=(Integer)request.getAttribute("p2")%></h4>
-                                                                    <h4><%=(String)request.getAttribute("p3_name")%> : <%=(Integer)request.getAttribute("p3")%></h4>
-                                                                    <h4><%=(String)request.getAttribute("p4_name")%> : <%=(Integer)request.getAttribute("p4")%></h4>
-                                                                    <h4><%=(String)request.getAttribute("p5_name")%> : <%=(Integer)request.getAttribute("p5")%></h4>
-                                                                    <h4><%=(String)request.getAttribute("p6_name")%> : <%=(Integer)request.getAttribute("p6")%></h4>
-                                                                    <h4><%=(String)request.getAttribute("p7_name")%> : <%=(Integer)request.getAttribute("p7")%></h4>
-                                                                    <h4><%=(String)request.getAttribute("p8_name")%> : <%=(Integer)request.getAttribute("p8")%></h4>
-                                                                    <h4><%=(String)request.getAttribute("p9_name")%> : <%=(Integer)request.getAttribute("p9")%></h4>
-                                                                    <h4><%=(String)request.getAttribute("p10_name")%> : <%=(Integer)request.getAttribute("p10")%></h4>
-                                                                    <h4><%=(String)request.getAttribute("p11_name")%> : <%=(Integer)request.getAttribute("p11")%></h4>
-                                                                    <h4><%=(String)request.getAttribute("p12_name")%> : <%=(Integer)request.getAttribute("p12")%></h4>
-
+                                                                   
                                                                     <div class="row">
-                                                                        <div class="col-md-4">
+                                                                        <div class="col-md-6">
+                                                                            <h4>(1)  <%=(String)request.getAttribute("p1_name")%> : <%=(Integer)request.getAttribute("p1")%></h4>
+                                                                            <h4>(2)  <%=(String)request.getAttribute("p2_name")%> : <%=(Integer)request.getAttribute("p2")%></h4>
+                                                                            <h4>(3)  <%=(String)request.getAttribute("p3_name")%> : <%=(Integer)request.getAttribute("p3")%></h4>
+                                                                            <h4>(4)  <%=(String)request.getAttribute("p4_name")%> : <%=(Integer)request.getAttribute("p4")%></h4>
+                                                                            <h4>(5)  <%=(String)request.getAttribute("p5_name")%> : <%=(Integer)request.getAttribute("p5")%></h4>
+                                                                            <h4>(6)  <%=(String)request.getAttribute("p6_name")%> : <%=(Integer)request.getAttribute("p6")%></h4>
+                                                                            <h4>(7)  <%=(String)request.getAttribute("p7_name")%> : <%=(Integer)request.getAttribute("p7")%></h4>
+                                                                            <h4>(8)  <%=(String)request.getAttribute("p8_name")%> : <%=(Integer)request.getAttribute("p8")%></h4>
+                                                                            <h4>(9)  <%=(String)request.getAttribute("p9_name")%> : <%=(Integer)request.getAttribute("p9")%></h4>
+                                                                            <h4>(10) <%=(String)request.getAttribute("p10_name")%> : <%=(Integer)request.getAttribute("p10")%></h4>
+                                                                            <h4>(11) <%=(String)request.getAttribute("p11_name")%> : <%=(Integer)request.getAttribute("p11")%></h4>
+                                                                            <h4>(12) <%=(String)request.getAttribute("p12_name")%> : <%=(Integer)request.getAttribute("p12")%></h4>
+
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <canvas id="bar" style="width:206px; height: 106px; padding-right: 20px;"> </canvas>
                                                                         </div>
 <!--                                                                     <div class="col-md-8 chrt-page-grids">
                                                                         <br/>
@@ -373,6 +377,53 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 x = 1;//3shn awl mra msh ybyn notifications
             }
          });
+         
+         
+         
+         
+         /////////// for bar chart 
+         var dataa = [];
+        dataa.push(<%=(Integer)request.getAttribute("p1")%>);
+        dataa.push(<%=(Integer)request.getAttribute("p2")%>);
+        dataa.push(<%=(Integer)request.getAttribute("p3")%>);
+        dataa.push(<%=(Integer)request.getAttribute("p4")%>);
+        dataa.push(<%=(Integer)request.getAttribute("p5")%>);
+        dataa.push(<%=(Integer)request.getAttribute("p6")%>);
+        dataa.push(<%=(Integer)request.getAttribute("p7")%>);
+        dataa.push(<%=(Integer)request.getAttribute("p8")%>);
+        dataa.push(<%=(Integer)request.getAttribute("p9")%>);
+        dataa.push(<%=(Integer)request.getAttribute("p10")%>);
+        dataa.push(<%=(Integer)request.getAttribute("p11")%>);
+        dataa.push(<%=(Integer)request.getAttribute("p12")%>);
+
+var dataa2 = [];
+dataa2.push("(1)");
+dataa2.push("(2)");
+dataa2.push("(3)");
+dataa2.push("(4)");
+dataa2.push("(5)");
+dataa2.push("(6)");
+dataa2.push("(7)");
+dataa2.push("(8)");
+dataa2.push("(9)");
+dataa2.push("(10)");
+dataa2.push("(11)");
+dataa2.push("(12)");
+
+     var lineChartData = {
+									labels : dataa2,
+									datasets : [
+										{
+												fillColor : "#e67e22",
+                                                                                                strokeColor : "#ef553a",
+                                                                                                pointColor : "#4F52BA",
+                                                                                                pointStrokeColor : "#fff",
+                                                                                                data : dataa
+										}
+									]
+									
+								};
+new Chart(document.getElementById("bar").getContext("2d")).Bar(lineChartData);
 
 
 

@@ -102,7 +102,7 @@ public class MonitorServlet extends HttpServlet {
             Vehicle v = new Vehicle(obj.getJSONArray("currentvms").getJSONObject(i).getInt("vehicle_id"),
                                     obj.getJSONArray("currentvms").getJSONObject(i).getString("model"), 
                                     obj.getJSONArray("currentvms").getJSONObject(i).getString("color"),
-                                    0, 0, "yes",
+                                    0, 0, true,//because it dont matters in showing just list 
                                     obj.getJSONArray("currentvms").getJSONObject(i).getString("plate_number"));
             activevehicles.add(v);
             Driver d = new Driver(Integer.parseInt(obj.getJSONArray("currentvms").getJSONObject(i).getString("driver_id")),

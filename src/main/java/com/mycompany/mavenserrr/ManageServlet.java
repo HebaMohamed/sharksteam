@@ -961,12 +961,12 @@ public class ManageServlet extends HttpServlet {
             obj = DataClass.getJSONObject(URLsClass.getvehicles, "");
             allvehicles.clear();
             for (int i = 0; i < obj.getJSONArray("vehicles").size(); i++) {
-                String outWorking = obj.getJSONArray("vehicles").getJSONObject(i).getString("outside_working_time_state");
-                if(outWorking.equals("yes")){
+                boolean outWorking = obj.getJSONArray("vehicles").getJSONObject(i).getBoolean("outside_working_time_state");
+                if(outWorking){
                 Vehicle v = new Vehicle(obj.getJSONArray("vehicles").getJSONObject(i).getInt("vehicle_id"),
                                         obj.getJSONArray("vehicles").getJSONObject(i).getString("model"), 
                                         obj.getJSONArray("vehicles").getJSONObject(i).getString("color"),
-                                        0, 0, obj.getJSONArray("vehicles").getJSONObject(i).getString("outside_working_time_state"),
+                                        0, 0, obj.getJSONArray("vehicles").getJSONObject(i).getBoolean("outside_working_time_state"),
                                         obj.getJSONArray("vehicles").getJSONObject(i).getString("plate_number"));
                 allvehicles.add(v);
                 }

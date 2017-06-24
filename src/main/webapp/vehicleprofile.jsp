@@ -42,6 +42,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="js/custom.js"></script>
 <link href="css/custom.css" rel="stylesheet">
 <!--//Metis Menu -->
+   <style>
+       #map {
+        height: 200px;
+        width: 100%;
+       }
+   </style>
 </head> 
 <body class="cbp-spmenu-push">
 	<div class="main-content">
@@ -177,7 +183,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <div class="blank-page widget-shadow scroll">
 						<h4 class="title3">Vehicle Profile</h4>
 						<div class="profile-top">
-							<img src='images/carflat.png' alt="">
+                                                    <img src='images/carflat.png' style="width: 170px; height: 170px" alt="">
                                                         <h4><%=selectedV.Model %></h4>
 							<h5>Vehicle</h5>
 						</div>
@@ -207,7 +213,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									<!--<i class="fa fa-facebook profile-icon"></i>-->
 								</div>
 								<div class="profile-right">
-									<h4><%=selectedV.Outside_working %></h4>
+                                                                    <%if(selectedV.status==0){%>
+                                                                        <h4>Outside working time state</h4>
+                                                                    <%}else{%>
+                                                                         <h4>In working time state</h4>
+                                                                    <%}%>
 									<p>Working State</p>
 								</div> 
 								<div class="clearfix"> </div>	
@@ -241,8 +251,48 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
              <% ArrayList<Driver> lastdriverslist = (ArrayList<Driver>) request.getAttribute("lastdriverslist"); %>
 
              
+             <h3>Current Location</h3>
+             <br/>
+             <div class="col-md-12">
+                <div id="map"></div>
+                <br/>
+             </div>
              
-                    
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+
+<script>
+      var map;//3shn yb2a pub
+    function initAutocomplete() {
+        var uluru = {lat: 30.045915, lng: 31.22429};//
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: uluru,
+          zoom: 5,
+          mapTypeId: 'roadmap'
+        });
+      
+        var sharkimg = new google.maps.MarkerImage('smallblueshark.png',
+            new google.maps.Size(65, 124),
+            new google.maps.Point(0,0),
+            new google.maps.Point(56, 122)
+        );
+        vmarker = new google.maps.Marker({
+              map: map,
+              icon: sharkimg,
+              title: "Vehicle Location",
+              position: {lat: 0, lng: 0}
+        });
+            
+            
+            
+            //listen firebase
+            
+      }
+</script>
+
+
+             
+             
+
                                                                                 <br/>
                                                                                 <h3>Drivers History</h3>
                                                 <div class="row">                           
@@ -328,6 +378,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		</div>
                                                                                 
                    <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+                   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMkIegihYnGDWqYZukBz2eo_InQOh-XEI&libraries=places&callback=initAutocomplete"
+         async defer></script>
 <script>
     
 
@@ -380,6 +432,23 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
          });
 
 
+
+
+         ////listen to vehicle moves
+         var vid="";
+         var vid = <%=selectedV.ID%>;
+         //for moving vehicle
+            var cRefv = database.ref('vehicles').child(vid);          
+            cRefv.on('value', function(snapshot) {
+                var vlat = snapshot.child("Latitude").val();
+                var vlng = snapshot.child("Longitude").val();
+                                                                        
+                var newpos = {lat: vlat, lng: vlng};
+                
+                vmarker.setPosition(newpos);
+                map.panTo(newpos);
+                map.setZoom(14);
+            });
 
 </script>                                                             
                                                                                 

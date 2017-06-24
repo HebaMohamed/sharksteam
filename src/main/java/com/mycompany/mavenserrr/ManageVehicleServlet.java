@@ -82,7 +82,7 @@ public class ManageVehicleServlet extends HttpServlet {
             Vehicle v = new Vehicle(obj.getJSONArray("vehicles").getJSONObject(i).getInt("vehicle_id"),
                                     obj.getJSONArray("vehicles").getJSONObject(i).getString("model"), 
                                     obj.getJSONArray("vehicles").getJSONObject(i).getString("color"),
-                                    0, 0, obj.getJSONArray("vehicles").getJSONObject(i).getString("outside_working_time_state"),
+                                    0, 0, obj.getJSONArray("vehicles").getJSONObject(i).getBoolean("outside_working_time_state"),
                                     obj.getJSONArray("vehicles").getJSONObject(i).getString("plate_number"));
             allvehicles.add(v);
         }
@@ -293,17 +293,18 @@ public class ManageVehicleServlet extends HttpServlet {
         
         if(success == 1){
         JSONObject vobj = obj.getJSONObject("vehicle");
-        String ow = "";
-        if(vobj.getString("outside_working_time_state").equals("yes"))
-            ow="Outside working time state";
-        else
-            ow="In working time state";
-        
+        boolean ow = vobj.getBoolean("outside_working_time_state");//false;
+//        if(vobj.getString("outside_working_time_state").equals("yes"))
+//            ow=true;//ow="Outside working time state";
+//        else
+//            ow=false;//ow="In working time state";
+//        
         v = new Vehicle(vobj.getInt("vehicle_id"),
                                     vobj.getString("model"), 
                                     vobj.getString("color"),
                                     0, 0, ow,
                                     vobj.getString("plate_number"));
+        v.status=vobj.getInt("status");
         ////////////
         JSONArray lastdriversarr = obj.getJSONArray("drivers");
         

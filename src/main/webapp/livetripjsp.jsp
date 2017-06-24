@@ -184,13 +184,21 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             
                             
                     <%  Driver selectedD = (Driver)request.getAttribute("selecteddriver"); %>
+                    
                             <h3 class="title1">Live Trip</h3>
                             
-                            <h5>This is a real-time trip location with traffic layer and directions</h5>
+                            <h4>This is a real-time trip location with traffic layer and directions</h4>
+                            <br/>
+                            <h5>Driver Name : <%=selectedD.name%></h5>
+
+                            
+                            
                             <br/>
                             
                             
                     <div class="col-md-12 widget-shadow">
+                        
+                            <div id="tripenddiv"></div>
                                                          <div id="map"></div>
                                                              <script>
 
@@ -534,6 +542,18 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                 }
                                                             });
                                                         });
+////////////////////////////////////////////////////////////
+                                                        var tripRef = database.ref('trips').child(tid);
+                                                        tripRef.on('value', function(snapshot) {
+                                                            var status = snapshot.child("status").val();
+                                                            if(status == "ended"){
+                                                                document.getElementById("tripenddiv").innerHTML="<br/><div class=\"alert alert-success\" role=\"alert\">"+
+                                                                                                                "<strong>Trip is ended</strong> "+
+                                                                                                                "<a href=\"${pageContext.request.contextPath}/TripServlet?goflag=showtrip&tid="+tid+"\"><span class=\"label label-primary\">View Details</span></a>"+
+                                                                                                                "</div>";
+                                                                                                            }
+                                                        });
+                                                        
 
 
 
