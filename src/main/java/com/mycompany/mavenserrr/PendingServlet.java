@@ -104,7 +104,7 @@ public class PendingServlet extends HttpServlet {
         
         
         try{
-            DataClass.checkSession(request, response);
+            //DataClass.checkSession(request, response);
             
         String goflag= request.getParameter("goflag");
 

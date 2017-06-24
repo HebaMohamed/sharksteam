@@ -231,8 +231,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                         <th><%=members.get(i).gender %></th>
                                                                         <th>
 
-                                                                            <a href="${pageContext.request.contextPath}/PendingServlet?goflag=approve&id=<%=confiremedmembers.get(i).id  %>"><span class="label label-success"> ✓ </span></a>
-                                                                            <a href="${pageContext.request.contextPath}/PendingServlet?goflag=remove&id=<%=confiremedmembers.get(i).id  %>"><span class="label label-danger"> ✖ </span></a>
+                                                                            <a href="${pageContext.request.contextPath}/PendingServlet?goflag=approve&id=<%=members.get(i).id  %>"><span class="label label-success"> ✓ </span></a>
+                                                                            <a href="${pageContext.request.contextPath}/PendingServlet?goflag=remove&id=<%=members.get(i).id  %>"><span class="label label-danger"> ✖ </span></a>
                                                                         </th>
 
                                                                 </tr>
