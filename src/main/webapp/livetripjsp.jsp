@@ -493,7 +493,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                             
                                                                     var div1 = document.createElement("div");
                                                                      div1.setAttribute("class", "activity-row activity-row1 activity-right");
-                                                                     div1.innerHTML = "<div class=\"col-xs-3 activity-img\"><img src=\"images/1.png\" class=\"img-responsive\" alt=\"\"></div> "+
+                                                                     div1.innerHTML = "<div class=\"col-xs-3 activity-img\"><img src=\"images/drivericn.png\" class=\"img-responsive\" alt=\"\"></div> "+
                                                                                      "<div class=\"col-xs-9 activity-img1\">"+
                                                                                      "<div class=\"activity-desc-sub\">"+
                                                                                      "<p>"+msg+"</p>"+
@@ -508,7 +508,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                                                       "<p>"+msg+"</p>"+
                                                                                       "</div>"+
                                                                                       "</div>"+
-                                                                                      "<div class=\"col-xs-3 activity-img\"><img src=\"images/3.png\" class=\"img-responsive\" alt=\"\"></div>"+
+                                                                                      "<div class=\"col-xs-3 activity-img\"><img src=\"images/passengericn.png\" class=\"img-responsive\" alt=\"\"></div>"+
                                                                                       "<div class=\"clearfix\"> </div>";
 
                                                                 if(f=="p"){
