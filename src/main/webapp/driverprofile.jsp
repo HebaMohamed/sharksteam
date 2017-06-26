@@ -214,7 +214,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                             <h3><a><span class="label label-default">Offline</span></a></h3>             
                                                         <%}%>
                                                         <%if(selectedD.intrip==true) {%>
-                                                        <h4><span class="badge">On Trip</span></h4>
+                                                        <h4><span class="label label-warning">On Trip</span></h4>
                                                         <a href="${pageContext.request.contextPath}/ManageServlet?goflag=showlivetrip&id=<%=selectedD.id %>"><span class="badge">View Current Live Trip</span></a>
                                                         <%}else{%>
                                                         <h4><span class="badge">Not On Trip</span></h4>

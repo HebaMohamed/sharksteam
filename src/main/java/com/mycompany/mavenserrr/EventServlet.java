@@ -110,7 +110,7 @@ public class EventServlet extends HttpServlet {
          vehicles.clear();
         for (int i = 0; i < obj.getJSONArray("poweredvehicles").size(); i++) {
             Vehicle v = new Vehicle(obj.getJSONArray("poweredvehicles").getJSONObject(i).getInt("vid"));
-            v.Plate_number = "IOJOI88";//testttt//obj.getJSONArray("poweredvehicles").getJSONObject(i).getString("plate_number");
+            v.Plate_number = obj.getJSONArray("poweredvehicles").getJSONObject(i).getString("plate_number");
 
             vehicles.add(v);
         }
