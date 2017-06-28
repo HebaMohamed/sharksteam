@@ -180,7 +180,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             <div class="row">
                                         <div class="col-md-6 widget states-mdl" style="width: 45%">
 						<div class="stats-left ">
-							<h5>Today</h5>
+							<h5><%=(String)request.getAttribute("datef")%></h5>
 							<h4>Trips</h4>
 						</div>
 						<div class="stats-right">
@@ -190,7 +190,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					</div>
                                                  <div class="col-md-6 widget states-last" style="width: 45%">
                                                      <div class="stats-left " >
-							<h5>Today</h5>
+							<h5><%=(String)request.getAttribute("datef")%></h5>
 							<h4>Earnings</h4>
                                                         </div>
                                                         <div class="stats-right">

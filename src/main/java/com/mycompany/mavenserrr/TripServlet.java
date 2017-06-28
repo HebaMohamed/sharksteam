@@ -72,6 +72,7 @@ public class TripServlet extends HttpServlet {
                     obj = DataClass.getJSONObject(URLsClass.gettrips, "");
                     getTripsData(obj);
                     request.setAttribute("trips", alltrips);  
+                    request.setAttribute("datef", "Total");
                     request.setAttribute("todaycount", String.valueOf(todaycount));
                     request.setAttribute("todayearnings", String.valueOf(todayearnings));
 
@@ -168,21 +169,51 @@ public class TripServlet extends HttpServlet {
                 if(goflag.equals("today")){
                     filterTrips(new Date());
                     request.setAttribute("trips", filterdtrips);  
+
+                    //show
+                    request.setAttribute("datef", "Today");
+                    request.setAttribute("todaycount", String.valueOf(todaycount));
+                    request.setAttribute("todayearnings", String.valueOf(todayearnings));
+                    request.getRequestDispatcher("trips.jsp").forward(request, response);//show only
                 }
                 else if(goflag.equals("lastweek")){
                     filterTrips(getLastWeek());
                     request.setAttribute("trips", filterdtrips);  
+                    
+                    //show
+                    request.setAttribute("datef", "Last Week");
+                    request.setAttribute("todaycount", String.valueOf(todaycount));
+                    request.setAttribute("todayearnings", String.valueOf(todayearnings));
+                    request.getRequestDispatcher("trips.jsp").forward(request, response);//show only
                 }
                 else if(goflag.equals("lastmonth")){
                     filterTrips(getLastMonth());
                     request.setAttribute("trips", filterdtrips);  
+                    
+                    //show
+                    request.setAttribute("datef", "Last Month");
+                    request.setAttribute("todaycount", String.valueOf(todaycount));
+                    request.setAttribute("todayearnings", String.valueOf(todayearnings));
+                    request.getRequestDispatcher("trips.jsp").forward(request, response);//show only
                 }
                 else if(goflag.equals("lastyear")){
                     filterTrips(getLastYear());
                     request.setAttribute("trips", filterdtrips);  
+                    
+                    //show
+                    request.setAttribute("datef", "Last Year");
+                    request.setAttribute("todaycount", String.valueOf(todaycount));
+                    request.setAttribute("todayearnings", String.valueOf(todayearnings));
+                    request.getRequestDispatcher("trips.jsp").forward(request, response);//show only
                 }
                 else if(goflag.equals("all")){
                     request.setAttribute("trips", alltrips);  
+                    
+                    //show
+                    request.setAttribute("datef", "Total");
+                    request.setAttribute("todaycount", String.valueOf(todaycount));
+                    request.setAttribute("todayearnings", String.valueOf(todayearnings));
+                    request.getRequestDispatcher("trips.jsp").forward(request, response);//show only
                 }
                 else if(goflag.equals("showtrip")){
                     String tid = request.getParameter("tid");
