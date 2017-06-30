@@ -255,7 +255,19 @@ var lng = <%=warning.lng%>;
           icon: image,
           title:"Warning Point"
         });
-   
+        
+        //for map
+           var sharkimg = new google.maps.MarkerImage('smallblueshark.png',
+            new google.maps.Size(65, 124),
+            new google.maps.Point(0,0),
+            new google.maps.Point(56, 122)
+        );
+        vmarker = new google.maps.Marker({
+              map: map,
+              icon: sharkimg,
+              title: "Vehicle Location",
+              position: {lat: 0, lng: 0}
+        });
       
 
 
@@ -362,9 +374,38 @@ var lng = <%=warning.lng%>;
 
          var rcRef = database.ref('driver').child(<%=neardriver.id%>).child("warninghelp");
          rcRef.on('value', function(snapshot) {
-             var res = snapshot.child("response").val();
-             document.getElementById("dresponse").innerHTML = "<h4>"+res+"</h4>";
+             var res="";
+             res = snapshot.child("response").val();
+             if(res!="null"){
+                 if(res=="danger"){
+                    document.getElementById("dresponse").innerHTML = "<h3><span class=\"label label-danger\">"+res+"</span></h3>";
+                }
+                else if(res=="safe"){
+                    document.getElementById("dresponse").innerHTML = "<h3><span class=\"label label-success\">"+res+"</span></h3>";
+                }
+             }
          });
+         
+         
+         
+         
+         //listen to vehicle moves
+                  ////listen to vehicle moves
+         var vid="";
+         var vid = <%=warning.v.ID%>;
+         //for moving vehicle
+            var cRefv = database.ref('vehicles').child(vid);          
+            cRefv.on('value', function(snapshot) {
+                var vlat = snapshot.child("Latitude").val();
+                var vlng = snapshot.child("Longitude").val();
+                                                                        
+                var newpos = {lat: vlat, lng: vlng};
+                
+                vmarker.setPosition(newpos);
+                map.panTo(newpos);
+                map.setZoom(14);
+            });
+
 
 
 </script>
