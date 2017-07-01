@@ -140,17 +140,7 @@ public class PattrensServlet extends HttpServlet {
             }
             else
             {           
-                    response.setContentType("text/html;charset=UTF-8");
-                    PrintWriter out = response.getWriter();
-                    out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Servlet NewServlet</title>");            
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.println(resObj.getString("msg"));
-                    out.println("</body>");
-                    out.println("</html>");   
+                    DataClass.displayAlert(response,request,resObj.getString("msg"),"/LoginServlet");
                 
             }
                 

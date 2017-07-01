@@ -119,8 +119,8 @@ public class PendingServlet extends HttpServlet {
                JSONObject resObj = DataClass.getJSONObject(URLsClass.acceptmember+mId, "");
                 int successf = resObj.getInt("success");
 
-               if(successf==1)
-                    response.sendRedirect(request.getContextPath() + "/PendingServlet");
+               //if(successf==1)
+                    //response.sendRedirect(request.getContextPath() + "/PendingServlet");
             } catch (Exception ex) {
                 Logger.getLogger(ManageServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -130,12 +130,12 @@ public class PendingServlet extends HttpServlet {
                JSONObject resObj = DataClass.getJSONObject(URLsClass.removemember+mId, "");
                 int successf = resObj.getInt("success");
 
-               if(successf==1){
-                   if(DataClass.currentMM.id == Integer.parseInt(mId)){//delete him self
-                       DataClass.endSession(request,response);
-                   }
-                    response.sendRedirect(request.getContextPath() + "/PendingServlet");
-               }
+//               if(successf==1){
+//                   if(DataClass.currentMM.id == Integer.parseInt(mId)){//delete him self
+//                       DataClass.endSession(request,response);
+//                   }
+//                    response.sendRedirect(request.getContextPath() + "/PendingServlet");
+//               }
             } catch (Exception ex) {
                 Logger.getLogger(ManageServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
