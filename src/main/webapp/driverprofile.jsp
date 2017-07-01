@@ -232,7 +232,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								</div> 
 								<div class="clearfix"> </div>	
 							</div>
-							<div class="profile-row row-middle">
+<!--							<div class="profile-row row-middle">
 								<div class="profile-left">
 									<i class="fa fa-mobile profile-icon"></i>
 								</div>
@@ -241,7 +241,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									<h4>222-555-111</h4>
 								</div> 
 								<div class="clearfix"> </div>	
-							</div>
+							</div>-->
 <!--							<div class="profile-row">
 								<div class="profile-left">
 									<i class="fa fa-facebook profile-icon"></i>
